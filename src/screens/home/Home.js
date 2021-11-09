@@ -4,17 +4,15 @@ import {
   Text,
   Button,
   Center,
-  Progress,
   useColorMode,
   useColorModeValue,
 } from 'native-base';
 
 import styles from './styles';
 import AppBar from '../../components/appbar/AppBar';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Home = ({navigation}) => {
-  const {colorMode, toggleColorMode} = useColorMode();
+  const {toggleColorMode} = useColorMode();
   return (
     <>
       <AppBar navigation={navigation} />

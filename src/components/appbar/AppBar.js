@@ -1,16 +1,6 @@
 import React from 'react';
-import {
-  VStack,
-  HStack,
-  Button,
-  IconButton,
-  Text,
-  NativeBaseProvider,
-  Center,
-  Box,
-  StatusBar,
-  theme,
-} from 'native-base';
+import {HStack, IconButton, Text, Box, StatusBar, theme} from 'native-base';
+
 import Icon from '../../assets/icons/Icon';
 
 const menuIcon = (
@@ -35,7 +25,6 @@ const AppBar = props => {
   return (
     <>
       <StatusBar backgroundColor="#3700B3" barStyle="light-content" />
-
       <Box safeAreaTop backgroundColor="#6200ee" />
       <HStack
         bg="#6200ee"

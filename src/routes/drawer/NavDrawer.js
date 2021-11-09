@@ -1,14 +1,10 @@
 import React from 'react';
 import {theme} from 'native-base';
-import {
-  DrawerItem,
-  DrawerItemList,
-  createDrawerNavigator,
-  DrawerContentScrollView,
-} from '@react-navigation/drawer';
-import {Animated, useWindowDimensions} from 'react-native';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {useWindowDimensions} from 'react-native';
 
 import NavStack from '../stack/NavStack';
+import CustomDrawer from '../../components/customDrawer/CustomDrawer';
 
 const Drawer = createDrawerNavigator();
 
@@ -18,6 +14,9 @@ const NavDrawer = () => {
 
   return (
     <Drawer.Navigator
+      drawerContent={props => {
+        <CustomDrawer {...props} />;
+      }}
       screenOptions={{
         headerStyle: {backgroundColor: theme.colors.blue[500]},
         headerShown: false,
