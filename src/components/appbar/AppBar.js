@@ -1,10 +1,20 @@
 import React from 'react';
-import {HStack, IconButton, Text, Box, StatusBar, theme} from 'native-base';
+import {HStack, IconButton, Text, theme} from 'native-base';
 
 import Icon from '../../assets/icons/Icon';
+import {wp} from '../../helpers/respDimension';
 
 const menuIcon = (
   <Icon type="MaterialIcons" name="menu" size={20} color={theme.colors.white} />
+);
+
+const backIcon = (
+  <Icon
+    type="MaterialIcons"
+    name="arrow-back-ios"
+    size={20}
+    color={theme.colors.black}
+  />
 );
 
 const favIcon = (
@@ -20,30 +30,30 @@ const searchIcon = (
   />
 );
 
-const AppBar = props => {
+const AppBar = ({search, fav, title, ...props}) => {
   const navigation = props.navigation;
   return (
     <>
-      <StatusBar backgroundColor="#3700B3" barStyle="light-content" />
-      <Box safeAreaTop backgroundColor="#6200ee" />
       <HStack
-        bg="#6200ee"
-        px="1"
+        mx={wp(8)}
         py="3"
         justifyContent="space-between"
         alignItems="center">
         <HStack space="4" alignItems="center">
           <IconButton
-            icon={menuIcon}
-            onPress={() => navigation.toggleDrawer()}
+            _pressed={{
+              backgroundColor: theme.colors.secondary[200],
+            }}
+            icon={backIcon}
+            onPress={() => navigation.goBack()}
           />
           <Text color="white" fontSize="20" fontWeight="bold">
-            Home
+            {title}
           </Text>
         </HStack>
         <HStack space="2">
-          <IconButton icon={searchIcon} />
-          <IconButton icon={favIcon} />
+          {search ? <IconButton icon={searchIcon} /> : null}
+          {fav ? <IconButton icon={favIcon} /> : null}
         </HStack>
       </HStack>
     </>

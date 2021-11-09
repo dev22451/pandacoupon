@@ -7,12 +7,12 @@ import NButton from '../../../components/button/NButton';
 
 const Intro = ({navigation}) => {
   return (
-    <VStack space={4} mt={hp(10)} p={wp(15)}>
+    <VStack space={4} mt={hp(10)} paddingX={wp(10)}>
       <Heading
         bold
         fontSize="6xl"
         textAlign="center"
-        mb={hp(5)}
+        my={hp(8)}
         color="secondary.500">
         {I18n.t('Intro.appName')}
       </Heading>
@@ -20,9 +20,16 @@ const Intro = ({navigation}) => {
         {I18n.t('Intro.headline')}
       </Heading>
       <Text color="gray.500">{I18n.t('Intro.description')}</Text>
-      <VStack mt={hp(2)} space={hp(2)}>
-        <NButton title={I18n.t('Intro.login')} />
-        <NButton variant="outline" title={I18n.t('Intro.signUp')} />
+      <VStack mt={hp(6)} space={hp(2)}>
+        <NButton
+          title={I18n.t('Intro.login')}
+          onPress={() => navigation.navigate('SignIn')}
+        />
+        <NButton
+          variant="outline"
+          title={I18n.t('Intro.signUp')}
+          onPress={() => navigation.navigate('Register')}
+        />
       </VStack>
       <Text color="gray.500" mt={hp(3)} textAlign="center">
         {I18n.t('Intro.footerLine')}{' '}
