@@ -1,9 +1,11 @@
 import React from 'react';
 import {theme} from 'native-base';
-import {createDrawerNavigator} from '@react-navigation/drawer';
 import {useWindowDimensions} from 'react-native';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 
+import {Register} from '../../screens';
 import NavStack from '../stack/NavStack';
+import SignIn from '../../screens/start/signIn/SignIn';
 import CustomDrawer from '../../components/customDrawer/CustomDrawer';
 
 const Drawer = createDrawerNavigator();
@@ -14,9 +16,7 @@ const NavDrawer = () => {
 
   return (
     <Drawer.Navigator
-      drawerContent={props => {
-        <CustomDrawer {...props} />;
-      }}
+      drawerContent={props => <CustomDrawer {...props} />}
       screenOptions={{
         headerStyle: {backgroundColor: theme.colors.blue[500]},
         headerShown: false,
@@ -24,6 +24,8 @@ const NavDrawer = () => {
         drawerStyle: isLargeScreen ? null : {width: '75%'},
       }}>
       <Drawer.Screen name="Main" component={NavStack} />
+      <Drawer.Screen name="Settings" component={Register} />
+      <Drawer.Screen name="Logout" component={SignIn} />
     </Drawer.Navigator>
   );
 };

@@ -34,5 +34,12 @@
     "cantReset": "Can't reset password ?",
     "support": "Create new account or Contact Support",
     "resetPass": "Reset Password"
+  },
+  "Drawer": {
+    "rewards": "Rewards",
+    "points": "Points"
+  },
+  "Dash": {
+    "welcome": "Welcome"
   }
 }

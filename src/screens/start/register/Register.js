@@ -1,11 +1,11 @@
 import React from 'react';
 import {VStack, Heading, Text, Input, Stack, theme, Box} from 'native-base';
 
-import {wp, hp, fp} from '../../../helpers/respDimension';
+import {AppBar} from '../../../components';
 import I18n from '../../../translations/i18n';
 import Icon from '../../../assets/icons/Icon';
 import NButton from '../../../components/button/NButton';
-import {AppBar} from '../../../components';
+import {wp, hp, fp} from '../../../helpers/respDimension';
 
 const userIcon = (
   <Box ml={wp(5)}>
