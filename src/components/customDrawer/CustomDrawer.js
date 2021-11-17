@@ -90,6 +90,7 @@ const CustomDrawer = props => {
             px="5"
             py="3"
             rounded="md"
+            key={index}
             bg={index === props.state.index ? '#83184310' : 'transparent'}
             onPress={event => {
               props.navigation.navigate(name);

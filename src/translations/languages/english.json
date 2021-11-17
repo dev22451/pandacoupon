@@ -1,6 +1,6 @@
 {
   "Intro": {
-    "appName": "Panda",
+    "appName": "Pinkz",
     "headline": "Your Rewards for Scratch to Win !",
     "description": "Stay home and enjoy a FREE Appetizer on us and included a link subscribers could click on to claim their reward.",
     "login": "Have an account? Login",
@@ -23,7 +23,7 @@
     "acc": "account",
     "loginHelp": "Welcome back. Use your account to start login Talento",
     "forgotPass": "Forgot Password ?",
-    "accountCheck": "You don't have Pandaz account ?",
+    "accountCheck": "You don't have Pinkz account ?",
     "signUpLink": "Create new account",
     "login": "Sign In"
   },
@@ -41,5 +41,16 @@
   },
   "Dash": {
     "welcome": "Welcome"
+  },
+  "DashBoard": {
+    "explore": "Explore",
+    "seeAll": "See all",
+    "latestDeal": "Latest Deals and discounts",
+    "searchTitle": "What are you looking for ?",
+    "browseCategory": "Browse by categories",
+    "featDetails": "Featured Details"
+  },
+  "Categories": {
+    "search": "Search Category"
   }
 }

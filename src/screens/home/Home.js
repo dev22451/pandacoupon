@@ -9,8 +9,6 @@ import Content from './Content';
 import I18n from '../../translations/i18n';
 import {DBAppBar, ModalContent} from '../../components';
 
-Geocoder.init('AIzaSyAB720ENkbeEfGrROeMMCxNvEUFqeeuxJw');
-
 const Home = ({navigation}) => {
   const [highAccuracy, setHighAccuracy] = useState(true);
   const [forceLocation, setForceLocation] = useState(true);
