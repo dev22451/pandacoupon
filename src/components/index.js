@@ -6,14 +6,16 @@ import ModalContent from './modalContent/ModalContent';
 import CardComponent from './card/Card';
 import CardFlatList from './card/CardFlatList';
 import SwipeList from './swipeList/SwipeList';
+import CouponCard from './coupon/CouponCard';
 
 export {
-  CustomDrawer,
-  ModalContent,
   AppBar,
   NButton,
   DBAppBar,
-  CardComponent,
-  CardFlatList,
   SwipeList,
+  CouponCard,
+  CardFlatList,
+  CustomDrawer,
+  ModalContent,
+  CardComponent,
 };

@@ -131,7 +131,7 @@ const Categories = ({navigation}) => {
                       color={theme.colors.secondary[500]}
                     />
                   }
-                  onPress={() => navigation.toggleDrawer()}
+                  onPress={() => null}
                 />
                 <VStack>
                   <Text

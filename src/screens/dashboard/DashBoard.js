@@ -186,7 +186,7 @@ const DashBoard = ({navigation}) => {
           mx={wp(5)}
           data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
           keyExtractor={item => item.id}
-          renderItem={({item}) => <CardComponent />}
+          renderItem={({item}) => <CardComponent item={item} />}
         />
       </ScrollView>
     </>

@@ -6,8 +6,6 @@ import {
   HStack,
   VStack,
   Spacer,
-  Center,
-  Heading,
   IconButton,
   SectionList,
 } from 'native-base';
@@ -27,10 +25,8 @@ const backIcon = (
 
 const data = [
   {
-    title: 'asdasd',
     data: [
       {
-        title: 'security',
         id: '1',
         fullName: 'Change Password',
         iconName: 'key',
@@ -38,10 +34,49 @@ const data = [
       },
       {
         id: '2',
-        title: 'security',
+
         fullName: 'Change language',
         iconName: 'translate',
         recentText: 'Change your language',
+      },
+    ],
+  },
+  {
+    title: 'NOTIFICATIONS',
+    data: [
+      {
+        id: '1',
+        fullName: 'Push Notifications',
+        iconName: 'bell',
+        recentText: 'For daily update you will get it',
+      },
+    ],
+  },
+  {
+    title: 'MORE',
+    data: [
+      {
+        id: '1',
+        fullName: 'Rate Us',
+        iconName: 'star',
+        recentText: 'Rate us playstore, appstore',
+      },
+      {
+        id: '1',
+        fullName: 'FAQs',
+        iconName: 'book',
+        recentText: 'Frequently asked questions',
+      },
+    ],
+  },
+  {
+    title: 'ACCOUNT',
+    data: [
+      {
+        id: '1',
+        fullName: 'Logout',
+        iconName: 'logout',
+        recentText: 'Rate us playstore, appstore',
       },
     ],
   },
@@ -60,12 +95,13 @@ const Setting = ({navigation}) => {
       />
       <SectionList
         mb="4"
+        mt={wp(-15)}
         sections={data}
         keyExtractor={item => item.id}
         renderSectionHeader={({section: {title}}) => (
-          <Heading fontSize="xl" mt="8" pb="4">
+          <Text mt="8" ml={wp(5)} fontWeight="medium" pb="4">
             {title}
-          </Heading>
+          </Text>
         )}
         renderItem={({item}) => (
           <Box
@@ -93,7 +129,7 @@ const Setting = ({navigation}) => {
                     color={theme.colors.secondary[500]}
                   />
                 }
-                onPress={() => navigation.toggleDrawer()}
+                onPress={() => null}
               />
               <VStack>
                 <Text

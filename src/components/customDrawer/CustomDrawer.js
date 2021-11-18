@@ -30,12 +30,16 @@ const backIcon = (
 
 const getIcon = screenName => {
   switch (screenName) {
-    case 'Main':
+    case 'Home':
       return 'home';
     case 'Settings':
       return 'cog';
     case 'Logout':
       return 'logout';
+    case 'Categories':
+      return 'view-list';
+    case 'Notification':
+      return 'bell';
     default:
       return undefined;
   }

@@ -1,18 +1,28 @@
 import React from 'react';
-import {Text, theme, HStack, Center, Pressable, Box} from 'native-base';
+import {Text, theme, View} from 'native-base';
 
+import styles from './styles';
 import Icon from '../../assets/icons/Icon';
-import {wp} from '../../helpers/respDimension';
+import {TouchableOpacity} from 'react-native';
+import {fp, hp, wp} from '../../helpers/respDimension';
 
-const Footer = props => {
+const Footer = ({state, descriptors, navigation}) => {
   const [selected, setSelected] = React.useState(1);
-  const navigation = props.navigation;
 
   const bellIcon = (
     <Icon
       type="MaterialCommunityIcons"
       name={selected === 3 ? 'bell' : 'bell-outline'}
-      size={wp(6)}
+      size={wp(5)}
+      color={theme.colors.white}
+    />
+  );
+
+  const homeIcon = (
+    <Icon
+      type="MaterialCommunityIcons"
+      name={selected === 3 ? 'home' : 'home-outline'}
+      size={wp(5)}
       color={theme.colors.white}
     />
   );
@@ -21,25 +31,16 @@ const Footer = props => {
     <Icon
       type="Ionicons"
       name={selected === 1 ? 'location-sharp' : 'location-outline'}
-      size={wp(6)}
+      size={wp(5)}
       color={theme.colors.white}
     />
   );
 
-  const homeIcon = (
-    <Icon
-      type="MaterialCommunityIcons"
-      name={selected === 0 ? 'home' : 'home-outline'}
-      size={wp(6)}
-      color={theme.colors.white}
-    />
-  );
-
-  const searchIcon = (
+  const categoryIcon = (
     <Icon
       type="MaterialIcons"
       name={'category'}
-      size={wp(6)}
+      size={wp(5)}
       color={theme.colors.white}
     />
   );
@@ -48,82 +49,77 @@ const Footer = props => {
     <Icon
       type="MaterialCommunityIcons"
       name={selected === 4 ? 'account' : 'account-outline'}
-      size={wp(6)}
+      size={wp(5)}
       color={theme.colors.white}
     />
   );
 
   return (
-    <Box bg="white" safeAreaTop>
-      <Center flex={1} />
-      <HStack bg="secondary.500" alignItems="center" safeAreaBottom shadow={6}>
-        <Pressable
-          cursor="pointer"
-          opacity={selected === 0 ? 1 : 0.5}
-          py="2"
-          flex={1}
-          onPress={() => setSelected(0)}>
-          <Center>
-            {homeIcon}
-            <Text color="white" bold={selected === 0 ? 1 : 0} fontSize="12">
-              Home
+    <View style={{flexDirection: 'row'}}>
+      {state.routes.map((route, index) => {
+        const {options} = descriptors[route.key];
+        const label =
+          options.tabBarLabel !== undefined
+            ? options.tabBarLabel
+            : options.title !== undefined
+            ? options.title
+            : route.name;
+
+        const tabBarIcon =
+          options.tabBarLabel === 'Home'
+            ? homeIcon
+            : options.tabBarLabel === 'Nearby'
+            ? locIcon
+            : options.tabBarLabel === 'Account'
+            ? accountIcon
+            : options.tabBarLabel === 'Categories'
+            ? categoryIcon
+            : options.tabBarLabel === 'Notification'
+            ? bellIcon
+            : null;
+
+        const isFocused = state.index === index;
+
+        const onPress = () => {
+          const event = navigation.emit({
+            type: 'tabPress',
+            target: route.key,
+            canPreventDefault: true,
+          });
+
+          if (!isFocused && !event.defaultPrevented) {
+            // The `merge: true` option makes sure that the params inside the tab screen are preserved
+            navigation.navigate({name: route.name, merge: true});
+          }
+        };
+
+        const onLongPress = () => {
+          navigation.emit({
+            type: 'tabLongPress',
+            target: route.key,
+          });
+        };
+
+        return (
+          <TouchableOpacity
+            accessibilityRole="button"
+            accessibilityState={isFocused ? {selected: true} : {}}
+            accessibilityLabel={options.tabBarAccessibilityLabel}
+            testID={options.tabBarTestID}
+            onPress={onPress}
+            activeOpacity={0.7}
+            onLongPress={onLongPress}
+            style={styles.container}>
+            <View>{tabBarIcon}</View>
+            <Text
+              fontSize={fp(1.5)}
+              style={{color: isFocused ? '#fff' : '#ffffff80'}}>
+              {label}
             </Text>
-          </Center>
-        </Pressable>
-        <Pressable
-          cursor="pointer"
-          opacity={selected === 1 ? 1 : 0.5}
-          py="2"
-          flex={1}
-          onPress={() => setSelected(1)}>
-          <Center>
-            {locIcon}
-            <Text color="white" bold={selected === 1 ? 1 : 0} fontSize="12">
-              Nearby
-            </Text>
-          </Center>
-        </Pressable>
-        <Pressable
-          cursor="pointer"
-          opacity={selected === 2 ? 1 : 0.5}
-          py="2"
-          flex={1}
-          onPress={() => setSelected(2)}>
-          <Center>
-            {searchIcon}
-            <Text color="white" bold={selected === 2 ? 1 : 0} fontSize="12">
-              Categories
-            </Text>
-          </Center>
-        </Pressable>
-        <Pressable
-          cursor="pointer"
-          opacity={selected === 3 ? 1 : 0.6}
-          py="2"
-          flex={1}
-          onPress={() => setSelected(3)}>
-          <Center>
-            {bellIcon}
-            <Text color="white" bold={selected === 3 ? 1 : 0} fontSize={12}>
-              Notification
-            </Text>
-          </Center>
-        </Pressable>
-        <Pressable
-          cursor="pointer"
-          opacity={selected === 4 ? 1 : 0.5}
-          py="2"
-          flex={1}
-          onPress={() => setSelected(4)}>
-          <Center>
-            {accountIcon}
-            <Text color="white" bold={selected === 4 ? 1 : 0} fontSize="12">
-              Account
-            </Text>
-          </Center>
-        </Pressable>
-      </HStack>
-    </Box>
+          </TouchableOpacity>
+        );
+      })}
+    </View>
   );
 };
 

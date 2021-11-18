@@ -1,9 +1,9 @@
 import React from 'react';
 import {HStack, IconButton, Badge, Box, Avatar, Text, theme} from 'native-base';
 
-import I18n from '../../translations/i18n';
 import Icon from '../../assets/icons/Icon';
-import {fp, hp, wp} from '../../helpers/respDimension';
+import {fp, wp} from '../../helpers/respDimension';
+import {TouchableOpacity} from 'react-native';
 
 const DBAppBar = ({
   back,
@@ -103,6 +103,7 @@ const DBAppBar = ({
         {account ? (
           <IconButton
             icon={accIcon}
+            onPress={() => navigation.navigate('Setting')}
             _pressed={{
               backgroundColor: theme.colors.secondary[200],
             }}
@@ -117,30 +118,37 @@ const DBAppBar = ({
           />
         ) : null}
         {rewards ? (
-          <Badge
-            bg="#ffffff60"
-            flexDirection="row"
-            px={wp(1)}
-            py={wp(1)}
-            borderRadius="full">
-            <Box
-              borderColor="white"
-              borderRadius="full"
-              borderWidth={wp(0.5)}
-              width={wp(6)}
-              height={wp(6)}
-              justifyContent="center"
-              alignItems="center">
-              <Avatar size={wp(4)} bg="white">
-                <Text bold fontSize={fp(1)} color={theme.colors.secondary[500]}>
-                  P
-                </Text>
-              </Avatar>
-            </Box>
-            <Text color="white" fontSize={fp(2)} mx={wp(1)}>
-              0
-            </Text>
-          </Badge>
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={() => navigation.navigate('Rewards')}>
+            <Badge
+              bg="#ffffff60"
+              flexDirection="row"
+              px={wp(1)}
+              py={wp(1)}
+              borderRadius="full">
+              <Box
+                borderColor="white"
+                borderRadius="full"
+                borderWidth={wp(0.5)}
+                width={wp(6)}
+                height={wp(6)}
+                justifyContent="center"
+                alignItems="center">
+                <Avatar size={wp(4)} bg="white">
+                  <Text
+                    bold
+                    fontSize={fp(1)}
+                    color={theme.colors.secondary[500]}>
+                    P
+                  </Text>
+                </Avatar>
+              </Box>
+              <Text color="white" fontSize={fp(2)} mx={wp(1)}>
+                0
+              </Text>
+            </Badge>
+          </TouchableOpacity>
         ) : null}
       </HStack>
     </HStack>

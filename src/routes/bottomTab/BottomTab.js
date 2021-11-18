@@ -1,15 +1,14 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import Footer from '../../components/footer/Footer';
 import {
-  Redeem,
   Setting,
   DashBoard,
   Categories,
   EditLocation,
-  PasswordChange,
+  Notification,
 } from '../../screens';
+import Footer from '../../components/footer/Footer';
 
 const Tab = createBottomTabNavigator();
 
@@ -20,12 +19,41 @@ const BottomTab = () => {
         headerShown: false,
       }}
       tabBar={props => <Footer {...props} />}>
-      <Tab.Screen name="Setting" component={Setting} />
-      <Tab.Screen name="PasswordChange" component={PasswordChange} />
-      <Tab.Screen name="Redeem" component={Redeem} />
-      <Tab.Screen name="Categories" component={Categories} />
-      <Tab.Screen name="DashBoard" component={DashBoard} />
-      <Tab.Screen name="EditLocation" component={EditLocation} />
+      <Tab.Screen
+        name="DashBoard"
+        component={DashBoard}
+        options={{
+          tabBarLabel: 'Home',
+        }}
+      />
+      <Tab.Screen
+        name="EditLocation"
+        component={EditLocation}
+        options={{
+          tabBarLabel: 'Nearby',
+        }}
+      />
+      <Tab.Screen
+        name="Categories"
+        component={Categories}
+        options={{
+          tabBarLabel: 'Categories',
+        }}
+      />
+      <Tab.Screen
+        name="Notification"
+        component={Notification}
+        options={{
+          tabBarLabel: 'Notification',
+        }}
+      />
+      <Tab.Screen
+        name="Setting"
+        component={Setting}
+        options={{
+          tabBarLabel: 'Account',
+        }}
+      />
     </Tab.Navigator>
   );
 };
