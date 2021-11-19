@@ -4,7 +4,14 @@ import {
   CardStyleInterpolators,
 } from '@react-navigation/stack';
 
-import {Coupon, DashBoard, Home, Rewards} from '../../screens';
+import {
+  Coupon,
+  DashBoard,
+  Home,
+  Rewards,
+  Account,
+  Setting,
+} from '../../screens';
 import BottomTab from '../bottomTab/BottomTab';
 
 const Stack = createStackNavigator();
@@ -17,13 +24,23 @@ const NavStack = () => {
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}>
       <Stack.Screen
+        name="BottomTab"
+        component={BottomTab}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Account"
+        component={Account}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
         name="Coupon"
         component={Coupon}
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="BottomTab"
-        component={BottomTab}
+        name="Setting"
+        component={Setting}
         options={{headerShown: false}}
       />
       <Stack.Screen
@@ -32,7 +49,7 @@ const NavStack = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="Home"
+        name="HomeScreen"
         component={Home}
         options={{headerShown: false}}
       />

@@ -10,14 +10,13 @@ import {
   ScrollView,
 } from 'native-base';
 import React from 'react';
-import {StatusBar} from 'react-native';
+import {StatusBar, TouchableOpacity} from 'react-native';
 
 import I18n from '../../translations/i18n';
 import Icon from '../../assets/icons/Icon';
 import {fp, hp, wp} from '../../helpers/respDimension';
 import {CardComponent, DBAppBar} from '../../components';
 import CardFlatList from '../../components/card/CardFlatList';
-import Footer from '../../components/footer/Footer';
 
 const rightArrowIcon = (
   <Icon
@@ -81,20 +80,15 @@ const DashBoard = ({navigation}) => {
             <Text bold fontSize={fp(2)} color="white">
               {I18n.t('DashBoard.explore')}
             </Text>
-            <Pressable
-              onPress={() => null}
-              _pressed={{
-                backgroundColor: theme.colors.secondary[200],
-              }}
-              justifyContent="center"
-              alignItems="center">
+
+            <TouchableOpacity onPress={() => null}>
               <HStack alignItems="center">
                 <Text fontSize={fp(1.8)} color="white">
                   {I18n.t('DashBoard.seeAll')}
                 </Text>
                 {rightArrowIcon}
               </HStack>
-            </Pressable>
+            </TouchableOpacity>
           </HStack>
           <Text fontSize={fp(1.8)} color="white">
             {I18n.t('DashBoard.latestDeal')}
@@ -108,7 +102,7 @@ const DashBoard = ({navigation}) => {
           horizontal={true}
           keyExtractor={item => item.id}
           showsHorizontalScrollIndicator={false}
-          renderItem={({item}) => <CardFlatList />}
+          renderItem={({item}) => <CardFlatList item={item} />}
         />
         <VStack my={hp(1)}>
           <HStack
@@ -119,12 +113,14 @@ const DashBoard = ({navigation}) => {
             <Text fontSize={fp(2)} fontWeight="medium" color="warmGray.600">
               {I18n.t('DashBoard.browseCategory')}
             </Text>
-            <HStack alignItems="center">
-              <Text fontSize={fp(1.8)} color="black">
-                {I18n.t('DashBoard.seeAll')}
-              </Text>
-              {rightArrowIcon1}
-            </HStack>
+            <TouchableOpacity onPress={() => null}>
+              <HStack alignItems="center">
+                <Text fontSize={fp(1.8)} color="black">
+                  {I18n.t('DashBoard.seeAll')}
+                </Text>
+                {rightArrowIcon1}
+              </HStack>
+            </TouchableOpacity>
           </HStack>
           <FlatList
             ml={wp(2)}
@@ -148,6 +144,7 @@ const DashBoard = ({navigation}) => {
                   shadow={1}
                   justifyContent="center"
                   alignItems="center"
+                  _pressed={{backgroundColor: 'secondary.200'}}
                   _light={{backgroundColor: 'gray.50'}}
                   _dark={{backgroundColor: 'gray.700'}}>
                   <Box
@@ -175,12 +172,14 @@ const DashBoard = ({navigation}) => {
           <Text fontSize={fp(2)} fontWeight="medium" color="warmGray.600">
             {I18n.t('DashBoard.featDetails')}
           </Text>
-          <HStack alignItems="center">
-            <Text fontSize={fp(1.8)} color="black">
-              {I18n.t('DashBoard.seeAll')}
-            </Text>
-            {rightArrowIcon1}
-          </HStack>
+          <TouchableOpacity onPress={() => null}>
+            <HStack alignItems="center">
+              <Text fontSize={fp(1.8)} color="black">
+                {I18n.t('DashBoard.seeAll')}
+              </Text>
+              {rightArrowIcon1}
+            </HStack>
+          </TouchableOpacity>
         </HStack>
         <FlatList
           mx={wp(5)}

@@ -8,16 +8,14 @@ import {
   VStack,
   AspectRatio,
   Spacer,
-  Divider,
   View,
   Center,
 } from 'native-base';
 
+import NButton from '../button/NButton';
 import Icon from '../../assets/icons/Icon';
 import {SvgExample} from '../../assets/images';
 import {hp, wp, fp} from '../../helpers/respDimension';
-import {alignItems} from 'styled-system';
-import NButton from '../button/NButton';
 
 const rightArrowIcon = (
   <Icon
@@ -25,6 +23,15 @@ const rightArrowIcon = (
     name="check-decagram"
     size={18}
     color={theme.colors.success[500]}
+  />
+);
+
+const crossIcon = (
+  <Icon
+    type="Entypo"
+    name="cross"
+    size={20}
+    color={theme.colors.secondary[500]}
   />
 );
 
@@ -78,10 +85,10 @@ const CouponCard = ({navigation}) => {
       <Stack>
         <Box
           mb={wp(4)}
-          rounded="lg"
-          overflow="hidden"
-          width={wp(90)}
           shadow={1}
+          rounded="xl"
+          width={wp(90)}
+          overflow="hidden"
           _light={{backgroundColor: 'gray.50'}}
           _dark={{backgroundColor: 'gray.700'}}>
           <HStack mt={5} mx="2" justifyContent="space-between">
@@ -180,12 +187,33 @@ const CouponCard = ({navigation}) => {
             </HStack>
             <Stack>
               <View
+                top={wp(10)}
+                right={wp(10)}
+                width={wp(10)}
+                height={wp(10)}
+                bg="secondary.500"
+                alignItems="center"
+                borderRadius="full"
+                justifyContent="center"
+              />
+              <View
                 borderStyle="dashed"
                 borderBottomWidth={wp(0.5)}
                 borderColor="coolGray.400"
                 my={wp(5)}
               />
             </Stack>
+            <View
+              position="absolute"
+              top={wp(37)}
+              right={wp(-5)}
+              width={wp(10)}
+              height={wp(10)}
+              bg="secondary.500"
+              alignItems="center"
+              borderRadius="full"
+              justifyContent="center"
+            />
             <VStack>
               <Center>
                 <Text fontSize={fp(2.5)} fontWeight="medium">
@@ -241,6 +269,28 @@ const CouponCard = ({navigation}) => {
               </VStack>
             </VStack>
           </VStack>
+          {/* <View
+            width={wp(8)}
+            height={wp(8)}
+            right={wp(5)}
+            bottom={wp(-4)}
+            borderWidth="4"
+            bg="transparent"
+            borderRadius="full"
+            position="absolute"
+            alignItems="center"
+            justifyContent="center"
+            borderColor="secondary.500">
+            <View
+              bg="white"
+              width={wp(5)}
+              height={wp(5)}
+              justifyContent="center"
+              alignItems="center"
+              borderRadius="full">
+              {crossIcon}
+            </View>
+          </View> */}
         </Box>
       </Stack>
     </>

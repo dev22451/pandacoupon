@@ -16,6 +16,7 @@ import {DBAppBar} from '../../components';
 import I18n from '../../translations/i18n';
 import Icon from '../../assets/icons/Icon';
 import {wp} from '../../helpers/respDimension';
+import {TouchableOpacity} from 'react-native';
 
 const searchIcon = (
   <Box ml={wp(4)}>
@@ -106,55 +107,57 @@ const Categories = ({navigation}) => {
         <FlatList
           data={data}
           renderItem={({item}) => (
-            <Box
-              borderBottomWidth="1"
-              _dark={{
-                borderColor: 'gray.600',
-              }}
-              borderColor="coolGray.200"
-              pl="4"
-              pr="5"
-              py="2">
-              <HStack
-                space={3}
-                justifyContent="space-between"
-                alignItems="center">
-                <IconButton
-                  _pressed={{
-                    backgroundColor: theme.colors.secondary[200],
-                  }}
-                  icon={
-                    <Icon
-                      type="MaterialCommunityIcons"
-                      name={item.iconName}
-                      size={wp(7)}
-                      color={theme.colors.secondary[500]}
-                    />
-                  }
-                  onPress={() => null}
-                />
-                <VStack>
-                  <Text
-                    _dark={{
-                      color: 'warmGray.50',
+            <TouchableOpacity activeOpacity={0.4} onPress={() => null}>
+              <Box
+                borderBottomWidth="1"
+                _dark={{
+                  borderColor: 'gray.600',
+                }}
+                borderColor="coolGray.200"
+                pl="4"
+                pr="5"
+                py="2">
+                <HStack
+                  space={3}
+                  justifyContent="space-between"
+                  alignItems="center">
+                  <IconButton
+                    _pressed={{
+                      backgroundColor: theme.colors.secondary[200],
                     }}
-                    color="coolGray.800"
-                    fontWeight="medium"
-                    fontSize="md">
-                    {item.fullName}
-                  </Text>
-                </VStack>
-                <Spacer />
-                <IconButton
-                  _pressed={{
-                    backgroundColor: theme.colors.secondary[200],
-                  }}
-                  icon={backIcon}
-                  onPress={() => null}
-                  size={wp(5)}
-                />
-              </HStack>
-            </Box>
+                    icon={
+                      <Icon
+                        type="MaterialCommunityIcons"
+                        name={item.iconName}
+                        size={wp(7)}
+                        color={theme.colors.secondary[500]}
+                      />
+                    }
+                    onPress={() => null}
+                  />
+                  <VStack>
+                    <Text
+                      _dark={{
+                        color: 'warmGray.50',
+                      }}
+                      color="coolGray.800"
+                      fontWeight="medium"
+                      fontSize="md">
+                      {item.fullName}
+                    </Text>
+                  </VStack>
+                  <Spacer />
+                  <IconButton
+                    _pressed={{
+                      backgroundColor: theme.colors.secondary[200],
+                    }}
+                    icon={backIcon}
+                    onPress={() => null}
+                    size={wp(5)}
+                  />
+                </HStack>
+              </Box>
+            </TouchableOpacity>
           )}
           keyExtractor={item => item.id}
         />

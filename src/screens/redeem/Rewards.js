@@ -11,10 +11,10 @@ import {
   FlatList,
   ScrollView,
 } from 'native-base';
+import {TouchableOpacity} from 'react-native';
 
 import {DBAppBar} from '../../components';
 import Icon from '../../assets/icons/Icon';
-import {TouchableOpacity} from 'react-native';
 import {pinkShades} from '../../assets/images';
 import {fp, hp, wp} from '../../helpers/respDimension';
 import CardCategory from '../../components/card/CardCategory';
@@ -28,16 +28,17 @@ const backIcon = (
   />
 );
 
-const Rewards = () => {
+const Rewards = ({navigation}) => {
   return (
     <>
       <DBAppBar
         cog
         back
-        bgColor="secondary.500"
         title="Rewards"
         iconColor="white"
         titleColor="white"
+        bgColor="secondary.500"
+        navigation={navigation}
       />
       <ScrollView>
         <Box mt={wp(5)} alignSelf="center">

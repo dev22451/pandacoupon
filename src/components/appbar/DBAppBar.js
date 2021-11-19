@@ -84,19 +84,17 @@ const DBAppBar = ({
       ) : null}
 
       {loc ? (
-        <HStack space="1" alignItems="center">
-          {locationIcon}
-          <Text color="white" fontSize={fp(2)}>
-            {location}
-          </Text>
-          <IconButton
-            icon={editIcon}
-            _pressed={{
-              backgroundColor: theme.colors.secondary[200],
-            }}
-            onPress={() => navigation.navigate('EditLocation')}
-          />
-        </HStack>
+        <TouchableOpacity
+          activeOpacity={0.4}
+          onPress={() => navigation.navigate('EditLocation')}>
+          <HStack space="1" alignItems="center">
+            {locationIcon}
+            <Text color="white" fontSize={fp(2)}>
+              {location}
+            </Text>
+            {editIcon}
+          </HStack>
+        </TouchableOpacity>
       ) : null}
 
       <HStack space="2">
@@ -110,12 +108,9 @@ const DBAppBar = ({
           />
         ) : null}
         {cog ? (
-          <IconButton
-            icon={cogIcon}
-            _pressed={{
-              backgroundColor: theme.colors.secondary[200],
-            }}
-          />
+          <TouchableOpacity onPress={() => navigation.navigate('Setting')}>
+            {cogIcon}
+          </TouchableOpacity>
         ) : null}
         {rewards ? (
           <TouchableOpacity

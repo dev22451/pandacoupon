@@ -70,7 +70,7 @@ const Footer = ({state, descriptors, navigation}) => {
             ? homeIcon
             : options.tabBarLabel === 'Nearby'
             ? locIcon
-            : options.tabBarLabel === 'Account'
+            : options.tabBarLabel === 'Profile'
             ? accountIcon
             : options.tabBarLabel === 'Categories'
             ? categoryIcon

@@ -13,6 +13,7 @@ import {
 import {DBAppBar} from '../../components';
 import Icon from '../../assets/icons/Icon';
 import {wp} from '../../helpers/respDimension';
+import {TouchableOpacity} from 'react-native';
 
 const backIcon = (
   <Icon
@@ -104,62 +105,64 @@ const Setting = ({navigation}) => {
           </Text>
         )}
         renderItem={({item}) => (
-          <Box
-            borderBottomWidth="1"
-            _dark={{
-              borderColor: 'gray.600',
-            }}
-            borderColor="coolGray.200"
-            pl="4"
-            pr="5"
-            py="2">
-            <HStack
-              space={3}
-              justifyContent="space-between"
-              alignItems="center">
-              <IconButton
-                _pressed={{
-                  backgroundColor: theme.colors.secondary[200],
-                }}
-                icon={
-                  <Icon
-                    type="MaterialCommunityIcons"
-                    name={item.iconName}
-                    size={wp(7)}
-                    color={theme.colors.secondary[500]}
-                  />
-                }
-                onPress={() => null}
-              />
-              <VStack>
-                <Text
-                  _dark={{
-                    color: 'warmGray.50',
+          <TouchableOpacity activeOpacity={0.4}>
+            <Box
+              borderBottomWidth="1"
+              _dark={{
+                borderColor: 'gray.600',
+              }}
+              borderColor="coolGray.200"
+              pl="4"
+              pr="5"
+              py="2">
+              <HStack
+                space={3}
+                justifyContent="space-between"
+                alignItems="center">
+                <IconButton
+                  _pressed={{
+                    backgroundColor: theme.colors.secondary[200],
                   }}
-                  color="coolGray.800"
-                  fontWeight="medium"
-                  fontSize="md">
-                  {item.fullName}
-                </Text>
-                <Text
-                  color="coolGray.600"
-                  _dark={{
-                    color: 'warmGray.200',
-                  }}>
-                  {item.recentText}
-                </Text>
-              </VStack>
-              <Spacer />
-              <IconButton
-                _pressed={{
-                  backgroundColor: theme.colors.secondary[200],
-                }}
-                icon={backIcon}
-                onPress={() => null}
-                size={wp(5)}
-              />
-            </HStack>
-          </Box>
+                  icon={
+                    <Icon
+                      type="MaterialCommunityIcons"
+                      name={item.iconName}
+                      size={wp(7)}
+                      color={theme.colors.secondary[500]}
+                    />
+                  }
+                  onPress={() => null}
+                />
+                <VStack>
+                  <Text
+                    _dark={{
+                      color: 'warmGray.50',
+                    }}
+                    color="coolGray.800"
+                    fontWeight="medium"
+                    fontSize="md">
+                    {item.fullName}
+                  </Text>
+                  <Text
+                    color="coolGray.600"
+                    _dark={{
+                      color: 'warmGray.200',
+                    }}>
+                    {item.recentText}
+                  </Text>
+                </VStack>
+                <Spacer />
+                <IconButton
+                  _pressed={{
+                    backgroundColor: theme.colors.secondary[200],
+                  }}
+                  icon={backIcon}
+                  onPress={() => null}
+                  size={wp(5)}
+                />
+              </HStack>
+            </Box>
+          </TouchableOpacity>
         )}
       />
     </>
