@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button} from 'native-base';
+import {Button, Text} from 'native-base';
 
 import {hp} from '../../helpers/respDimension';
 
@@ -14,7 +14,9 @@ const NButton = ({title, variant, onPress, ...props}) => {
       borderRadius="full"
       height={hp(5)}
       {...props}>
-      {title}
+      <Text fontSize="md" color="white">
+        {title}
+      </Text>
     </Button>
   );
 };
