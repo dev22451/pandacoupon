@@ -83,6 +83,10 @@ const data = [
   },
 ];
 
+const handlePress = x => {
+  console.log(x);
+};
+
 const Setting = ({navigation}) => {
   return (
     <>
@@ -105,7 +109,9 @@ const Setting = ({navigation}) => {
           </Text>
         )}
         renderItem={({item}) => (
-          <TouchableOpacity activeOpacity={0.4}>
+          <TouchableOpacity
+            activeOpacity={0.4}
+            onPress={item => handlePress(item)}>
             <Box
               borderBottomWidth="1"
               _dark={{

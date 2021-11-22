@@ -1,12 +1,12 @@
 import {
-  Pressable,
-  HStack,
-  theme,
-  Text,
-  VStack,
-  Input,
   Box,
+  Text,
+  theme,
+  Input,
+  HStack,
+  VStack,
   FlatList,
+  Pressable,
   ScrollView,
 } from 'native-base';
 import React from 'react';
@@ -80,7 +80,6 @@ const DashBoard = ({navigation}) => {
             <Text bold fontSize={fp(2)} color="white">
               {I18n.t('DashBoard.explore')}
             </Text>
-
             <TouchableOpacity onPress={() => null}>
               <HStack alignItems="center">
                 <Text fontSize={fp(1.8)} color="white">
