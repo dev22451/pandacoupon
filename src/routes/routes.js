@@ -1,5 +1,7 @@
 import React, {useEffect} from 'react';
+import {useSelector} from 'react-redux';
 import Geocoder from 'react-native-geocoding';
+import RNBootSplash from 'react-native-bootsplash';
 import {NavigationContainer} from '@react-navigation/native';
 
 import NavDrawer from './drawer/NavDrawer';
@@ -9,14 +11,20 @@ import {hasLocationPermission} from '../helpers/locRequest';
 Geocoder.init('AIzaSyAB720ENkbeEfGrROeMMCxNvEUFqeeuxJw');
 
 const RootNavigation = () => {
+  const userType = useSelector(state => state.loginSlice.userType);
+
   useEffect(() => {
-    hasLocationPermission();
+    const init = async () => {
+      hasLocationPermission();
+    };
+    init().finally(async () => {
+      await RNBootSplash.hide({fade: true});
+    });
   }, []);
 
   return (
     <NavigationContainer>
-      {/* <StarterStack /> */}
-      <NavDrawer />
+      {!(userType === '2') ? <StarterStack /> : <NavDrawer />}
     </NavigationContainer>
   );
 };

@@ -5,10 +5,10 @@ import {Box, Image, Avatar, theme, Text, VStack, HStack} from 'native-base';
 import {pizza} from '../../assets/images';
 import {fp, wp} from '../../helpers/respDimension';
 
-const CardCategory = () => {
+const CardCategory = ({item}) => {
   return (
     <>
-      <TouchableOpacity activeOpacity={0.7} onPress={() => null}>
+      <TouchableOpacity activeOpacity={0.7} key={item.id} onPress={() => null}>
         <Box
           mt={wp(5)}
           mx={wp(2)}

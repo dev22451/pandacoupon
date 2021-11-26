@@ -1,7 +1,8 @@
 import React from 'react';
-import {VStack, Text} from 'native-base';
+import {VStack, Text, theme} from 'native-base';
 
 import {fp} from '../../helpers/respDimension';
+import {DBAppBar} from '../../components';
 
 const Notification = ({navigation}) => {
   return (

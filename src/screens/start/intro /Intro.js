@@ -27,6 +27,7 @@ const Intro = ({navigation}) => {
         />
         <NButton
           variant="outline"
+          titleColor="secondary.500"
           title={I18n.t('Intro.signUp')}
           onPress={() => navigation.navigate('Register')}
         />

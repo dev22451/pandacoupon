@@ -48,7 +48,7 @@ const BottomTab = () => {
         }}
       />
       <Tab.Screen
-        name="Setting"
+        name="Account"
         component={Account}
         options={{
           tabBarLabel: 'Profile',

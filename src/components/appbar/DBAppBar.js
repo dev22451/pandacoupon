@@ -1,9 +1,9 @@
 import React from 'react';
+import {TouchableOpacity} from 'react-native';
 import {HStack, IconButton, Badge, Box, Avatar, Text, theme} from 'native-base';
 
 import Icon from '../../assets/icons/Icon';
 import {fp, wp} from '../../helpers/respDimension';
-import {TouchableOpacity} from 'react-native';
 
 const DBAppBar = ({
   back,
@@ -112,9 +112,10 @@ const DBAppBar = ({
             {cogIcon}
           </TouchableOpacity>
         ) : null}
-        {rewards ? (
+        {/* {rewards ? (
           <TouchableOpacity
             activeOpacity={0.5}
+            style={{marginRight: wp(1)}}
             onPress={() => navigation.navigate('Rewards')}>
             <Badge
               bg="#ffffff60"
@@ -144,7 +145,7 @@ const DBAppBar = ({
               </Text>
             </Badge>
           </TouchableOpacity>
-        ) : null}
+        ) : null} */}
       </HStack>
     </HStack>
   );

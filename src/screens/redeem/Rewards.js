@@ -106,8 +106,8 @@ const Rewards = ({navigation}) => {
             </HStack>
           </VStack>
         </Box>
-        <VStack mx={wp(4)} my={hp(3)}>
-          <HStack justifyContent="space-between">
+        <VStack>
+          <HStack px={wp(4)} pt={hp(3)} justifyContent="space-between">
             <Text mx={wp(2)} fontSize={fp(2)} bold>
               Food
             </Text>
@@ -121,6 +121,8 @@ const Rewards = ({navigation}) => {
             </TouchableOpacity>
           </HStack>
           <FlatList
+            px={wp(4)}
+            pb={hp(3)}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             keyExtractor={item => item.id}
@@ -128,8 +130,8 @@ const Rewards = ({navigation}) => {
             renderItem={({item}) => <CardCategory item={item} />}
           />
         </VStack>
-        <VStack mx={wp(4)} my={hp(2)}>
-          <HStack justifyContent="space-between">
+        <VStack>
+          <HStack px={wp(4)} pt={hp(3)} justifyContent="space-between">
             <Text mx={wp(2)} fontSize={fp(2)} bold>
               Entertainment
             </Text>
@@ -143,6 +145,8 @@ const Rewards = ({navigation}) => {
             </TouchableOpacity>
           </HStack>
           <FlatList
+            px={wp(4)}
+            pb={hp(3)}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             keyExtractor={item => item.id}

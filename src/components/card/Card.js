@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Box,
   Text,
@@ -10,11 +9,12 @@ import {
   Heading,
   AspectRatio,
 } from 'native-base';
+import React from 'react';
+import {TouchableOpacity} from 'react-native';
 
 import Icon from '../../assets/icons/Icon';
 import {fp, hp, wp} from '../../helpers/respDimension';
 import {mcDonald, SvgExample} from '../../assets/images';
-import {TouchableOpacity} from 'react-native';
 
 const rightArrowIcon = (
   <Icon
@@ -43,7 +43,7 @@ const giftIcon = (
 
 function CardComponent({item}) {
   return (
-    <TouchableOpacity activeOpacity={0.9} onPress={() => null}>
+    <TouchableOpacity activeOpacity={0.9} key={item.id} onPress={() => null}>
       <Box
         mb={wp(4)}
         rounded="lg"

@@ -1,9 +1,10 @@
 import React from 'react';
-import {VStack, Stack, Box, Pressable, theme, Text, HStack} from 'native-base';
+import {TouchableOpacity} from 'react-native';
+import {VStack, Stack, Box, Input, theme, Text, HStack} from 'native-base';
 
+import {NButton} from '../../components';
 import Icon from '../../assets/icons/Icon';
 import {wp, hp} from '../../helpers/respDimension';
-import {NButton} from '../../components';
 
 const locationIcon = (
   <Box ml={wp(3)}>
@@ -27,33 +28,35 @@ const curLocIcon = (
   </Box>
 );
 
-const Content = () => {
+const Content = ({navigation}) => {
+  const handleCurrentLocation = () => navigation.navigate('BottomTab');
+  const handleContinue = () => navigation.navigate('BottomTab');
   return (
     <VStack p={wp(5)}>
       <Text color="coolGray.500">FIND NEARBY DEALS</Text>
       <Stack space={4} my={hp(2)}>
-        <Pressable
-          height={hp(5)}
-          onPress={() => null}
-          bg="warmGray.200"
-          borderRadius="sm"
-          justifyContent="center">
-          <HStack>
-            {locationIcon}
-            <Text mx={wp(2)} fontSize="md">
-              Enter your location
-            </Text>
+        <Input
+          w={{
+            base: '100%',
+            md: '25%',
+          }}
+          bg="white"
+          placeholderTextColor="black"
+          InputLeftElement={locationIcon}
+          _focus={{borderColor: 'secondary.500'}}
+          placeholder={'Enter Your Location'}
+        />
+        <TouchableOpacity onPress={handleCurrentLocation}>
+          <HStack alignItems="center">
+            {curLocIcon}
+            <VStack mx={wp(2)}>
+              <Text bold>Use current location</Text>
+              <Text>Shanghai, China</Text>
+            </VStack>
           </HStack>
-        </Pressable>
-        <HStack alignItems="center">
-          {curLocIcon}
-          <VStack mx={wp(2)}>
-            <Text bold>Use current location</Text>
-            <Text>Shanghai, China</Text>
-          </VStack>
-        </HStack>
+        </TouchableOpacity>
       </Stack>
-      <NButton title={'Continue'} />
+      <NButton title={'Continue'} onPress={handleContinue} />
     </VStack>
   );
 };

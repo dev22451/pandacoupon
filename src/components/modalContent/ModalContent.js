@@ -2,6 +2,7 @@
 import {theme} from 'native-base';
 import React, {useRef} from 'react';
 import {Modalize} from 'react-native-modalize';
+
 import {hp} from '../../helpers/respDimension';
 
 const ModalContent = ({content, show}) => {
@@ -16,10 +17,11 @@ const ModalContent = ({content, show}) => {
     <>
       <Modalize
         ref={modalizeRef}
+        alwaysOpen={hp(30)}
         modalStyle={{elevation: 5}}
-        handleStyle={{backgroundColor: theme.colors.coolGray[400]}}
         adjustToContentHeight={true}
-        overlayStyle={{backgroundColor: 'transparent'}}>
+        overlayStyle={{backgroundColor: 'transparent'}}
+        handleStyle={{backgroundColor: theme.colors.coolGray[400]}}>
         {content}
       </Modalize>
     </>

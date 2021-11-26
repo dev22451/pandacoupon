@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Avatar,
   Center,
@@ -13,12 +12,16 @@ import {
   HStack,
   Pressable,
 } from 'native-base';
+import React from 'react';
+import {useDispatch} from 'react-redux';
+import {TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 
 import Icon from '../../assets/icons/Icon';
 import I18n from '../../translations/i18n';
 import {hp, wp} from '../../helpers/respDimension';
-import {TouchableOpacity} from 'react-native';
+import {resetLogin} from '../../redux/slices/loginSlice';
 
 const backIcon = (
   <Icon
@@ -47,6 +50,8 @@ const getIcon = screenName => {
 };
 
 const CustomDrawer = props => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
   return (
     <DrawerContentScrollView>
       <Center mt={hp(5)}>
@@ -54,8 +59,10 @@ const CustomDrawer = props => {
           <Avatar bg="pink.600" size="lg" space={2}>
             JD
           </Avatar>
-          <Heading my={hp(2)}>John Doe</Heading>
-          <TouchableOpacity activeOpacity={0.4} onPress={() => null}>
+          <Heading mt={hp(2)}>John Doe</Heading>
+          {/* <TouchableOpacity
+            activeOpacity={0.4}
+            onPress={() => navigation.navigate('Rewards')}>
             <Badge
               colorScheme="coolGray"
               flexDirection="row"
@@ -87,7 +94,7 @@ const CustomDrawer = props => {
                 size={wp(5)}
               />
             </Badge>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </VStack>
         <Divider mt={hp(5)} />
       </Center>
@@ -100,7 +107,11 @@ const CustomDrawer = props => {
             key={index}
             bg={index === props.state.index ? '#83184310' : 'transparent'}
             onPress={event => {
-              props.navigation.navigate(name);
+              if (name === 'Logout') {
+                dispatch(resetLogin(''));
+              } else {
+                props.navigation.navigate(name);
+              }
             }}>
             <HStack space={wp(5)} alignItems="center">
               <Icon

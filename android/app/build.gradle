@@ -126,6 +126,7 @@ def enableHermes = project.ext.react.get("enableHermes", false);
  */
 def nativeArchitectures = project.getProperties().get("reactNativeDebugArchitectures")
 
+
 android {
     ndkVersion rootProject.ext.ndkVersion
 
@@ -193,6 +194,10 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
+
+    implementation "androidx.core:core-splashscreen:1.0.0-alpha02" // Add this line
+
+    implementation project(':react-native-i18n')
 
     implementation project(':react-native-vector-icons')
 

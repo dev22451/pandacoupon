@@ -3,7 +3,7 @@ import {Button, Text} from 'native-base';
 
 import {hp} from '../../helpers/respDimension';
 
-const NButton = ({title, variant, onPress, ...props}) => {
+const NButton = ({title, variant, onPress, titleColor = 'white', ...props}) => {
   return (
     <Button
       size="sm"
@@ -14,7 +14,7 @@ const NButton = ({title, variant, onPress, ...props}) => {
       borderRadius="full"
       height={hp(5)}
       {...props}>
-      <Text fontSize="md" color="white">
+      <Text fontSize="md" color={titleColor}>
         {title}
       </Text>
     </Button>

@@ -12,10 +12,10 @@ import {
   IconButton,
 } from 'native-base';
 import React from 'react';
+import {TouchableOpacity} from 'react-native';
 
 import I18n from '../../translations/i18n';
 import Icon from '../../assets/icons/Icon';
-import {TouchableOpacity} from 'react-native';
 import {wp, hp, fp} from '../../helpers/respDimension';
 
 const backIcon = (
@@ -32,6 +32,15 @@ const accountIcon = (
     type="MaterialCommunityIcons"
     name="account-edit"
     size={wp(6)}
+    color={theme.colors.white}
+  />
+);
+
+const userIcon = (
+  <Icon
+    type="MaterialCommunityIcons"
+    name="account"
+    size={wp(4)}
     color={theme.colors.white}
   />
 );
@@ -57,7 +66,7 @@ const data = [
 const data1 = [
   {
     id: '1',
-    fullName: 'Rewards',
+    fullName: 'Coupons',
     iconName: 'gift',
   },
   {
@@ -78,8 +87,39 @@ const data1 = [
 ];
 
 const Account = ({navigation}) => {
-  const handlePress = item => {
-    console.log(item);
+  const handlePressSecond = item => {
+    switch (item.fullName) {
+      case 'Coupons':
+        navigation.navigate('Coupon');
+        break;
+      case 'Notifications':
+        navigation.navigate('Notification');
+        break;
+      case 'FAQ':
+        null;
+        break;
+      case 'Settings':
+        navigation.navigate('Setting');
+        break;
+      default:
+        null;
+    }
+  };
+
+  const handlePressFirst = item => {
+    switch (item.fullName) {
+      case 'Histories':
+        navigation.navigate('Redeem');
+        break;
+      case 'Categories':
+        navigation.navigate('Categories');
+        break;
+      case 'Profile Information':
+        null;
+        break;
+      default:
+        null;
+    }
   };
 
   return (
@@ -138,7 +178,8 @@ const Account = ({navigation}) => {
                 flexDirection="row"
                 px={wp(3)}
                 py={wp(2)}
-                borderRadius="full">
+                borderRadius="full"
+                alignItems="center">
                 <Box
                   borderColor="coolGray.500"
                   borderRadius="full"
@@ -149,11 +190,17 @@ const Account = ({navigation}) => {
                   alignItems="center"
                   mr={wp(2)}>
                   <Avatar size={wp(6)} bg="coolGray.500">
-                    <Text color={theme.colors.white}>P</Text>
+                    {userIcon}
+                    {/* <Text color={theme.colors.white}>P</Text> */}
                   </Avatar>
                 </Box>
-                <Text bold fontSize={fp(2.5)} mr={wp(2)}>
-                  {I18n.t('Drawer.rewards')} : 265 Points
+                <Text
+                  fontWeight={'medium'}
+                  fontSize={fp(2.5)}
+                  mr={wp(2)}
+                  color={theme.colors.coolGray[600]}>
+                  {/* {I18n.t('Drawer.rewards')} : 265 Points */}
+                  john@gmail.com
                 </Text>
                 <IconButton
                   _pressed={{
@@ -188,7 +235,9 @@ const Account = ({navigation}) => {
           <FlatList
             data={data}
             renderItem={({item}) => (
-              <TouchableOpacity activeOpacity={0.3}>
+              <TouchableOpacity
+                onPress={() => handlePressFirst(item)}
+                activeOpacity={0.3}>
                 <Box
                   borderBottomWidth="1"
                   _dark={{
@@ -263,7 +312,9 @@ const Account = ({navigation}) => {
           <FlatList
             data={data1}
             renderItem={({item}) => (
-              <TouchableOpacity activeOpacity={0.3}>
+              <TouchableOpacity
+                onPress={() => handlePressSecond(item)}
+                activeOpacity={0.3}>
                 <Box
                   borderBottomWidth="1"
                   _dark={{

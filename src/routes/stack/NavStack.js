@@ -5,12 +5,15 @@ import {
 } from '@react-navigation/stack';
 
 import {
-  Coupon,
-  DashBoard,
   Home,
+  Coupon,
+  Redeem,
   Rewards,
   Account,
   Setting,
+  DashBoard,
+  Notification,
+  PasswordChange,
 } from '../../screens';
 import BottomTab from '../bottomTab/BottomTab';
 
@@ -23,6 +26,11 @@ const NavStack = () => {
         headerShown: false,
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}>
+      <Stack.Screen
+        name="HomeScreen"
+        component={Home}
+        options={{headerShown: false}}
+      />
       <Stack.Screen
         name="BottomTab"
         component={BottomTab}
@@ -49,13 +57,18 @@ const NavStack = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="HomeScreen"
-        component={Home}
+        name="PasswordChange"
+        component={PasswordChange}
         options={{headerShown: false}}
       />
       <Stack.Screen
         name="Rewards"
         component={Rewards}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Redeem"
+        component={Redeem}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

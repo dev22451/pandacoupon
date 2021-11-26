@@ -7,7 +7,7 @@ import {hp, wp} from '../../helpers/respDimension';
 
 function CardFlatList({item}) {
   return (
-    <TouchableOpacity onPress={() => null} activeOpacity={0.8}>
+    <TouchableOpacity onPress={() => null} key={item.id} activeOpacity={0.8}>
       <Box
         mr={wp(4)}
         mb={wp(5)}
@@ -22,11 +22,11 @@ function CardFlatList({item}) {
           <AspectRatio ratio={16 / 9}>
             <Image
               width="80"
-              height={hp(25)}
-              source={mcDonald}
-              resizeMode="stretch"
               alt="image"
+              height={hp(22)}
+              source={mcDonald}
               borderRadius="lg"
+              resizeMode="stretch"
             />
           </AspectRatio>
         </Box>

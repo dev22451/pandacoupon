@@ -6,6 +6,7 @@ import Setting from './setting/Setting';
 import Account from './account/Account';
 import Intro from './start/intro /Intro';
 import SignIn from './start/signIn/SignIn';
+import Featured from './tabRoutes/Featured';
 import DashBoard from './dashboard/DashBoard';
 import Categories from './categories/Categories';
 import Register from './start/register/Register';
@@ -24,6 +25,7 @@ export {
   Account,
   Rewards,
   Setting,
+  Featured,
   Register,
   DashBoard,
   Categories,

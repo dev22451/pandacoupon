@@ -9,11 +9,14 @@ import {
   IconButton,
   SectionList,
 } from 'native-base';
+import {useDispatch} from 'react-redux';
+import {TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 import {DBAppBar} from '../../components';
 import Icon from '../../assets/icons/Icon';
 import {wp} from '../../helpers/respDimension';
-import {TouchableOpacity} from 'react-native';
+import {updateLogin} from '../../redux/slices/loginSlice';
 
 const backIcon = (
   <Icon
@@ -83,11 +86,27 @@ const data = [
   },
 ];
 
-const handlePress = x => {
-  console.log(x);
-};
+const Setting = () => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const handlePress = item => {
+    switch (item.fullName) {
+      case 'Change Password':
+        navigation.navigate('PasswordChange');
+        break;
 
-const Setting = ({navigation}) => {
+      case 'Push Notifications':
+        navigation.navigate('Notification');
+        break;
+
+      case 'Logout':
+        dispatch(updateLogin(''));
+        break;
+
+      default:
+        break;
+    }
+  };
   return (
     <>
       <DBAppBar
@@ -111,7 +130,7 @@ const Setting = ({navigation}) => {
         renderItem={({item}) => (
           <TouchableOpacity
             activeOpacity={0.4}
-            onPress={item => handlePress(item)}>
+            onPress={() => handlePress(item)}>
             <Box
               borderBottomWidth="1"
               _dark={{

@@ -7,6 +7,8 @@ import CardComponent from './card/Card';
 import CardFlatList from './card/CardFlatList';
 import SwipeList from './swipeList/SwipeList';
 import CouponCard from './coupon/CouponCard';
+import CardCategory from './card/CardCategory';
+import CategoryCard from './card/CategoryCard';
 
 export {
   AppBar,
@@ -18,4 +20,6 @@ export {
   CustomDrawer,
   ModalContent,
   CardComponent,
+  CategoryCard,
+  CardCategory,
 };
