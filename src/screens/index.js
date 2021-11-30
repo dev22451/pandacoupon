@@ -4,7 +4,7 @@ import Coupon from './redeem/Coupon';
 import Rewards from './redeem/Rewards';
 import Setting from './setting/Setting';
 import Account from './account/Account';
-import Intro from './start/intro /Intro';
+import Intro from './start/intro/Intro';
 import SignIn from './start/signIn/SignIn';
 import Featured from './tabRoutes/Featured';
 import DashBoard from './dashboard/DashBoard';
