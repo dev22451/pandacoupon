@@ -24,7 +24,7 @@ const RootNavigation = () => {
 
   return (
     <NavigationContainer>
-      {!(userType === '2') ? <StarterStack /> : <NavDrawer />}
+      {!userType ? <StarterStack /> : <NavDrawer />}
     </NavigationContainer>
   );
 };

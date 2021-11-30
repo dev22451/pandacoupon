@@ -1,10 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit';
-import ApiService from '../../api/apiCalls/apiCalls';
+
+import {ApiService} from '../../api';
 
 export const loginSlice = createSlice({
   name: 'user',
   initialState: {
-    userType: '',
+    userType: false,
     userData: [],
     token: '',
     isLoading: false,
@@ -49,11 +50,13 @@ export const login = ({payload}) => {
     dispatch(loginRequested());
     try {
       const res = await ApiService.login(payload);
-      if (res.status === 200 && res.statusText == 'OK') {
+      console.log(res.data.success);
+      if (res.data.success) {
+        dispatch(updateLogin(true));
         dispatch(
           loginSuccessful({
-            userData: res.data,
-            token: res.data.token,
+            userData: res.data.data,
+            token: res.data.data.token,
           }),
         );
       }

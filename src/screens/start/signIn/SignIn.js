@@ -81,7 +81,7 @@ const SignIn = ({navigation}) => {
   const handlePassword = text => {
     // validatePassword(text)
     //   ?
-    setPassword({password: '', valid: true});
+    setPassword({password: text, valid: true});
     // :
     // setPassword({password: text, valid: false});
   };

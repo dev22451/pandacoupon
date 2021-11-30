@@ -1,4 +1,3 @@
-import React, {useState} from 'react';
 import {
   VStack,
   Heading,
@@ -9,6 +8,7 @@ import {
   Box,
   FormControl,
 } from 'native-base';
+import React, {useState} from 'react';
 import {TouchableOpacity} from 'react-native';
 
 import {AppBar} from '../../../components';
@@ -65,6 +65,8 @@ const phoneIcon = (
 const Register = ({navigation}) => {
   const [email, setEmail] = useState({email: '', valid: ''});
   const [password, setPassword] = useState({password: '', valid: ''});
+  const [number, setNumber] = useState({number: ''});
+  const [name, setName] = useState('');
 
   const handleEmail = text => {
     validateEmail(text)
@@ -76,6 +78,8 @@ const Register = ({navigation}) => {
       ? setPassword({password: '', valid: true})
       : setPassword({password: text, valid: false});
   };
+
+  const handleSignUp = () => {};
 
   return (
     <>
@@ -103,6 +107,7 @@ const Register = ({navigation}) => {
             _focus={{borderColor: 'secondary.500'}}
             InputLeftElement={userIcon}
             placeholder="Name"
+            onChangeText={text => setName(text)}
           />
           <FormControl
             w={{
@@ -122,6 +127,7 @@ const Register = ({navigation}) => {
             placeholder="Number"
             InputLeftElement={phoneIcon}
             _focus={{borderColor: 'secondary.500'}}
+            onChangeText={text => setNumber(text)}
           />
           <FormControl
             w={{
@@ -149,7 +155,11 @@ const Register = ({navigation}) => {
           onPress={() => navigation.navigate('SignIn')}>
           {I18n.t('Register.loginLink')}
         </Text>
-        <NButton title={I18n.t('Register.signUp')} mt={hp(5)} />
+        <NButton
+          title={I18n.t('Register.signUp')}
+          mt={hp(5)}
+          onPress={handleSignUp}
+        />
         <Text color="gray.500" mt={hp(10)} textAlign="center">
           {I18n.t('Intro.footerLine')}{' '}
           <Text color="black" bold>
