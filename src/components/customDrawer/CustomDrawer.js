@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Avatar,
   Center,
@@ -13,11 +12,16 @@ import {
   HStack,
   Pressable,
 } from 'native-base';
+import React from 'react';
+import {useDispatch} from 'react-redux';
+import {TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 
 import Icon from '../../assets/icons/Icon';
 import I18n from '../../translations/i18n';
 import {hp, wp} from '../../helpers/respDimension';
+import {resetLogin} from '../../redux/slices/loginSlice';
 
 const backIcon = (
   <Icon
@@ -46,6 +50,8 @@ const getIcon = screenName => {
 };
 
 const CustomDrawer = props => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
   return (
     <DrawerContentScrollView>
       <Center mt={hp(5)}>
@@ -53,38 +59,42 @@ const CustomDrawer = props => {
           <Avatar bg="pink.600" size="lg" space={2}>
             JD
           </Avatar>
-          <Heading my={hp(2)}>John Doe</Heading>
-          <Badge
-            colorScheme="coolGray"
-            flexDirection="row"
-            px={wp(3)}
-            py={wp(2)}
-            borderRadius="full">
-            <Box
-              borderColor="coolGray.500"
-              borderRadius="full"
-              borderWidth={wp(0.5)}
-              width={wp(8)}
-              height={wp(8)}
-              justifyContent="center"
-              alignItems="center"
-              mr={wp(2)}>
-              <Avatar size={wp(6)} bg="coolGray.500">
-                <Text color={theme.colors.white}>P</Text>
-              </Avatar>
-            </Box>
-            <Text bold mr={wp(2)}>
-              {I18n.t('Drawer.rewards')} : 265 Points
-            </Text>
-            <IconButton
-              _pressed={{
-                backgroundColor: theme.colors.secondary[200],
-              }}
-              icon={backIcon}
-              onPress={() => null}
-              size={wp(5)}
-            />
-          </Badge>
+          <Heading mt={hp(2)}>John Doe</Heading>
+          {/* <TouchableOpacity
+            activeOpacity={0.4}
+            onPress={() => navigation.navigate('Rewards')}>
+            <Badge
+              colorScheme="coolGray"
+              flexDirection="row"
+              px={wp(3)}
+              py={wp(2)}
+              borderRadius="full">
+              <Box
+                borderColor="coolGray.500"
+                borderRadius="full"
+                borderWidth={wp(0.5)}
+                width={wp(8)}
+                height={wp(8)}
+                justifyContent="center"
+                alignItems="center"
+                mr={wp(2)}>
+                <Avatar size={wp(6)} bg="coolGray.500">
+                  <Text color={theme.colors.white}>P</Text>
+                </Avatar>
+              </Box>
+              <Text bold mr={wp(2)}>
+                {I18n.t('Drawer.rewards')} : 265 Points
+              </Text>
+              <IconButton
+                _pressed={{
+                  backgroundColor: theme.colors.secondary[200],
+                }}
+                icon={backIcon}
+                onPress={() => null}
+                size={wp(5)}
+              />
+            </Badge>
+          </TouchableOpacity> */}
         </VStack>
         <Divider mt={hp(5)} />
       </Center>
@@ -97,7 +107,11 @@ const CustomDrawer = props => {
             key={index}
             bg={index === props.state.index ? '#83184310' : 'transparent'}
             onPress={event => {
-              props.navigation.navigate(name);
+              if (name === 'Logout') {
+                dispatch(resetLogin(''));
+              } else {
+                props.navigation.navigate(name);
+              }
             }}>
             <HStack space={wp(5)} alignItems="center">
               <Icon

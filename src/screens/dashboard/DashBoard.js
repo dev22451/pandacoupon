@@ -1,24 +1,32 @@
 import {
-  Pressable,
-  HStack,
-  theme,
-  Text,
-  VStack,
-  Input,
   Box,
+  Text,
+  theme,
+  Input,
+  HStack,
+  VStack,
   FlatList,
   ScrollView,
 } from 'native-base';
 import React from 'react';
-import {StatusBar} from 'react-native';
+import {StatusBar, TouchableOpacity} from 'react-native';
 
 import I18n from '../../translations/i18n';
 import Icon from '../../assets/icons/Icon';
 import {fp, hp, wp} from '../../helpers/respDimension';
-import {CardComponent, DBAppBar} from '../../components';
 import CardFlatList from '../../components/card/CardFlatList';
-import Footer from '../../components/footer/Footer';
+import {CardComponent, CategoryCard, DBAppBar} from '../../components';
 
+const searchIcon = (
+  <Box ml={wp(4)}>
+    <Icon
+      type="MaterialIcons"
+      name="search"
+      size={20}
+      color={theme.colors.gray}
+    />
+  </Box>
+);
 const rightArrowIcon = (
   <Icon
     type="MaterialIcons"
@@ -35,18 +43,55 @@ const rightArrowIcon1 = (
     color={theme.colors.black}
   />
 );
-const searchIcon = (
-  <Box ml={wp(4)}>
-    <Icon
-      type="MaterialIcons"
-      name="search"
-      size={20}
-      color={theme.colors.gray}
-    />
-  </Box>
-);
 
 const DashBoard = ({navigation}) => {
+  const data = [
+    {
+      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+      fullName: 'Saloon & Spa',
+      iconName: 'spa',
+    },
+    {
+      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+      fullName: 'Food',
+      iconName: 'food',
+    },
+    {
+      id: '58694a0f-3da1-471f-bd96-145571e29d72',
+      fullName: 'Clothing',
+      iconName: 'tshirt-crew',
+    },
+    {
+      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb29ba',
+      fullName: 'Bars & Pub',
+      iconName: 'glass-wine',
+    },
+    {
+      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f6a',
+      fullName: 'Hotel',
+      iconName: 'bed',
+    },
+    {
+      id: '58694a0f-3da1-471f-bd96-145571e29d7b',
+      fullName: 'Shoes',
+      iconName: 'shoe-formal',
+    },
+    {
+      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f6c',
+      fullName: 'Gym & Yoga',
+      iconName: 'dumbbell',
+    },
+    {
+      id: '58694a0f-3da1-471f-bd96-145571e29d7d',
+      fullName: 'Health',
+      iconName: 'heart-pulse',
+    },
+  ];
+
+  const renderBanner = ({item}) => <CardFlatList item={item} />;
+  const renderCategory = ({item}) => <CategoryCard item={item} />;
+  const renderCouponCard = ({item}) => <CardComponent item={item} />;
+
   return (
     <>
       <StatusBar backgroundColor={theme.colors.secondary[500]} />
@@ -57,7 +102,7 @@ const DashBoard = ({navigation}) => {
         iconColor={theme.colors.white}
         bgColor={theme.colors.secondary[500]}
       />
-      <ScrollView>
+      <ScrollView nestedScrollEnabled={true}>
         <VStack
           width={wp(100)}
           bg="secondary.500"
@@ -81,34 +126,28 @@ const DashBoard = ({navigation}) => {
             <Text bold fontSize={fp(2)} color="white">
               {I18n.t('DashBoard.explore')}
             </Text>
-            <Pressable
-              onPress={() => null}
-              _pressed={{
-                backgroundColor: theme.colors.secondary[200],
-              }}
-              justifyContent="center"
-              alignItems="center">
+            <TouchableOpacity onPress={() => null}>
               <HStack alignItems="center">
                 <Text fontSize={fp(1.8)} color="white">
                   {I18n.t('DashBoard.seeAll')}
                 </Text>
                 {rightArrowIcon}
               </HStack>
-            </Pressable>
+            </TouchableOpacity>
           </HStack>
           <Text fontSize={fp(1.8)} color="white">
             {I18n.t('DashBoard.latestDeal')}
           </Text>
         </VStack>
         <FlatList
-          ml={wp(4)}
-          position="absolute"
+          pl={wp(4)}
           top={hp(18)}
           data={[1, 2, 3]}
           horizontal={true}
+          position="absolute"
           keyExtractor={item => item.id}
           showsHorizontalScrollIndicator={false}
-          renderItem={({item}) => <CardFlatList />}
+          renderItem={renderBanner}
         />
         <VStack my={hp(1)}>
           <HStack
@@ -119,52 +158,24 @@ const DashBoard = ({navigation}) => {
             <Text fontSize={fp(2)} fontWeight="medium" color="warmGray.600">
               {I18n.t('DashBoard.browseCategory')}
             </Text>
-            <HStack alignItems="center">
-              <Text fontSize={fp(1.8)} color="black">
-                {I18n.t('DashBoard.seeAll')}
-              </Text>
-              {rightArrowIcon1}
-            </HStack>
+            <TouchableOpacity onPress={() => navigation.navigate('Categories')}>
+              <HStack alignItems="center">
+                <Text fontSize={fp(1.8)} color="black">
+                  {I18n.t('DashBoard.seeAll')}
+                </Text>
+                {rightArrowIcon1}
+              </HStack>
+            </TouchableOpacity>
           </HStack>
           <FlatList
-            ml={wp(2)}
-            mr={wp(2)}
-            data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
+            pl={wp(2)}
+            pr={wp(2)}
+            data={data}
             maxHeight={hp(12)}
             horizontal={true}
             keyExtractor={item => item.id}
             showsHorizontalScrollIndicator={false}
-            renderItem={({item}) => (
-              <>
-                <Pressable
-                  mt={wp(2)}
-                  mb={wp(2)}
-                  mr={wp(2)}
-                  ml={wp(2)}
-                  rounded="lg"
-                  overflow="hidden"
-                  width={wp(20)}
-                  height={wp(20)}
-                  shadow={1}
-                  justifyContent="center"
-                  alignItems="center"
-                  _light={{backgroundColor: 'gray.50'}}
-                  _dark={{backgroundColor: 'gray.700'}}>
-                  <Box
-                    width={wp(10)}
-                    height={wp(10)}
-                    bg="secondary.100"
-                    alignItems="center"
-                    borderRadius="full"
-                    justifyContent="center">
-                    {rightArrowIcon1}
-                  </Box>
-                  <Text fontSize={fp(1.4)} mt={wp(1)}>
-                    Saloon
-                  </Text>
-                </Pressable>
-              </>
-            )}
+            renderItem={renderCategory}
           />
         </VStack>
         <HStack
@@ -175,18 +186,20 @@ const DashBoard = ({navigation}) => {
           <Text fontSize={fp(2)} fontWeight="medium" color="warmGray.600">
             {I18n.t('DashBoard.featDetails')}
           </Text>
-          <HStack alignItems="center">
-            <Text fontSize={fp(1.8)} color="black">
-              {I18n.t('DashBoard.seeAll')}
-            </Text>
-            {rightArrowIcon1}
-          </HStack>
+          <TouchableOpacity onPress={() => null}>
+            <HStack alignItems="center">
+              <Text fontSize={fp(1.8)} color="black">
+                {I18n.t('DashBoard.seeAll')}
+              </Text>
+              {rightArrowIcon1}
+            </HStack>
+          </TouchableOpacity>
         </HStack>
         <FlatList
           mx={wp(5)}
-          data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
+          data={[1, 2, 3, 4, 5, 6, 7]}
           keyExtractor={item => item.id}
-          renderItem={({item}) => <CardComponent item={item} />}
+          renderItem={renderCouponCard}
         />
       </ScrollView>
     </>

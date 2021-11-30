@@ -2,7 +2,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import {
-  Setting,
+  Account,
   DashBoard,
   Categories,
   EditLocation,
@@ -48,10 +48,10 @@ const BottomTab = () => {
         }}
       />
       <Tab.Screen
-        name="Setting"
-        component={Setting}
+        name="Account"
+        component={Account}
         options={{
-          tabBarLabel: 'Account',
+          tabBarLabel: 'Profile',
         }}
       />
     </Tab.Navigator>

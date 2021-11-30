@@ -1,11 +1,22 @@
-import React from 'react';
-import {VStack, Heading, Text, Input, Stack, theme, Box} from 'native-base';
+import {
+  VStack,
+  Heading,
+  Text,
+  Input,
+  Stack,
+  theme,
+  Box,
+  FormControl,
+} from 'native-base';
+import React, {useState} from 'react';
+import {TouchableOpacity} from 'react-native';
 
 import {AppBar} from '../../../components';
 import I18n from '../../../translations/i18n';
 import Icon from '../../../assets/icons/Icon';
 import NButton from '../../../components/button/NButton';
 import {wp, hp, fp} from '../../../helpers/respDimension';
+import {validateEmail, validatePassword} from '../../../helpers/validation';
 
 const userIcon = (
   <Box ml={wp(5)}>
@@ -52,6 +63,24 @@ const phoneIcon = (
 );
 
 const Register = ({navigation}) => {
+  const [email, setEmail] = useState({email: '', valid: ''});
+  const [password, setPassword] = useState({password: '', valid: ''});
+  const [number, setNumber] = useState({number: ''});
+  const [name, setName] = useState('');
+
+  const handleEmail = text => {
+    validateEmail(text)
+      ? setEmail({email: '', valid: true})
+      : setEmail({email: text, valid: false});
+  };
+  const handlePassword = text => {
+    validatePassword(text)
+      ? setPassword({password: '', valid: true})
+      : setPassword({password: text, valid: false});
+  };
+
+  const handleSignUp = () => {};
+
   return (
     <>
       <AppBar navigation={navigation} />
@@ -78,34 +107,44 @@ const Register = ({navigation}) => {
             _focus={{borderColor: 'secondary.500'}}
             InputLeftElement={userIcon}
             placeholder="Name"
+            onChangeText={text => setName(text)}
           />
-          <Input
+          <FormControl
             w={{
               base: '100%',
               md: '25%',
             }}
-            InputLeftElement={emailIcon}
-            _focus={{borderColor: 'secondary.500'}}
-            placeholder="Email"
-          />
+            isInvalid={email.valid}>
+            <Input
+              placeholder="Email"
+              InputLeftElement={emailIcon}
+              _focus={{borderColor: 'secondary.500'}}
+              onChangeText={text => handleEmail(text)}
+            />
+            <FormControl.ErrorMessage>Invalid Mail</FormControl.ErrorMessage>
+          </FormControl>
           <Input
-            w={{
-              base: '100%',
-              md: '25%',
-            }}
+            placeholder="Number"
             InputLeftElement={phoneIcon}
             _focus={{borderColor: 'secondary.500'}}
-            placeholder="Number"
+            onChangeText={text => setNumber(text)}
           />
-          <Input
+          <FormControl
             w={{
               base: '100%',
               md: '25%',
             }}
-            InputLeftElement={keyIcon}
-            _focus={{borderColor: 'secondary.500'}}
-            placeholder="Password"
-          />
+            isInvalid={password.valid}>
+            <Input
+              placeholder="Password"
+              InputLeftElement={keyIcon}
+              _focus={{borderColor: 'secondary.500'}}
+              onChangeText={text => handlePassword(text)}
+            />
+            <FormControl.ErrorMessage>
+              Invalid Password
+            </FormControl.ErrorMessage>
+          </FormControl>
         </Stack>
         <Text color="gray.500" mt={hp(5)}>
           {I18n.t('Register.accountCheck')}{' '}
@@ -116,7 +155,11 @@ const Register = ({navigation}) => {
           onPress={() => navigation.navigate('SignIn')}>
           {I18n.t('Register.loginLink')}
         </Text>
-        <NButton title={I18n.t('Register.signUp')} mt={hp(5)} />
+        <NButton
+          title={I18n.t('Register.signUp')}
+          mt={hp(5)}
+          onPress={handleSignUp}
+        />
         <Text color="gray.500" mt={hp(10)} textAlign="center">
           {I18n.t('Intro.footerLine')}{' '}
           <Text color="black" bold>

@@ -3,7 +3,7 @@ import {theme} from 'native-base';
 import {useWindowDimensions} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
-import {Categories, Register, Notification} from '../../screens';
+import {Categories, Notification, Setting} from '../../screens';
 import NavStack from '../stack/NavStack';
 import SignIn from '../../screens/start/signIn/SignIn';
 import CustomDrawer from '../../components/customDrawer/CustomDrawer';
@@ -26,7 +26,7 @@ const NavDrawer = () => {
       <Drawer.Screen name="Home" component={NavStack} />
       <Drawer.Screen name="Notification" component={Notification} />
       <Drawer.Screen name="Categories" component={Categories} />
-      <Drawer.Screen name="Settings" component={Register} />
+      <Drawer.Screen name="Settings" component={Setting} />
       <Drawer.Screen name="Logout" component={SignIn} />
     </Drawer.Navigator>
   );

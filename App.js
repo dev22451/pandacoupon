@@ -9,7 +9,12 @@ import RootNavigation from './src/routes/routes';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {colorModeManager, config, theme} from './src/themes/theme';
 
-LogBox.ignoreLogs(['Reanimated 2']);
+LogBox.ignoreLogs([
+  'Reanimated 2',
+  'VirtualizedLists should never be nested',
+  'Require cycle',
+  'NativeBase',
+]);
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -17,6 +22,8 @@ const App = () => {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+
+  // console.disableYellowBox = true;
 
   return (
     <NativeBaseProvider

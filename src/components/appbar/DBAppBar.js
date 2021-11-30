@@ -1,9 +1,9 @@
 import React from 'react';
+import {TouchableOpacity} from 'react-native';
 import {HStack, IconButton, Badge, Box, Avatar, Text, theme} from 'native-base';
 
 import Icon from '../../assets/icons/Icon';
 import {fp, wp} from '../../helpers/respDimension';
-import {TouchableOpacity} from 'react-native';
 
 const DBAppBar = ({
   back,
@@ -11,14 +11,14 @@ const DBAppBar = ({
   account,
   title,
   cog,
-  titleColor = 'black',
   loc = false,
+  rewards = false,
   midTitle = false,
   midTitleText = '',
-  rewards = false,
   bgColor = 'white',
-  location = 'Shanghai, China',
+  titleColor = 'black',
   iconColor = theme.black,
+  location = 'Shanghai, China',
   ...props
 }) => {
   const navigation = props.navigation;
@@ -84,42 +84,38 @@ const DBAppBar = ({
       ) : null}
 
       {loc ? (
-        <HStack space="1" alignItems="center">
-          {locationIcon}
-          <Text color="white" fontSize={fp(2)}>
-            {location}
-          </Text>
-          <IconButton
-            icon={editIcon}
-            _pressed={{
-              backgroundColor: theme.colors.secondary[200],
-            }}
-            onPress={() => navigation.navigate('EditLocation')}
-          />
-        </HStack>
+        <TouchableOpacity
+          activeOpacity={0.4}
+          onPress={() => navigation.navigate('EditLocation')}>
+          <HStack space="1" alignItems="center">
+            {locationIcon}
+            <Text color="white" fontSize={fp(2)}>
+              {location}
+            </Text>
+            {editIcon}
+          </HStack>
+        </TouchableOpacity>
       ) : null}
 
       <HStack space="2">
         {account ? (
           <IconButton
             icon={accIcon}
-            onPress={() => navigation.navigate('Setting')}
+            onPress={() => navigation.navigate('Account')}
             _pressed={{
               backgroundColor: theme.colors.secondary[200],
             }}
           />
         ) : null}
         {cog ? (
-          <IconButton
-            icon={cogIcon}
-            _pressed={{
-              backgroundColor: theme.colors.secondary[200],
-            }}
-          />
+          <TouchableOpacity onPress={() => navigation.navigate('Setting')}>
+            {cogIcon}
+          </TouchableOpacity>
         ) : null}
-        {rewards ? (
+        {/* {rewards ? (
           <TouchableOpacity
             activeOpacity={0.5}
+            style={{marginRight: wp(1)}}
             onPress={() => navigation.navigate('Rewards')}>
             <Badge
               bg="#ffffff60"
@@ -149,7 +145,7 @@ const DBAppBar = ({
               </Text>
             </Badge>
           </TouchableOpacity>
-        ) : null}
+        ) : null} */}
       </HStack>
     </HStack>
   );

@@ -2,6 +2,8 @@ package com.pandacoupon;
 
 import com.facebook.react.ReactActivity;
 import android.os.Bundle;
+import com.zoontek.rnbootsplash.RNBootSplash; // <- add this necessary import
+import com.facebook.react.ReactActivityDelegate;
 
 public class MainActivity extends ReactActivity {
 
@@ -11,7 +13,19 @@ public class MainActivity extends ReactActivity {
    */
    
   @Override
-  protected String getMainComponentName() {
+  protected String getMainComponentName() { 
     return "pandacoupon";
+  }
+  
+  @Override
+  protected ReactActivityDelegate createReactActivityDelegate() {
+    return new ReactActivityDelegate(this, getMainComponentName()) {
+ 
+      @Override
+      protected void loadApp(String appKey) {
+        RNBootSplash.init(MainActivity.this);
+        super.loadApp(appKey);
+      }
+    };
   }
 }

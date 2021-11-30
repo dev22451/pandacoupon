@@ -1,3 +1,4 @@
+import {useDispatch} from 'react-redux';
 import {StyleSheet, View} from 'react-native';
 import Geocoder from 'react-native-geocoding';
 import React, {useState, useEffect, useRef} from 'react';
@@ -8,6 +9,7 @@ import styles from './styles';
 import Content from './Content';
 import I18n from '../../translations/i18n';
 import {DBAppBar, ModalContent} from '../../components';
+import {updateCurrentLocation} from '../../redux/slices/locationSlice';
 
 const Home = ({navigation}) => {
   const [highAccuracy, setHighAccuracy] = useState(true);
@@ -22,6 +24,7 @@ const Home = ({navigation}) => {
     coordinates: [],
   });
 
+  const dispatch = useDispatch();
   const mapRef = useRef(null);
 
   useEffect(() => {
@@ -50,6 +53,7 @@ const Home = ({navigation}) => {
     Geolocation.getCurrentPosition(
       position => {
         console.log(position);
+        dispatch(updateCurrentLocation(position));
         setLoc({
           heading: position.coords.heading,
           accuracy: position.coords.accuracy,
@@ -91,7 +95,7 @@ const Home = ({navigation}) => {
         account={true}
         title={`${I18n.t('Dash.welcome')}, Umer`}
       />
-      <ModalContent show={true} content={<Content />} />
+      <ModalContent show={true} content={<Content navigation={navigation} />} />
       <View style={styles.map}>
         <MapView
           ref={mapRef}

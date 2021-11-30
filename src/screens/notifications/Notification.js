@@ -1,11 +1,18 @@
 import React from 'react';
-import {VStack, Text} from 'native-base';
+import {VStack, Text, theme} from 'native-base';
 
 import {fp} from '../../helpers/respDimension';
+import {DBAppBar} from '../../components';
 
 const Notification = ({navigation}) => {
   return (
     <>
+      <DBAppBar
+        title="Notifications"
+        titleColor={theme.colors.white}
+        iconColor={theme.colors.white}
+        bgColor={theme.colors.secondary[500]}
+      />
       <VStack flex="1" justifyContent="center" alignItems="center">
         <Text fontWeight="md" fontSize={fp(3)}>
           Coming Soon

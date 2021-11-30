@@ -3,8 +3,10 @@ import Redeem from './redeem/Redeem';
 import Coupon from './redeem/Coupon';
 import Rewards from './redeem/Rewards';
 import Setting from './setting/Setting';
+import Account from './account/Account';
 import Intro from './start/intro /Intro';
 import SignIn from './start/signIn/SignIn';
+import Featured from './tabRoutes/Featured';
 import DashBoard from './dashboard/DashBoard';
 import Categories from './categories/Categories';
 import Register from './start/register/Register';
@@ -20,8 +22,10 @@ export {
   Coupon,
   SignIn,
   Redeem,
+  Account,
   Rewards,
   Setting,
+  Featured,
   Register,
   DashBoard,
   Categories,

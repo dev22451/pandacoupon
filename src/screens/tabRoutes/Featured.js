@@ -1,21 +1,21 @@
-import React, {useRef, useState} from 'react';
+import {
+  Animated,
+  Dimensions,
+  StyleSheet,
+  Platform,
+  FlatList,
+} from 'react-native';
+
+import {useSelector} from 'react-redux';
+import React, {useEffect, useRef, useState} from 'react';
 import MapView, {Circle, Marker} from 'react-native-maps';
 import {View, Text, theme, Image, VStack, HStack} from 'native-base';
-import {Animated, Dimensions, StyleSheet, Platform} from 'react-native';
 
 import styles from '../home/styles';
 import Icon from '../../assets/icons/Icon';
 import {mcDonald} from '../../assets/images';
+import MapCard from '../../components/card/MapCard';
 import {fp, hp, wp} from '../../helpers/respDimension';
-
-const calendarIcon = (
-  <Icon
-    type="EvilIcons"
-    name={'calendar'}
-    size={wp(7)}
-    color={theme.colors.gray[400]}
-  />
-);
 
 const Featured = ({navigation}) => {
   const {width, height} = Dimensions.get('window');
@@ -24,12 +24,6 @@ const Featured = ({navigation}) => {
   const [forceLocation, setForceLocation] = useState(true);
   const [useLocationManager, setUseLocationManager] = useState(false);
   const [locationDialog, setLocationDialog] = useState(true);
-
-  const _scrollView = useRef(null);
-  let mapAnimation = new Animated.Value(0);
-  const CARD_WIDTH = width * 0.8;
-  const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
-
   const [loc, setLoc] = useState({
     heading: 0,
     accuracy: 0,
@@ -37,6 +31,26 @@ const Featured = ({navigation}) => {
     longitude: 0,
     coordinates: [],
   });
+
+  const location = useSelector(state => state.locationSlice.location);
+
+  const _scrollView = useRef(null);
+  let mapAnimation = new Animated.Value(0);
+  const CARD_WIDTH = width * 0.8;
+  const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
+
+  useEffect(() => {
+    setLoc({
+      heading: location.coords.heading,
+      accuracy: location.coords.accuracy,
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+      coordinates: loc.coordinates.concat({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      }),
+    });
+  }, []);
 
   const mapRef = useRef(null);
 
@@ -72,6 +86,18 @@ const Featured = ({navigation}) => {
       validTill: '21 Feb 2022',
     },
   ];
+
+  const _onViewableItemsChanged = React.useCallback(
+    ({viewableItems, changed}) => {
+      console.log('Visible items are', viewableItems);
+      console.log('Changed in this iteration', changed);
+    },
+    [],
+  );
+
+  const _viewabilityConfig = {
+    itemVisiblePercentThreshold: 90,
+  };
 
   return (
     <>
@@ -182,45 +208,18 @@ const Featured = ({navigation}) => {
                 ],
                 {useNativeDriver: true},
               )}>
-              {newmark.map((marker, index) => (
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    backgroundColor: theme.colors.white,
-                    padding: wp(2),
-                    elevation: 0.5,
-                    width: CARD_WIDTH,
-                    marginHorizontal: 10,
-                    borderRadius: wp(2),
-                  }}
-                  key={index}>
-                  <Image
-                    alt="image"
-                    width={wp(22)}
-                    height={wp(22)}
-                    borderRadius="lg"
-                    source={require('../../assets/images/mcDonald.jpg')}
-                  />
-                  <VStack ml={wp(4)} overflow="hidden">
-                    <Text fontSize={fp(2)} fontWeight="semibold">
-                      {marker.title}
-                    </Text>
-                    <Text
-                      color="coolGray.500"
-                      fontSize={fp(1.8)}
-                      lineHeight="18"
-                      width={wp(50)}>
-                      {marker.description}
-                    </Text>
-                    <HStack mt={wp(1)} alignItems="center">
-                      {calendarIcon}
-                      <Text fontWeight="medium" color="coolGray.400">
-                        Valid Till : {marker.validTill}
-                      </Text>
-                    </HStack>
-                  </VStack>
-                </View>
-              ))}
+              <FlatList
+                data={newmark}
+                horizontal={true}
+                onEndReachedThreshold={0.5}
+                keyExtractor={item => item.id}
+                viewabilityConfig={_viewabilityConfig}
+                showsHorizontalScrollIndicator={false}
+                onViewableItemsChanged={_onViewableItemsChanged}
+                renderItem={({item}) => (
+                  <MapCard CARD_WIDTH={CARD_WIDTH} item={item} />
+                )}
+              />
             </Animated.ScrollView>
           </View>
         )}

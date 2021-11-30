@@ -1,30 +1,37 @@
-import {theme} from 'native-base';
 import React from 'react';
-import {Text} from 'react-native';
+import {theme} from 'native-base';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
-import ScrollableTabView, {
-  ScrollableTabBar,
-} from 'react-native-scrollable-tab-view';
+import {Featured, Notification} from '../../screens';
 import {wp} from '../../helpers/respDimension';
-import Featured from '../../screens/tabRoutes/Featured';
+
+const Tab = createMaterialTopTabNavigator();
 
 export default () => {
   return (
-    <ScrollableTabView
-      initialPage={0}
-      tabBarBackgroundColor={theme.colors.secondary[500]}
-      tabBarActiveTextColor={theme.colors.white}
-      tabBarInactiveTextColor={theme.colors.coolGray[300]}
-      tabBarUnderlineStyle={{
-        backgroundColor: theme.colors.white,
-        borderRadius: wp(2),
-      }}
-      renderTabBar={() => <ScrollableTabBar />}>
-      <Featured tabLabel="Featured" />
-      <Text tabLabel="Food">favorite</Text>
-      <Text tabLabel="Clothings">project</Text>
-      <Text tabLabel="Electronics">favorite</Text>
-      <Text tabLabel="Bars & Pub">project</Text>
-    </ScrollableTabView>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarBounces: true,
+        tabBarScrollEnabled: true,
+        tabBarIndicatorStyle: {
+          backgroundColor: 'white',
+        },
+        tabBarIndicatorContainerStyle: {
+          zIndex: 100,
+        },
+        tabBarContentContainerStyle: {
+          backgroundColor: theme.colors.secondary[500],
+        },
+        tabBarItemStyle: {width: wp(25)},
+        tabBarPressColor: theme.colors.white,
+        tabBarActiveTintColor: theme.colors.white,
+      }}>
+      <Tab.Screen name="Featured" component={Featured} />
+      <Tab.Screen name="Food" component={Notification} />
+      <Tab.Screen name="Saloon" component={Notification} />
+      <Tab.Screen name="Clothing" component={Notification} />
+      <Tab.Screen name="Bars" component={Notification} />
+      <Tab.Screen name="Hotel" component={Notification} />
+    </Tab.Navigator>
   );
 };

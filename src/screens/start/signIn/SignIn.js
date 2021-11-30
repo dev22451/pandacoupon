@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   VStack,
   Heading,
@@ -9,12 +8,17 @@ import {
   theme,
   Link,
   Pressable,
+  FormControl,
 } from 'native-base';
+import React, {useState} from 'react';
+import {useDispatch} from 'react-redux';
 
 import Icon from '../../../assets/icons/Icon';
 import I18n from '../../../translations/i18n';
-import {fp, hp, wp} from '../../../helpers/respDimension';
 import {AppBar, NButton} from '../../../components';
+import {fp, hp, wp} from '../../../helpers/respDimension';
+import {login} from '../../../redux/slices/loginSlice';
+import {validateEmail, validatePassword} from '../../../helpers/validation';
 
 const emailIcon = (
   <Box ml={wp(5)}>
@@ -61,8 +65,35 @@ const eyeSlashIcon = (
 );
 
 const SignIn = ({navigation}) => {
-  const [show, setShow] = React.useState(false);
+  const [show, setShow] = useState(false);
+  const [email, setEmail] = useState({email: '', valid: ''});
+  const [password, setPassword] = useState({password: '', valid: ''});
+
+  const dispatch = useDispatch();
+
   const handleClick = () => setShow(!show);
+
+  const handleEmail = text => {
+    validateEmail(text)
+      ? setEmail({email: '', valid: true})
+      : setEmail({email: text, valid: false});
+  };
+  const handlePassword = text => {
+    // validatePassword(text)
+    //   ?
+    setPassword({password: text, valid: true});
+    // :
+    // setPassword({password: text, valid: false});
+  };
+
+  const handleSignIn = () => {
+    const payload = {
+      userEmail: email.email,
+      Password: password.password,
+    };
+    dispatch(login({payload}));
+  };
+
   return (
     <>
       <AppBar navigation={navigation} />
@@ -78,31 +109,43 @@ const SignIn = ({navigation}) => {
             {I18n.t('SignIn.loginHelp')}
           </Text>
           <Stack space={4} mt={hp(5)} alignItems="center">
-            <Input
+            <FormControl
+              isInvalid={email.valid}
               w={{
                 base: '100%',
                 md: '25%',
-              }}
-              _focus={{borderColor: 'secondary.500'}}
-              InputLeftElement={emailIcon}
-              placeholder="Email"
-            />
-            <Input
-              type={show ? 'text' : 'password'}
-              _focus={{borderColor: 'secondary.500'}}
-              overflow="visible"
+              }}>
+              <Input
+                _focus={{borderColor: email.valid ? 'red' : 'secondary.500'}}
+                InputLeftElement={emailIcon}
+                placeholder="Email"
+                onChangeText={text => handleEmail(text)}
+              />
+              <FormControl.ErrorMessage>Invalid Mail</FormControl.ErrorMessage>
+            </FormControl>
+            <FormControl
+              isInvalid={password.valid}
               w={{
                 base: '100%',
                 md: '25%',
-              }}
-              InputLeftElement={keyIcon}
-              InputRightElement={
-                <Pressable mr={wp(4)} onPress={handleClick}>
-                  {show ? eyeIcon : eyeSlashIcon}
-                </Pressable>
-              }
-              placeholder="Password"
-            />
+              }}>
+              <Input
+                type={show ? 'text' : 'password'}
+                _focus={{borderColor: password.valid ? 'red' : 'secondary.500'}}
+                placeholder="Password"
+                overflow="visible"
+                InputLeftElement={keyIcon}
+                InputRightElement={
+                  <Pressable mr={wp(4)} onPress={handleClick}>
+                    {show ? eyeIcon : eyeSlashIcon}
+                  </Pressable>
+                }
+                onChangeText={text => handlePassword(text)}
+              />
+              <FormControl.ErrorMessage>
+                Invalid Password
+              </FormControl.ErrorMessage>
+            </FormControl>
           </Stack>
           <Link
             onPress={() => navigation.navigate('Forgot')}
@@ -121,7 +164,11 @@ const SignIn = ({navigation}) => {
           </Text>
         </VStack>
         <VStack>
-          <NButton title={I18n.t('SignIn.login')} mt={hp(5)} />
+          <NButton
+            title={I18n.t('SignIn.login')}
+            mt={hp(5)}
+            onPress={handleSignIn}
+          />
         </VStack>
       </VStack>
     </>

@@ -11,10 +11,10 @@ import {
   FlatList,
   ScrollView,
 } from 'native-base';
+import {TouchableOpacity} from 'react-native';
 
 import {DBAppBar} from '../../components';
 import Icon from '../../assets/icons/Icon';
-import {TouchableOpacity} from 'react-native';
 import {pinkShades} from '../../assets/images';
 import {fp, hp, wp} from '../../helpers/respDimension';
 import CardCategory from '../../components/card/CardCategory';
@@ -28,16 +28,17 @@ const backIcon = (
   />
 );
 
-const Rewards = () => {
+const Rewards = ({navigation}) => {
   return (
     <>
       <DBAppBar
         cog
         back
-        bgColor="secondary.500"
         title="Rewards"
         iconColor="white"
         titleColor="white"
+        bgColor="secondary.500"
+        navigation={navigation}
       />
       <ScrollView>
         <Box mt={wp(5)} alignSelf="center">
@@ -105,8 +106,8 @@ const Rewards = () => {
             </HStack>
           </VStack>
         </Box>
-        <VStack mx={wp(4)} my={hp(3)}>
-          <HStack justifyContent="space-between">
+        <VStack>
+          <HStack px={wp(4)} pt={hp(3)} justifyContent="space-between">
             <Text mx={wp(2)} fontSize={fp(2)} bold>
               Food
             </Text>
@@ -120,6 +121,8 @@ const Rewards = () => {
             </TouchableOpacity>
           </HStack>
           <FlatList
+            px={wp(4)}
+            pb={hp(3)}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             keyExtractor={item => item.id}
@@ -127,8 +130,8 @@ const Rewards = () => {
             renderItem={({item}) => <CardCategory item={item} />}
           />
         </VStack>
-        <VStack mx={wp(4)} my={hp(2)}>
-          <HStack justifyContent="space-between">
+        <VStack>
+          <HStack px={wp(4)} pt={hp(3)} justifyContent="space-between">
             <Text mx={wp(2)} fontSize={fp(2)} bold>
               Entertainment
             </Text>
@@ -142,6 +145,8 @@ const Rewards = () => {
             </TouchableOpacity>
           </HStack>
           <FlatList
+            px={wp(4)}
+            pb={hp(3)}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             keyExtractor={item => item.id}
