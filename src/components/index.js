@@ -9,6 +9,7 @@ import SwipeList from './swipeList/SwipeList';
 import CouponCard from './coupon/CouponCard';
 import CardCategory from './card/CardCategory';
 import CategoryCard from './card/CategoryCard';
+import CategoryFlatList from './lists/CategoryFlatList';
 
 export {
   AppBar,
@@ -22,4 +23,5 @@ export {
   CardComponent,
   CategoryCard,
   CardCategory,
+  CategoryFlatList,
 };

@@ -1,3 +1,3 @@
-export default CONFIG = {
-  BASEURL: 'http://122.160.76.72:8084/api/v1',
+export default {
+  BASEURL: 'http://4cd2-122-161-48-209.ngrok.io/',
 };

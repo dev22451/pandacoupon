@@ -17,7 +17,7 @@ import Icon from '../../../assets/icons/Icon';
 import I18n from '../../../translations/i18n';
 import {AppBar, NButton} from '../../../components';
 import {fp, hp, wp} from '../../../helpers/respDimension';
-import {updateLogin} from '../../../redux/slices/loginSlice';
+import {login} from '../../../redux/slices/loginSlice';
 import {validateEmail, validatePassword} from '../../../helpers/validation';
 
 const emailIcon = (
@@ -79,15 +79,19 @@ const SignIn = ({navigation}) => {
       : setEmail({email: text, valid: false});
   };
   const handlePassword = text => {
-    validatePassword(text)
-      ? setPassword({password: '', valid: true})
-      : setPassword({password: text, valid: false});
+    // validatePassword(text)
+    //   ?
+    setPassword({password: '', valid: true});
+    // :
+    // setPassword({password: text, valid: false});
   };
 
   const handleSignIn = () => {
-    if (email.email === 'john@gmail.com' && password.password === 'john@123') {
-      dispatch(updateLogin('2'));
-    }
+    const payload = {
+      userEmail: email.email,
+      Password: password.password,
+    };
+    dispatch(login({payload}));
   };
 
   return (

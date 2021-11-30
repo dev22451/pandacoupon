@@ -11,14 +11,14 @@ const DBAppBar = ({
   account,
   title,
   cog,
-  titleColor = 'black',
   loc = false,
+  rewards = false,
   midTitle = false,
   midTitleText = '',
-  rewards = false,
   bgColor = 'white',
-  location = 'Shanghai, China',
+  titleColor = 'black',
   iconColor = theme.black,
+  location = 'Shanghai, China',
   ...props
 }) => {
   const navigation = props.navigation;
@@ -101,7 +101,7 @@ const DBAppBar = ({
         {account ? (
           <IconButton
             icon={accIcon}
-            onPress={() => navigation.navigate('Setting')}
+            onPress={() => navigation.navigate('Account')}
             _pressed={{
               backgroundColor: theme.colors.secondary[200],
             }}

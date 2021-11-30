@@ -1,1 +1,3 @@
-export default API = {};
+export default {
+  userLogin: 'user/login',
+};
