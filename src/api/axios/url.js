@@ -1,3 +1,4 @@
 export default {
-  userLogin: 'user/login',
+  userLogin: '/user/login',
+  userRegister: '/user/registration',
 };
