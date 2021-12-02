@@ -9,13 +9,14 @@ import {
   FormControl,
 } from 'native-base';
 import React, {useState} from 'react';
-import {TouchableOpacity} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 
-import {AppBar} from '../../../components';
+import {AppBar, Loader} from '../../../components';
 import I18n from '../../../translations/i18n';
 import Icon from '../../../assets/icons/Icon';
 import NButton from '../../../components/button/NButton';
 import {wp, hp, fp} from '../../../helpers/respDimension';
+import {register} from '../../../redux/slices/loginSlice';
 import {validateEmail, validatePassword} from '../../../helpers/validation';
 
 const userIcon = (
@@ -68,22 +69,35 @@ const Register = ({navigation}) => {
   const [number, setNumber] = useState({number: ''});
   const [name, setName] = useState('');
 
+  const dispatch = useDispatch();
+  const isLoading = useSelector(state => state.loginSlice.isLoading);
+
   const handleEmail = text => {
     validateEmail(text)
       ? setEmail({email: '', valid: true})
       : setEmail({email: text, valid: false});
   };
   const handlePassword = text => {
-    validatePassword(text)
-      ? setPassword({password: '', valid: true})
-      : setPassword({password: text, valid: false});
+    // validatePassword(text)
+    //   ? setPassword({password: '', valid: true})
+    //   :
+    setPassword({password: text, valid: true});
   };
 
-  const handleSignUp = () => {};
+  const handleSignUp = () => {
+    const payload = {
+      userName: name,
+      PhoneNumber: number.number,
+      userEmail: email.email,
+      Password: password.password,
+    };
+    dispatch(register({payload}, navigation));
+  };
 
   return (
     <>
       <AppBar navigation={navigation} />
+      {isLoading ? <Loader /> : null}
       <VStack paddingX={wp(10)} mt={hp(3)}>
         <Heading fontSize={fp(4)} lineHeight={hp(5)} color="black">
           {I18n.t('Register.title')}
@@ -127,7 +141,7 @@ const Register = ({navigation}) => {
             placeholder="Number"
             InputLeftElement={phoneIcon}
             _focus={{borderColor: 'secondary.500'}}
-            onChangeText={text => setNumber(text)}
+            onChangeText={text => setNumber({number: text})}
           />
           <FormControl
             w={{

@@ -2,11 +2,11 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import {Provider} from 'react-redux';
 import {NativeBaseProvider} from 'native-base';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {SafeAreaView, LogBox, StatusBar, useColorScheme} from 'react-native';
 
 import {store} from './src/redux/store';
 import RootNavigation from './src/routes/routes';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {colorModeManager, config, theme} from './src/themes/theme';
 
 LogBox.ignoreLogs([

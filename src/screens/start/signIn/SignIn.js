@@ -11,11 +11,11 @@ import {
   FormControl,
 } from 'native-base';
 import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import Icon from '../../../assets/icons/Icon';
 import I18n from '../../../translations/i18n';
-import {AppBar, NButton} from '../../../components';
+import {AppBar, NButton, Loader} from '../../../components';
 import {fp, hp, wp} from '../../../helpers/respDimension';
 import {login} from '../../../redux/slices/loginSlice';
 import {validateEmail, validatePassword} from '../../../helpers/validation';
@@ -70,6 +70,7 @@ const SignIn = ({navigation}) => {
   const [password, setPassword] = useState({password: '', valid: ''});
 
   const dispatch = useDispatch();
+  const isLoading = useSelector(state => state.loginSlice.isLoading);
 
   const handleClick = () => setShow(!show);
 
@@ -97,6 +98,7 @@ const SignIn = ({navigation}) => {
   return (
     <>
       <AppBar navigation={navigation} />
+      {isLoading ? <Loader /> : null}
       <VStack paddingX={wp(10)} mt={hp(3)}>
         <VStack>
           <Heading fontSize={fp(4)} lineHeight={hp(5)} color="black">

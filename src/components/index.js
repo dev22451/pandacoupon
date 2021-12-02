@@ -10,8 +10,10 @@ import CouponCard from './coupon/CouponCard';
 import CardCategory from './card/CardCategory';
 import CategoryCard from './card/CategoryCard';
 import CategoryFlatList from './lists/CategoryFlatList';
+import Loader from './loader/Loader';
 
 export {
+  Loader,
   AppBar,
   NButton,
   DBAppBar,

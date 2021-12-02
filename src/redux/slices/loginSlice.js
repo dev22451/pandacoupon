@@ -1,6 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
-
+import {Toast, useToast} from 'native-base';
 import {ApiService} from '../../api';
+import {wp} from '../../helpers/respDimension';
 
 export const loginSlice = createSlice({
   name: 'user',
@@ -34,6 +35,14 @@ export const loginSlice = createSlice({
     resetLogin(state, action) {
       state.userType = action.payload;
     },
+    apiSuccessful(state, action) {
+      state.isLoading = false;
+    },
+    apiFailed(state, action) {
+      state.isLoading = false;
+      state.isError = true;
+      state.errorMessage = action.payload.errorMessage;
+    },
   },
 });
 
@@ -43,6 +52,8 @@ export const {
   loginRequested,
   loginSuccessful,
   loginFailed,
+  apiSuccessful,
+  apiFailed,
 } = loginSlice.actions;
 
 export const login = ({payload}) => {
@@ -53,18 +64,81 @@ export const login = ({payload}) => {
       console.log(res.data.success);
       if (res.data.success) {
         dispatch(updateLogin(true));
+        Toast.show({
+          title: 'Account Registered',
+          placement: 'top',
+          status: 'success',
+          duration: 3000,
+          description: 'Thanks for signing up with us.',
+        });
         dispatch(
           loginSuccessful({
             userData: res.data.data,
             token: res.data.data.token,
           }),
         );
+      } else {
+        Toast.show({
+          title: 'Something went wrong',
+          duration: 3000,
+          placement: 'top',
+          status: 'error',
+        });
       }
     } catch (e) {
       console.log(e.response.data.errors);
       dispatch(
         loginFailed({
           errorMessage: e.response.data.errors || 'something Went wrong',
+        }),
+        Toast.show({
+          title: 'Something went wrong',
+          duration: 3000,
+          placement: 'top',
+          status: 'error',
+          description: e.response.data.errors,
+        }),
+      );
+    }
+  };
+};
+
+export const register = ({payload}, navigation) => {
+  return async (dispatch, getState) => {
+    dispatch(loginRequested());
+    try {
+      const res = await ApiService.register(payload);
+      console.log(res);
+      if (res.data.success) {
+        Toast.show({
+          title: 'Account Registered',
+          placement: 'top',
+          status: 'success',
+          duration: 3000,
+          description: 'Thanks for signing up with us.',
+        });
+        dispatch(apiSuccessful());
+        navigation.navigate('SignIn');
+      } else {
+        Toast.show({
+          title: 'Something went wrong',
+          duration: 3000,
+          placement: 'top',
+          status: 'error',
+        });
+      }
+    } catch (e) {
+      console.log(e.response.data.errors);
+      dispatch(
+        apiFailed({
+          errorMessage: e.response.data.errors || 'something Went wrong',
+        }),
+        Toast.show({
+          title: 'Something went wrong',
+          duration: 3000,
+          placement: 'top',
+          status: 'error',
+          description: e.response.data.errors,
         }),
       );
     }
