@@ -1,0 +1,72 @@
+import { createSlice } from "@reduxjs/toolkit";
+import ApiService from "../../Api/ApiService";
+
+const categoriesSlice = createSlice({
+  name: "categories",
+  initialState: {
+    categoryList: [],
+    isLoading: false,
+    isError: false,
+    errorMessage: "",
+  },
+  reducers: {
+    getCategoryRequested: (state, action) => {
+      state.isLoading = true;
+      state.errorMessage = "";
+      state.isError = false;
+    },
+    getCategorySuccessful: (state, action) => {
+      state.isLoading = false;
+      state.categoryList = action.payload.categoryList;
+    },
+    getCategoryFailed: (state, action) => {
+      state.isLoading = false;
+      state.errorMessage = action.payload.errorMessage;
+      state.isError = true;
+    },
+    resetError: (state, action) => {
+      state.isError = false
+    },
+    resetSlice: (state, action) => {
+      state = {
+        categoryList: [],
+        isLoading: false,
+        isError: false,
+        errorMessage: "",
+      }
+    }
+  },
+});
+
+export const {
+  getCategoryRequested,
+  getCategorySuccessful,
+  getCategoryFailed,
+  resetError,
+  resetSlice
+} = categoriesSlice.actions;
+
+
+export const getCategoryRequest = () => {
+  return async (dispatch, getState) => {
+    dispatch(getCategoryRequested());
+
+    try {
+      const res = await ApiService.getCategory();
+      if (res.data.success) {
+        dispatch(
+          getCategorySuccessful({
+            categoryList: res.data,
+          })
+        );
+      }
+    } catch (e) {
+      dispatch(
+        getCategoryFailed({
+          errorMessage: e?.response?.data?.errors || "Something went wrong",
+        })
+      );
+    }
+  };
+};
+export default categoriesSlice.reducer;
