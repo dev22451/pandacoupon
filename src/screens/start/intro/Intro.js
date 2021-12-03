@@ -32,7 +32,7 @@ const Intro = ({navigation}) => {
           onPress={() => navigation.navigate('Register')}
         />
       </VStack>
-      <Text color="gray.500" mt={hp(3)} textAlign="center">
+      <Text color="gray.500" mt={hp(1)} textAlign="center">
         {I18n.t('Intro.footerLine')}{' '}
         <Text color="black" bold>
           {I18n.t('Intro.terms')}

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import ApiService from "../../Api/ApiService";
+import {ApiService} from "../../api";
 
-const categoriesSlice = createSlice({
+const categorySlice = createSlice({
   name: "categories",
   initialState: {
     categoryList: [],
@@ -44,19 +44,20 @@ export const {
   getCategoryFailed,
   resetError,
   resetSlice
-} = categoriesSlice.actions;
-
+} = categorySlice.actions;
+export default categorySlice.reducer;
 
 export const getCategoryRequest = () => {
   return async (dispatch, getState) => {
     dispatch(getCategoryRequested());
-
+    
     try {
       const res = await ApiService.getCategory();
+      console.log(res.data,'asd4as65d4')
       if (res.data.success) {
         dispatch(
           getCategorySuccessful({
-            categoryList: res.data,
+            categoryList: res.data.data.couponData,
           })
         );
       }
@@ -69,4 +70,3 @@ export const getCategoryRequest = () => {
     }
   };
 };
-export default categoriesSlice.reducer;

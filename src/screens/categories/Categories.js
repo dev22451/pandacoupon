@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   VStack,
   Box,
@@ -17,6 +17,8 @@ import Icon from '../../assets/icons/Icon';
 import {wp} from '../../helpers/respDimension';
 import {TouchableOpacity} from 'react-native';
 import {DBAppBar, CategoryFlatList} from '../../components';
+import {useDispatch, useSelector} from 'react-redux';
+import { getCategoryRequest } from '../../redux/slices/categorySlice';
 
 const searchIcon = (
   <Box ml={wp(4)}>
@@ -38,50 +40,21 @@ const backIcon = (
   />
 );
 
-const data = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    fullName: 'Saloon & Spa',
-    iconName: 'spa',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    fullName: 'Food',
-    iconName: 'food',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    fullName: 'Clothing',
-    iconName: 'tshirt-crew',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb29ba',
-    fullName: 'Bars & Pub',
-    iconName: 'glass-wine',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f6a',
-    fullName: 'Hotel',
-    iconName: 'bed',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d7b',
-    fullName: 'Shoes',
-    iconName: 'shoe-formal',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f6c',
-    fullName: 'Gym & Yoga',
-    iconName: 'dumbbell',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d7d',
-    fullName: 'Health',
-    iconName: 'heart-pulse',
-  },
-];
+// const data = [
+//   {
+//     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+//     fullName: 'Saloon & Spa',
+//     iconName: 'spa',
+//   },
+  
+// ];
 
 const Categories = ({navigation}) => {
+  const dispatch = useDispatch();
+  const categoryData = useSelector(state => state.categorySlice.categoryList);
+
+  useEffect(()=>{dispatch(getCategoryRequest())},[])
+
   return (
     <>
       <DBAppBar
@@ -105,7 +78,7 @@ const Categories = ({navigation}) => {
       />
       <ScrollView>
         <FlatList
-          data={data}
+          data={categoryData}
           renderItem={({item}) => <CategoryFlatList item={item} />}
           keyExtractor={item => item.id}
         />
