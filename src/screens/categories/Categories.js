@@ -18,7 +18,7 @@ import {wp} from '../../helpers/respDimension';
 import {TouchableOpacity} from 'react-native';
 import {DBAppBar, CategoryFlatList} from '../../components';
 import {useDispatch, useSelector} from 'react-redux';
-
+import { getCategoryRequest } from '../../redux/slices/categorySlice';
 
 const searchIcon = (
   <Box ml={wp(4)}>
@@ -40,19 +40,23 @@ const backIcon = (
   />
 );
 
-const data = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    fullName: 'Saloon & Spa',
-    iconName: 'spa',
-  },
+// const data = [
+//   {
+//     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+//     fullName: 'Saloon & Spa',
+//     iconName: 'spa',
+//   },
   
-];
+// ];
 
 const Categories = ({navigation}) => {
   const dispatch = useDispatch();
-  const categoryData = useSelector(state => state.categorySlice.categoryList.data.couponData);
+  const categoryData = useSelector(state => state.categorySlice.categoryList);
   
+  console.log(categoryData);
+
+  useEffect(()=>{dispatch(getCategoryRequest())},[])
+
   return (
     <>
       <DBAppBar

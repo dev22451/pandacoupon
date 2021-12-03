@@ -53,11 +53,11 @@ export const getCategoryRequest = () => {
     
     try {
       const res = await ApiService.getCategory();
-      console.log(res)
+      console.log(res.data,'asd4as65d4')
       if (res.data.success) {
         dispatch(
           getCategorySuccessful({
-            categoryList: res.data,
+            categoryList: res.data.data.couponData,
           })
         );
       }
