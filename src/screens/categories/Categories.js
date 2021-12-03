@@ -52,8 +52,6 @@ const backIcon = (
 const Categories = ({navigation}) => {
   const dispatch = useDispatch();
   const categoryData = useSelector(state => state.categorySlice.categoryList);
-  
-  console.log(categoryData);
 
   useEffect(()=>{dispatch(getCategoryRequest())},[])
 
