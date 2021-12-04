@@ -50,14 +50,13 @@ export default categorySlice.reducer;
 export const getCategoryRequest = () => {
   return async (dispatch, getState) => {
     dispatch(getCategoryRequested());
-    
+    const {token} = getState().loginSlice
     try {
       const res = await ApiService.getCategory();
-      console.log(res.data,'asd4as65d4')
       if (res.data.success) {
         dispatch(
           getCategorySuccessful({
-            categoryList: res.data.data.couponData,
+            categoryList: res.data.data,
           })
         );
       }

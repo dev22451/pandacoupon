@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import ApiService from "../../Api/ApiService";
+import {ApiService} from "../../api";
 
 const couponSlice = createSlice({
   name: "coupon",
@@ -10,7 +10,7 @@ const couponSlice = createSlice({
     errorMessage: "",
   },
   reducers: {
-    getCategoryRequested: (state, action) => {
+    getCouponRequested: (state, action) => {
       state.isLoading = true;
       state.errorMessage = "";
       state.isError = false;
@@ -47,16 +47,17 @@ export const {
 } = couponSlice.actions;
 
 
-export const getCategoryRequest = () => {
+export const getCoupon = () => {
   return async (dispatch, getState) => {
-    dispatch(getCategoryRequested());
+    dispatch(getCouponRequested());
 
     try {
       const res = await ApiService.getCoupon();
+      console.log(res.data,'ywywywy')
       if (res.data.success) {
         dispatch(
           getCouponSuccessful({
-            couponList: res.data,
+            couponList: res.data.data,
           })
         );
       }
