@@ -3,11 +3,12 @@ import {Toast, useToast} from 'native-base';
 import {ApiService} from '../../api';
 import {getCategoryRequest} from './categorySlice';
 import {getCoupon} from './couponSlice';
+import { storeData, getData } from '../../helpers/localStorgae';
 
 export const loginSlice = createSlice({
   name: 'user',
   initialState: {
-    userType: false,
+    isLoggedIn: false,
     userData: [],
     token: '',
     isLoading: false,
@@ -24,6 +25,7 @@ export const loginSlice = createSlice({
       state.isLoading = false;
       state.token = action.payload.token;
       state.userData = action.payload.userData;
+      state.isLoggedIn = true;
     },
     loginFailed(state, action) {
       state.isLoading = false;
@@ -31,18 +33,15 @@ export const loginSlice = createSlice({
       state.errorMessage = action.payload.errorMessage;
     },
     updateLogin(state, action) {
-      state.userType = action.payload;
+      state.isLoggedIn = action.payload;
     },
     resetLogin(state, action) {
-      state.userType = action.payload;
+      state.isLoggedIn = action.payload;
     },
-    apiSuccessful(state, action) {
-      state.isLoading = false;
-    },
-    apiFailed(state, action) {
-      state.isLoading = false;
-      state.isError = true;
-      state.errorMessage = action.payload.errorMessage;
+    restoreUser: (state,action) => {
+      state.token = action.payload.token;
+      state.userData = action.payload.userData;
+      state.isLoggedIn = true;
     },
   },
 });
@@ -53,8 +52,8 @@ export const {
   loginRequested,
   loginSuccessful,
   loginFailed,
-  apiSuccessful,
-  apiFailed,
+  restoreUser
+  
 } = loginSlice.actions;
 
 export const login = ({payload}) => {
@@ -62,9 +61,7 @@ export const login = ({payload}) => {
     dispatch(loginRequested());
     try {
       const res = await ApiService.login(payload);
-      console.log(res.data.success);
       if (res.data.success) {
-        dispatch(updateLogin(true));
         Toast.show({
           title: 'Login Success',
           placement: 'top',
@@ -72,6 +69,10 @@ export const login = ({payload}) => {
           duration: 3000,
           description: '',
         });
+        await storeData(
+          'userData',
+          res.data.data
+        );
         dispatch(
           loginSuccessful({
             userData: res.data.data,
@@ -89,7 +90,6 @@ export const login = ({payload}) => {
         });
       }
     } catch (e) {
-      console.log(e.response.data.errors);
       dispatch(
         loginFailed({
           errorMessage: e.response.data.errors || 'something Went wrong',
