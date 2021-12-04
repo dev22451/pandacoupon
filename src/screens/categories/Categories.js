@@ -19,6 +19,7 @@ import {TouchableOpacity} from 'react-native';
 import {DBAppBar, CategoryFlatList} from '../../components';
 import {useDispatch, useSelector} from 'react-redux';
 import { getCategoryRequest } from '../../redux/slices/categorySlice';
+//import {Loader} from '../../../components';
 
 const searchIcon = (
   <Box ml={wp(4)}>
