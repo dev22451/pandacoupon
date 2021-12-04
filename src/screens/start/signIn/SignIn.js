@@ -9,10 +9,10 @@ import {
   Link,
   Pressable,
   FormControl,
+  ScrollView,
 } from 'native-base';
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-
 import Icon from '../../../assets/icons/Icon';
 import I18n from '../../../translations/i18n';
 import {AppBar, NButton, Loader} from '../../../components';
@@ -99,7 +99,8 @@ const SignIn = ({navigation}) => {
     <>
       <AppBar navigation={navigation} />
       {isLoading ? <Loader /> : null}
-      <VStack paddingX={wp(10)} mt={hp(3)}>
+      <ScrollView>
+      <VStack  paddingX={wp(10)} mt={hp(3)}>
         <VStack>
           <Heading fontSize={fp(4)} lineHeight={hp(5)} color="black">
             {I18n.t('SignIn.title')}{' '}
@@ -168,11 +169,12 @@ const SignIn = ({navigation}) => {
         <VStack>
           <NButton
             title={I18n.t('SignIn.login')}
-            mt={hp(5)}
+            mt={hp(10)}
             onPress={handleSignIn}
           />
         </VStack>
       </VStack>
+    </ScrollView>
     </>
   );
 };

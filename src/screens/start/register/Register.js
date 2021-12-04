@@ -7,6 +7,7 @@ import {
   theme,
   Box,
   FormControl,
+  ScrollView,
 } from 'native-base';
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -98,8 +99,13 @@ const Register = ({navigation}) => {
     <>
       <AppBar navigation={navigation} />
       {isLoading ? <Loader /> : null}
+      <ScrollView>
       <VStack paddingX={wp(10)} mt={hp(3)}>
-        <Heading fontSize={fp(4)} lineHeight={hp(5)} color="black">
+        <Heading 
+         fontSize={fp(4)}
+         lineHeight={hp(5)}
+         color="black"
+         pb={hp(1)}>
           {I18n.t('Register.title')}
         </Heading>
         <Text color="gray.500" mt={hp(2)}>
@@ -117,7 +123,7 @@ const Register = ({navigation}) => {
             w={{
               base: '100%',
               md: '25%',
-            }}
+            }} 
             _focus={{borderColor: 'secondary.500'}}
             InputLeftElement={userIcon}
             placeholder="Name"
@@ -160,7 +166,8 @@ const Register = ({navigation}) => {
             </FormControl.ErrorMessage>
           </FormControl>
         </Stack>
-        <Text color="gray.500" mt={hp(5)}>
+        <Text bold color="gray.500" mt={hp(5)}>
+          
           {I18n.t('Register.accountCheck')}{' '}
         </Text>
         <Text
@@ -171,10 +178,10 @@ const Register = ({navigation}) => {
         </Text>
         <NButton
           title={I18n.t('Register.signUp')}
-          mt={hp(5)}
+          mt={hp(3)}
           onPress={handleSignUp}
         />
-        <Text color="gray.500" mt={hp(10)} textAlign="center">
+        <Text color="gray.500" mt={hp(5)} textAlign="center">
           {I18n.t('Intro.footerLine')}{' '}
           <Text color="black" bold>
             {I18n.t('Intro.terms')}
@@ -185,6 +192,7 @@ const Register = ({navigation}) => {
           </Text>
         </Text>
       </VStack>
+      </ScrollView>
     </>
   );
 };

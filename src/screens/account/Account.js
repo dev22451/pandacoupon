@@ -10,6 +10,7 @@ import {
   Avatar,
   FlatList,
   IconButton,
+  ScrollView,
 } from 'native-base';
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
@@ -26,7 +27,6 @@ const backIcon = (
     color={theme.colors.gray[400]}
   />
 );
-
 const accountIcon = (
   <Icon
     type="MaterialCommunityIcons"
@@ -61,6 +61,7 @@ const data = [
     fullName: 'Profile Information',
     iconName: 'account',
   },
+  
 ];
 
 const data1 = [
@@ -84,6 +85,7 @@ const data1 = [
     fullName: 'Settings',
     iconName: 'cog',
   },
+  
 ];
 
 const Account = ({navigation}) => {
@@ -214,7 +216,7 @@ const Account = ({navigation}) => {
             </VStack>
           </TouchableOpacity>
         </Box>
-        <Box
+        <VStack 
           mt={hp(3)}
           rounded="xl"
           width={wp(90)}
@@ -264,6 +266,7 @@ const Account = ({navigation}) => {
                         />
                       }
                     />
+                    
                     <VStack>
                       <Text
                         _dark={{
@@ -290,7 +293,7 @@ const Account = ({navigation}) => {
             )}
             keyExtractor={item => item.id}
           />
-        </Box>
+        </VStack>
         <Box
           mt={hp(3)}
           rounded="xl"
