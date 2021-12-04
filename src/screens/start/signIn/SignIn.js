@@ -9,6 +9,7 @@ import {
   Link,
   Pressable,
   FormControl,
+  ScrollView,
 } from 'native-base';
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -99,6 +100,7 @@ const SignIn = ({navigation}) => {
     <>
       <AppBar navigation={navigation} />
       {isLoading ? <Loader /> : null}
+      <ScrollView>
       <VStack paddingX={wp(10)} mt={hp(3)}>
         <VStack>
           <Heading fontSize={fp(4)} lineHeight={hp(5)} color="black">
@@ -123,6 +125,8 @@ const SignIn = ({navigation}) => {
                 placeholder="Email"
                 value={email.email}
                 onChangeText={text => handleEmail(text)}
+                //value={email.email}
+                //fontSize={fp(2)}
               />
               <FormControl.ErrorMessage>Invalid Mail</FormControl.ErrorMessage>
             </FormControl>
@@ -175,6 +179,7 @@ const SignIn = ({navigation}) => {
           />
         </VStack>
       </VStack>
+      </ScrollView>
     </>
   );
 };

@@ -7,6 +7,7 @@ import {
   theme,
   Box,
   FormControl,
+  ScrollView,
 } from 'native-base';
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -98,7 +99,8 @@ const Register = ({navigation}) => {
     <>
       <AppBar navigation={navigation} />
       {isLoading ? <Loader /> : null}
-      <VStack paddingX={wp(10)} mt={hp(3)}>
+      <ScrollView>
+      <VStack paddingX={wp(10)} my={hp(3)} >
         <Heading fontSize={fp(4)} lineHeight={hp(5)} color="black">
           {I18n.t('Register.title')}
         </Heading>
@@ -171,10 +173,10 @@ const Register = ({navigation}) => {
         </Text>
         <NButton
           title={I18n.t('Register.signUp')}
-          mt={hp(5)}
+          mt={hp(4)}
           onPress={handleSignUp}
         />
-        <Text color="gray.500" mt={hp(10)} textAlign="center">
+        <Text color="gray.500" mt={hp(5)} textAlign="center">
           {I18n.t('Intro.footerLine')}{' '}
           <Text color="black" bold>
             {I18n.t('Intro.terms')}
@@ -185,6 +187,7 @@ const Register = ({navigation}) => {
           </Text>
         </Text>
       </VStack>
+      </ScrollView>
     </>
   );
 };
