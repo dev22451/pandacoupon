@@ -3,7 +3,7 @@ import {Toast, useToast} from 'native-base';
 import {ApiService} from '../../api';
 import {getCategoryRequest} from './categorySlice';
 import {getCoupon} from './couponSlice';
-import { storeData, getData } from '../../helpers/localStorgae';
+import { storeData } from '../../helpers/localStorgae';
 
 export const loginSlice = createSlice({
   name: 'user',

@@ -10,6 +10,8 @@ import StarterStack from './stack/StarterStack';
 import {hasLocationPermission} from '../helpers/locRequest';
 import { getData } from '../helpers/localStorgae';
 import { restoreUser } from '../redux/slices/loginSlice'
+import {getCategoryRequest} from '../redux/slices/categorySlice';
+import {getCoupon} from '../redux/slices/couponSlice';
 
 Geocoder.init('AIzaSyAB720ENkbeEfGrROeMMCxNvEUFqeeuxJw');
 
@@ -24,7 +26,9 @@ const RootNavigation = () => {
       dispatch(restoreUser({
         token:userData.accessToken,
         userData
-      }))
+      }));
+      dispatch(getCategoryRequest());
+      dispatch(getCoupon());
     }
   }
 

@@ -6,7 +6,6 @@ import {mcDonald} from '../../assets/images';
 import {hp, wp} from '../../helpers/respDimension';
 
 function CardFlatList({item}) {
-  console.log({item})
   return (
     <TouchableOpacity onPress={() => null} key={item.id} activeOpacity={0.8}>
       <Box
