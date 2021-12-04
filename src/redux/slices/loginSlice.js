@@ -7,7 +7,7 @@ import {getCoupon} from './couponSlice';
 export const loginSlice = createSlice({
   name: 'user',
   initialState: {
-    userType: false,
+    userType: true,
     userData: [],
     token: '',
     isLoading: false,
