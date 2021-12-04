@@ -103,7 +103,7 @@ const DashBoard = ({navigation}) => {
         <FlatList
           pl={wp(4)}
           top={hp(18)}
-          data={[1, 2, 3]}
+          data={couponList}
           horizontal={true}
           position="absolute"
           keyExtractor={item => item.id}

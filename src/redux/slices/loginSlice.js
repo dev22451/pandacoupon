@@ -76,7 +76,7 @@ export const login = ({payload}) => {
         dispatch(
           loginSuccessful({
             userData: res.data.data,
-            token: res.data.data.token,
+            token: res.data.data.accessToken,
           }),
         );
         dispatch(getCategoryRequest());
