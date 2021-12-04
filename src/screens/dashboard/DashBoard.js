@@ -10,12 +10,13 @@ import {
 } from 'native-base';
 import React from 'react';
 import {StatusBar, TouchableOpacity} from 'react-native';
-
+import { useSelector, useDispatch } from 'react-redux';
 import I18n from '../../translations/i18n';
 import Icon from '../../assets/icons/Icon';
 import {fp, hp, wp} from '../../helpers/respDimension';
 import CardFlatList from '../../components/card/CardFlatList';
 import {CardComponent, CategoryCard, DBAppBar} from '../../components';
+
 
 const searchIcon = (
   <Box ml={wp(4)}>
@@ -45,49 +46,9 @@ const rightArrowIcon1 = (
 );
 
 const DashBoard = ({navigation}) => {
-  const data = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      fullName: 'Saloon & Spa',
-      iconName: 'spa',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      fullName: 'Food',
-      iconName: 'food',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      fullName: 'Clothing',
-      iconName: 'tshirt-crew',
-    },
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb29ba',
-      fullName: 'Bars & Pub',
-      iconName: 'glass-wine',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f6a',
-      fullName: 'Hotel',
-      iconName: 'bed',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d7b',
-      fullName: 'Shoes',
-      iconName: 'shoe-formal',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f6c',
-      fullName: 'Gym & Yoga',
-      iconName: 'dumbbell',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d7d',
-      fullName: 'Health',
-      iconName: 'heart-pulse',
-    },
-  ];
-
+  const { categoryList } = useSelector(state => state.categorySlice);
+  const { couponList } = useSelector(state => state.couponSlice);
+  
   const renderBanner = ({item}) => <CardFlatList item={item} />;
   const renderCategory = ({item}) => <CategoryCard item={item} />;
   const renderCouponCard = ({item}) => <CardComponent item={item} />;
@@ -170,8 +131,8 @@ const DashBoard = ({navigation}) => {
           <FlatList
             pl={wp(2)}
             pr={wp(2)}
-            data={data}
-            maxHeight={hp(12)}
+            data={categoryList}
+            extraData={categoryList}
             horizontal={true}
             keyExtractor={item => item.id}
             showsHorizontalScrollIndicator={false}

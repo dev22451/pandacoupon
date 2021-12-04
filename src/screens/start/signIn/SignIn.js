@@ -67,7 +67,7 @@ const eyeSlashIcon = (
 
 const SignIn = ({navigation}) => {
   const [show, setShow] = useState(false);
-  const [email, setEmail] = useState({email: '', valid: ''});
+  const [email, setEmail] = useState({email: 'rojiN@gmail.com', valid: ''});
   const [password, setPassword] = useState({password: '', valid: ''});
 
   const dispatch = useDispatch();
@@ -123,6 +123,7 @@ const SignIn = ({navigation}) => {
                 _focus={{borderColor: email.valid ? 'red' : 'secondary.500'}}
                 InputLeftElement={emailIcon}
                 placeholder="Email"
+                value={email.email}
                 onChangeText={text => handleEmail(text)}
                 //value={email.email}
                 //fontSize={fp(2)}
@@ -146,6 +147,7 @@ const SignIn = ({navigation}) => {
                     {show ? eyeIcon : eyeSlashIcon}
                   </Pressable>
                 }
+                value={password.password}
                 onChangeText={text => handlePassword(text)}
               />
               <FormControl.ErrorMessage>
