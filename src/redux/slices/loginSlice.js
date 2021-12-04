@@ -1,7 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {Toast, useToast} from 'native-base';
 import {ApiService} from '../../api';
-import {wp} from '../../helpers/respDimension';
+import {getCategoryRequest} from './categorySlice';
+import {getCoupon} from './couponSlice';
 
 export const loginSlice = createSlice({
   name: 'user',
@@ -65,11 +66,11 @@ export const login = ({payload}) => {
       if (res.data.success) {
         dispatch(updateLogin(true));
         Toast.show({
-          title: 'Account Registered',
+          title: 'Login Success',
           placement: 'top',
           status: 'success',
           duration: 3000,
-          description: 'Thanks for signing up with us.',
+          description: '',
         });
         dispatch(
           loginSuccessful({
@@ -77,6 +78,8 @@ export const login = ({payload}) => {
             token: res.data.data.token,
           }),
         );
+        dispatch(getCategoryRequest());
+        dispatch(getCoupon());
       } else {
         Toast.show({
           title: 'Something went wrong',
