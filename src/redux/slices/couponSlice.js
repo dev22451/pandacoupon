@@ -50,10 +50,10 @@ export const {
 export const getCoupon = () => {
   return async (dispatch, getState) => {
     dispatch(getCouponRequested());
-
+    const {token} = getState().loginSlice;
     try {
-      const res = await ApiService.getCoupon();
-      console.log(res.data,'ywywywy')
+      const res = await ApiService.getCoupon(token);
+      
       if (res.data.success) {
         dispatch(
           getCouponSuccessful({

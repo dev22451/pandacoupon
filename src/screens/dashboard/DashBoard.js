@@ -103,7 +103,7 @@ const DashBoard = ({navigation}) => {
         <FlatList
           pl={wp(4)}
           top={hp(18)}
-          data={[1, 2, 3]}
+          data={[1,2,3]}
           horizontal={true}
           position="absolute"
           keyExtractor={item => item.id}
@@ -158,7 +158,7 @@ const DashBoard = ({navigation}) => {
         </HStack>
         <FlatList
           mx={wp(5)}
-          data={[1, 2, 3, 4, 5, 6, 7]}
+          data={couponList}
           keyExtractor={item => item.id}
           renderItem={renderCouponCard}
         />

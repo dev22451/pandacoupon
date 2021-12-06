@@ -1,7 +1,7 @@
 import axios from 'axios';
 import CONFIG from './config';
 
-export default function fireAjax({method, URL, data, header}) {
+export default function fireAjax({method, URL, data, header,token}) {
   URL = CONFIG.BASEURL + URL;
   if (method === 'POST') {
     let headers = {
@@ -10,6 +10,12 @@ export default function fireAjax({method, URL, data, header}) {
         'Content-Type': 'application/json',
       },
     };
+    if(token){
+      headers = {headers:{
+        ...headers.headers,
+        Authorization:`bearer ${token}`
+      }}
+    }
     if (header) {
       headers = header;
     }
@@ -28,6 +34,12 @@ export default function fireAjax({method, URL, data, header}) {
         'Content-Type': 'application/json',
       },
     };
+    if(token){
+      headers = {headers:{
+        ...headers.headers,
+        Authorization:`bearer ${token}`
+      }}
+    }
     if (header) {
       headers = header;
     }
@@ -46,6 +58,12 @@ export default function fireAjax({method, URL, data, header}) {
         'Content-Type': 'application/json',
       },
     };
+    if(token){
+      headers = {headers:{
+        ...headers.headers,
+        Authorization:`bearer ${token}`
+      }}
+    }
     if (header) {
       headers = header;
     }

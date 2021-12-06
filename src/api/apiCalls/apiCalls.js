@@ -16,23 +16,25 @@ export const ApiService = {
       data: payload,
     });
   },
-  getCategory: async () => {
+  getCategory: async (token) => {
     return fireAjax({
       method: 'GET',
       URL: `${ApiUrl.getCategory}`,
-      // data: payload,
+      token
     });
   },
-  getCoupon: async () => {
+  getCoupon: async (token) => {
     return fireAjax({
       method: 'GET',
       URL: `${ApiUrl.getCoupon}`,
+      token
     });
   },
-  getUser: async payload => {
+  getUser: async token => {
     return fireAjax({
       method: 'GET',
       URL: `${ApiUrl.getUser}`,
+      token
     });
   },
 };

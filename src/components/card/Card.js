@@ -15,6 +15,7 @@ import {TouchableOpacity} from 'react-native';
 import Icon from '../../assets/icons/Icon';
 import {fp, hp, wp} from '../../helpers/respDimension';
 import {mcDonald, SvgExample} from '../../assets/images';
+import moment from 'moment';
 
 const rightArrowIcon = (
   <Icon
@@ -42,6 +43,21 @@ const giftIcon = (
 );
 
 function CardComponent({item}) {
+  console.log({item})
+  const {
+    brandLocation,
+    brandName,
+    brandPhone,
+    brandWebsite,
+    brandcouponDescription,
+    couponCategoryImageId,
+    couponCode,
+    couponDescription,
+    couponTitle,
+    expiryDate,
+    noOfUser = 0,
+    _id
+  } = item;
   return (
     <TouchableOpacity activeOpacity={0.9} key={item.id} onPress={() => null}>
       <Box
@@ -62,10 +78,10 @@ function CardComponent({item}) {
             </Box>
             <VStack>
               <Text fontSize={fp(1.8)} bold fontWeight="500">
-                Cafe Coffee Day
+              {brandName}
               </Text>
               <Text fontSize={fp(1.6)} color="warmGray.500" fontWeight="500">
-                Speciality Coffee Shop
+                {brandcouponDescription}
               </Text>
             </VStack>
           </HStack>
@@ -95,10 +111,10 @@ function CardComponent({item}) {
         </Box>
         <Stack p="4" space={3}>
           <Heading size="md" ml="-1" fontWeight="semibold">
-            50% off first purchase
+            {couponTitle}
           </Heading>
           <Text fontWeight="400" color="warmGray.600">
-            Buy any coffee for the first time and receive flat 50% discount.
+            {couponDescription}
           </Text>
         </Stack>
         <HStack mx={wp(5)} mb={wp(4)} justifyContent="space-around">
@@ -109,7 +125,7 @@ function CardComponent({item}) {
                 Expires
               </Text>
               <Text fontSize="xs" fontWeight="600" color="black">
-                21 Feb 2022
+               {moment(expiryDate).format('DD MMM YYYY')}
               </Text>
             </VStack>
           </HStack>
@@ -120,7 +136,7 @@ function CardComponent({item}) {
                 Used
               </Text>
               <Text fontSize="xs" fontWeight="600" color="black">
-                62 times (103 remainings)
+                {/*62 times (103 remainings)*/}{noOfUser}
               </Text>
             </VStack>
           </HStack>
