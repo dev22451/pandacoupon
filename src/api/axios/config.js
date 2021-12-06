@@ -1,3 +1,3 @@
 export default {
-  BASEURL: 'https://3536-122-161-49-91.ngrok.io/',
+  BASEURL: 'https://c247-223-177-186-50.ngrok.io/',
 };
