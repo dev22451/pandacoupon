@@ -102,6 +102,7 @@ const DashBoard = ({navigation}) => {
         </VStack>
         <FlatList
           pl={wp(4)}
+          py={hp(2)}
           top={hp(18)}
           data={[1, 2, 3]}
           horizontal={true}
@@ -110,7 +111,7 @@ const DashBoard = ({navigation}) => {
           showsHorizontalScrollIndicator={false}
           renderItem={renderBanner}
         />
-        <VStack my={hp(1)}>
+        <VStack my={hp(2)}>
           <HStack
             mx={wp(5)}
             mt={hp(3)}

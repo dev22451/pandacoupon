@@ -15,15 +15,16 @@ function CardFlatList({item}) {
         key={item.id}
         overflow="hidden"
         width="80"
+        height='40'
         shadow={1}
         _light={{backgroundColor: 'gray.50'}}
         _dark={{backgroundColor: 'gray.700'}}>
         <Box>
           <AspectRatio ratio={16 / 9}>
             <Image
-              width="80"
+              width="100%"
               alt="image"
-              height={hp(22)}
+              height="90%"
               source={mcDonald}
               borderRadius="lg"
               resizeMode="stretch"
