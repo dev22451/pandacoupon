@@ -37,4 +37,12 @@ export const ApiService = {
       token
     });
   },
+  redeemCoupon: async (payload,token) => {
+    return fireAjax({
+      method: 'POST',
+      URL: `${ApiUrl.redeem}`,
+      data: payload,
+      token
+    });
+  },
 };

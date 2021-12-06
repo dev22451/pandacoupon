@@ -4,4 +4,5 @@ export default {
   getCategory: 'category-data',
   getCoupon: 'coupon-data',
   getUser: 'user-data',
+  redeem: 'redeem'
 };

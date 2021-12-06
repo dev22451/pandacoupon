@@ -42,7 +42,7 @@ const giftIcon = (
   />
 );
 
-function CardComponent({item}) {
+function CardComponent({item, navigateToDetail}) {
   console.log({item})
   const {
     brandLocation,
@@ -56,10 +56,11 @@ function CardComponent({item}) {
     couponTitle,
     expiryDate,
     noOfUser = 0,
-    _id
+    _id:id
   } = item;
+  const handleItemPressed = () => navigateToDetail(id)
   return (
-    <TouchableOpacity activeOpacity={0.9} key={item.id} onPress={() => null}>
+    <TouchableOpacity activeOpacity={0.9} key={item.id} onPress={handleItemPressed}>
       <Box
         mb={wp(4)}
         rounded="lg"

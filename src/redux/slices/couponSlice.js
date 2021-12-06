@@ -8,6 +8,7 @@ const couponSlice = createSlice({
     isLoading: false,
     isError: false,
     errorMessage: "",
+    isRedeem:false
   },
   reducers: {
     getCouponRequested: (state, action) => {
@@ -21,6 +22,19 @@ const couponSlice = createSlice({
     },
     getCouponFailed: (state, action) => {
       state.isLoading = false;
+      state.errorMessage = action.payload.errorMessage;
+      state.isError = true;
+    },
+    redeemCouponRequested: (state, action) => {
+      state.isRedeem = true;
+      state.errorMessage = "";
+      state.isError = false;
+    },
+    redeemCouponSuccessful: (state, action) => {
+      state.isRedeem = false;
+    },
+    redeemCouponFailed: (state, action) => {
+      state.isRedeem = false;
       state.errorMessage = action.payload.errorMessage;
       state.isError = true;
     },
@@ -43,9 +57,13 @@ export const {
   getCouponSuccessful,
   getCouponFailed,
   resetError,
-  resetSlice
+  resetSlice,
+  redeemCouponRequested,
+  redeemCouponSuccessful,
+  redeemCouponFailed
 } = couponSlice.actions;
 
+export default couponSlice.reducer;
 
 export const getCoupon = () => {
   return async (dispatch, getState) => {
@@ -70,4 +88,25 @@ export const getCoupon = () => {
     }
   };
 };
-export default couponSlice.reducer;
+
+export const redeemCoupon = (_id) => {
+  return async (dispatch, getState) => {
+    dispatch(redeemCouponRequested());
+    const {token} = getState().loginSlice;
+    try {
+      const res = await ApiService.redeemCoupon(_id,token);
+      console.log(res)
+      if (res.data.success) {
+        dispatch(
+          redeemCouponSuccessful()
+        );
+      }
+    } catch (e) {
+      dispatch(
+        redeemCouponFailed({
+          errorMessage: e?.response?.data?.errors || "Something went wrong",
+        })
+      );
+    }
+  };
+};

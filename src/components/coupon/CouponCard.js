@@ -11,7 +11,7 @@ import {
   View,
   Center,
 } from 'native-base';
-
+import moment from 'moment';
 import NButton from '../button/NButton';
 import Icon from '../../assets/icons/Icon';
 import {SvgExample} from '../../assets/images';
@@ -79,7 +79,23 @@ const giftIcon = (
   />
 );
 
-const CouponCard = ({navigation}) => {
+const CouponCard = ({navigation, couponData, handleRedeem}) => {
+  console.log({couponData})
+  const {
+    brandLocation,
+    brandName,
+    brandPhone,
+    brandWebsite,
+    brandcouponDescription,
+    couponCategoryImageId,
+    couponCode,
+    couponDescription,
+    couponTitle,
+    expiryDate,
+    noOfUser = 0,
+    _id:id
+  } = couponData;
+  const handlePressRedeem = () => handleRedeem(id)
   return (
     <>
       <Stack>
@@ -100,10 +116,10 @@ const CouponCard = ({navigation}) => {
               </Box>
               <VStack>
                 <Text fontSize={fp(1.8)} bold fontWeight="500">
-                  Cafe Coffee Day
+                {brandName}
                 </Text>
                 <Text fontSize={fp(1.6)} color="warmGray.500" fontWeight="500">
-                  Speciality Coffee Shop
+                {brandcouponDescription}
                 </Text>
               </VStack>
             </HStack>
@@ -121,10 +137,10 @@ const CouponCard = ({navigation}) => {
           </HStack>
           <VStack my={wp(5)} px={wp(5)}>
             <Text fontSize={fp(3)} fontWeight="500">
-              50% off first purchase
+              {couponTitle}
             </Text>
             <Text fontSize={fp(1.6)} color="warmGray.500" fontWeight="500">
-              Buy any coffee for the first time and recieve flat 50% discount.
+              {couponDescription}
             </Text>
           </VStack>
           <VStack mb={wp(5)} px={wp(5)}>
@@ -134,7 +150,7 @@ const CouponCard = ({navigation}) => {
               </Text>
               <Spacer />
               <Text fontSize={fp(2)} fontWeight="500">
-                Juffair Manama
+                {brandLocation}
               </Text>
               <Box
                 ml={wp(2)}
@@ -153,7 +169,7 @@ const CouponCard = ({navigation}) => {
               </Text>
               <Spacer />
               <Text fontSize={fp(2)} fontWeight="500">
-                +973-893482
+                {brandPhone}
               </Text>
               <Box
                 ml={wp(2)}
@@ -172,7 +188,7 @@ const CouponCard = ({navigation}) => {
               </Text>
               <Spacer />
               <Text fontSize={fp(2)} fontWeight="500">
-                mcdonalds.com
+                {brandWebsite}
               </Text>
               <Box
                 ml={wp(2)}
@@ -231,7 +247,7 @@ const CouponCard = ({navigation}) => {
                     fontSize={fp(2)}
                     color="secondary.500"
                     fontWeight="light">
-                    code : 0958658678056
+                    code : {couponCode}
                   </Text>
                 </Stack>
               </Center>
@@ -243,7 +259,7 @@ const CouponCard = ({navigation}) => {
                       Expires
                     </Text>
                     <Text fontSize="xs" fontWeight="600" color="black">
-                      21 Feb 2022
+                    {moment(expiryDate).format('DD MMM YYYY')}
                     </Text>
                   </VStack>
                 </HStack>
@@ -254,7 +270,7 @@ const CouponCard = ({navigation}) => {
                       Used
                     </Text>
                     <Text fontSize="xs" fontWeight="600" color="black">
-                      62 times (103 remainings)
+                      {/*62 times (103 remainings)*/}{noOfUser}
                     </Text>
                   </VStack>
                 </HStack>
@@ -265,6 +281,7 @@ const CouponCard = ({navigation}) => {
                   height={hp(6)}
                   width={wp(50)}
                   my={wp(5)}
+                  onPress={handlePressRedeem}
                 />
               </VStack>
             </VStack>

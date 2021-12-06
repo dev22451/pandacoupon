@@ -49,10 +49,12 @@ const rightArrowIcon1 = (
 const DashBoard = ({navigation}) => {
   const { categoryList } = useSelector(state => state.categorySlice);
   const { couponList } = useSelector(state => state.couponSlice);
+
+  const navigateToDetail = (id) => navigation.navigate('couponDetail',{id})
   
   const renderBanner = ({item}) => <CardFlatList item={item} />;
   const renderCategory = ({item}) => <CategoryCard item={item} />;
-  const renderCouponCard = ({item}) => <CardComponent item={item} />;
+  const renderCouponCard = ({item}) => <CardComponent {...{item,navigateToDetail}} />;
   const renderEmpty=()=>( <Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>The list is empty</Text>) 
 
   return (
