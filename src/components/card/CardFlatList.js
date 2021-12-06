@@ -9,7 +9,7 @@ function CardFlatList({item}) {
   return (
     <TouchableOpacity onPress={() => null} key={item.id} activeOpacity={0.8}>
       <Box
-        mr={wp(4)}
+        mx={wp(2)}
         mb={wp(5)}
         rounded="lg"
         key={item.id}

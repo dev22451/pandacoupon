@@ -101,7 +101,7 @@ const DashBoard = ({navigation}) => {
           </Text>
         </VStack>
         <FlatList
-          pl={wp(4)}
+          //pl={wp(4)}
           py={hp(2)}
           top={hp(18)}
           data={[1, 2, 3]}
