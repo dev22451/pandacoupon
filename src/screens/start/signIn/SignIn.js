@@ -67,8 +67,8 @@ const eyeSlashIcon = (
 
 const SignIn = ({navigation}) => {
   const [show, setShow] = useState(false);
-  const [email, setEmail] = useState({email: 'singh@gmail.com', valid: ''});
-  const [password, setPassword] = useState({password: '', valid: ''});
+  const [email, setEmail] = useState({email: 'user@gmail.com', valid: ''});
+  const [password, setPassword] = useState({password: '123456', valid: ''});
 
   const dispatch = useDispatch();
   const isLoading = useSelector(state => state.loginSlice.isLoading);

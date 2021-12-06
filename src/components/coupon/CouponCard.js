@@ -80,7 +80,6 @@ const giftIcon = (
 );
 
 const CouponCard = ({navigation, couponData, handleRedeem}) => {
-  console.log({couponData})
   const {
     brandLocation,
     brandName,
@@ -97,7 +96,7 @@ const CouponCard = ({navigation, couponData, handleRedeem}) => {
   } = couponData;
   const handlePressRedeem = () => handleRedeem(id)
   return (
-    <>
+    
       <Stack>
         <Box
           mb={wp(4)}
@@ -310,7 +309,7 @@ const CouponCard = ({navigation, couponData, handleRedeem}) => {
           </View> */}
         </Box>
       </Stack>
-    </>
+    
   );
 };
 

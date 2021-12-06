@@ -1,31 +1,33 @@
 import React from 'react';
-import {Stack} from 'native-base';
+import {Box} from 'native-base';
 import ReactNativeSwipeableViewStack from 'react-native-swipeable-view-stack';
 import {wp} from '../../helpers/respDimension';
 import { useSelector, useDispatch } from 'react-redux';
 import {CouponCard} from '../../components';
+import {redeemCoupon} from '../../redux/slices/couponSlice'
+import { DBAppBar } from '../../components';
 
 const CouponDetail = (props) => {
     const {route:{params:{id}},navigation} = props;
     const dispatch = useDispatch()
-    console.log(id)
     const { couponList } = useSelector(state => state.couponSlice);
     const couponData = couponList.find((instance)=> instance._id === id);
-    const handleRedeem = (id) => {
-        console.log(id)
+    const handleRedeem = (itemID) => {
+        dispatch(redeemCoupon(itemID))
     } 
     return (
       <>
-        <Stack bg="secondary.500" flex="1" zIndex={-100} justifyContent="center">
-          <ReactNativeSwipeableViewStack
-            onSwipe={swipedIndex => console.log(swipedIndex)}
-            initialSelectedIndex={1}
-            data={[1]}
-            renderItem={() => <CouponCard {...{couponData, handleRedeem}}  />}
-            onItemClicked={element => console.log(element)}
-            stackSpacing={wp(12)}
-          />
-        </Stack>
+       <DBAppBar
+        back
+        title="Coupon Details"
+        iconColor="white"
+        titleColor="white"
+        bgColor="secondary.500"
+        navigation={navigation}
+      />
+      <Box alignItems='center' mt={wp(5)} >
+        <CouponCard {...{couponData, handleRedeem}}  />
+      </Box>
       </>
     );
   };

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {ApiService} from "../../api";
+import {Toast, useToast} from 'native-base';
 
 const couponSlice = createSlice({
   name: "coupon",
@@ -92,16 +93,35 @@ export const getCoupon = () => {
 export const redeemCoupon = (_id) => {
   return async (dispatch, getState) => {
     dispatch(redeemCouponRequested());
-    const {token} = getState().loginSlice;
+    const {token, userData:{email}} = getState().loginSlice;
     try {
-      const res = await ApiService.redeemCoupon(_id,token);
-      console.log(res)
+      const res = await ApiService.redeemCoupon({_id, userEmail:email},token);
       if (res.data.success) {
         dispatch(
           redeemCouponSuccessful()
         );
+        Toast.show({
+          title: 'Redeem Success',
+          placement: 'top',
+          status: 'success',
+          duration: 3000,
+          description: `Coupon is redeem`,
+        });
+      } else {
+        dispatch(
+          redeemCouponFailed({
+            errorMessage: res.data.message || "Something went wrong",
+          })
+        ); 
+        Toast.show({
+          title: res.data.message || "Something went wrong",
+          duration: 3000,
+          placement: 'top',
+          status: 'error',
+        });
       }
     } catch (e) {
+      console.log(e,'owowowowo')
       dispatch(
         redeemCouponFailed({
           errorMessage: e?.response?.data?.errors || "Something went wrong",

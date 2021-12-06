@@ -3,7 +3,7 @@ import {Toast, useToast} from 'native-base';
 import {ApiService} from '../../api';
 import {getCategoryRequest} from './categorySlice';
 import {getCoupon} from './couponSlice';
-import { storeData } from '../../helpers/localStorgae';
+import { storeData, clearAll } from '../../helpers/localStorgae';
 
 export const loginSlice = createSlice({
   name: 'user',
@@ -43,6 +43,11 @@ export const loginSlice = createSlice({
       state.userData = action.payload.userData;
       state.isLoggedIn = true;
     },
+    userLogout: (state,action) => {
+      state.isLoggedIn= false,
+      state.userData= [],
+      state.token= ''
+    },
   },
 });
 
@@ -52,7 +57,8 @@ export const {
   loginRequested,
   loginSuccessful,
   loginFailed,
-  restoreUser
+  restoreUser,
+  userLogout
   
 } = loginSlice.actions;
 
@@ -67,7 +73,7 @@ export const login = ({payload}) => {
           placement: 'top',
           status: 'success',
           duration: 3000,
-          description: '',
+          description: `You have logged in`,
         });
         await storeData(
           'userData',
@@ -111,7 +117,6 @@ export const register = ({payload}, navigation) => {
     dispatch(loginRequested());
     try {
       const res = await ApiService.register(payload);
-      console.log(res);
       if (res.data.success) {
         Toast.show({
           title: 'Account Registered',
@@ -131,7 +136,6 @@ export const register = ({payload}, navigation) => {
         });
       }
     } catch (e) {
-      console.log(e.response.data.errors);
       dispatch(
         apiFailed({
           errorMessage: e.response.data.errors || 'something Went wrong',
@@ -147,5 +151,12 @@ export const register = ({payload}, navigation) => {
     }
   };
 };
+
+export const logOut = () => {
+  return async (dispatch, getState) => {
+    dispatch(userLogout());
+    clearAll()
+  }
+}
 
 export default loginSlice.reducer;
