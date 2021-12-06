@@ -12,7 +12,7 @@ const NButton = ({title, variant, onPress, titleColor = 'white', ...props}) => {
       _text={{fontSize: 'sm'}}
       onPress={onPress}
       borderRadius="full"
-      height={hp(5)}
+      //height={hp(4)}
       {...props}>
       <Text fontSize="md" color={titleColor}>
         {title}

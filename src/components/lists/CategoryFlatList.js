@@ -59,7 +59,7 @@ const CategoryFlatList = props => {
                 color="coolGray.800"
                 fontWeight="medium"
                 fontSize="md">
-                {item.fullName}
+                {item.categoryName}
               </Text>
             </VStack>
             <Spacer />

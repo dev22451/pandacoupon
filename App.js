@@ -23,8 +23,6 @@ const App = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  // console.disableYellowBox = true;
-
   return (
     <NativeBaseProvider
       theme={theme}

@@ -2,11 +2,11 @@ import React from 'react';
 import {Box, Pressable, Text, theme} from 'native-base';
 
 import Icon from '../../assets/icons/Icon';
-import {fp, wp} from '../../helpers/respDimension';
+import {fp, wp, hp} from '../../helpers/respDimension';
 
 const CategoryCard = ({item}) => {
+  const {categoryName: fullName} = item;
   return (
-    <>
       <Pressable
         mt={wp(2)}
         mb={wp(2)}
@@ -16,7 +16,7 @@ const CategoryCard = ({item}) => {
         rounded="lg"
         overflow="hidden"
         width={wp(20)}
-        height={wp(20)}
+        height={hp(12)}
         shadow={1}
         justifyContent="center"
         alignItems="center"
@@ -32,16 +32,15 @@ const CategoryCard = ({item}) => {
           justifyContent="center">
           <Icon
             type="MaterialCommunityIcons"
-            name={item.iconName}
+            name={item.iconName||'spa'}
             size={wp(6)}
             color={theme.colors.secondary[500]}
           />
         </Box>
-        <Text fontSize={fp(1.4)} mt={wp(1)}>
-          {item.fullName}
+        <Text fontSize={wp(3)} mt={wp(1)}>
+          {fullName}
         </Text>
       </Pressable>
-    </>
   );
 };
 
