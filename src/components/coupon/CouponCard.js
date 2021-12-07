@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Text,
@@ -10,6 +10,7 @@ import {
   Spacer,
   View,
   Center,
+  ScrollView,
 } from 'native-base';
 import moment from 'moment';
 import NButton from '../button/NButton';
@@ -94,7 +95,11 @@ const CouponCard = ({navigation, couponData, handleRedeem}) => {
     noOfUser = 0,
     _id:id
   } = couponData;
-  const handlePressRedeem = () => handleRedeem(id)
+  const handlePressRedeem = () => {
+    handleRedeem(id)
+    setShow(true)
+  }
+  const[show,setShow]=useState(false);
   return (
     
       <Stack>
@@ -246,7 +251,7 @@ const CouponCard = ({navigation, couponData, handleRedeem}) => {
                     fontSize={fp(2)}
                     color="secondary.500"
                     fontWeight="light">
-                    code : {couponCode}
+                    code : {(show===false?"*******":couponCode)}
                   </Text>
                 </Stack>
               </Center>

@@ -67,8 +67,8 @@ const eyeSlashIcon = (
 
 const SignIn = ({navigation}) => {
   const [show, setShow] = useState(false);
-  const [email, setEmail] = useState({email: 'user@gmail.com', valid: ''});
-  const [password, setPassword] = useState({password: '123456', valid: ''});
+  const [email, setEmail] = useState({email: '', valid: ''});
+  const [password, setPassword] = useState({password: '', valid: ''});
 
   const dispatch = useDispatch();
   const isLoading = useSelector(state => state.loginSlice.isLoading);
@@ -76,14 +76,15 @@ const SignIn = ({navigation}) => {
   const handleClick = () => setShow(!show);
 
   const handleEmail = text => {
-    validateEmail(text)
-      ? setEmail({email: '', valid: true})
-      : setEmail({email: text, valid: false});
+    // validateEmail(text)
+    //   ? setEmail({email: '', valid: true})
+    //   : setEmail({email: text, valid: false});
+       setEmail({email: text, valid: false});
   };
   const handlePassword = text => {
     // validatePassword(text)
     //   ?
-    setPassword({password: text, valid: true});
+    setPassword({password: text, valid: false});
     // :
     // setPassword({password: text, valid: false});
   };
@@ -125,7 +126,7 @@ const SignIn = ({navigation}) => {
                 placeholder="Email"
                 value={email.email}
                 onChangeText={text => handleEmail(text)}
-                //value={email.email}
+                // value={email.email}
                 //fontSize={fp(2)}
               />
               <FormControl.ErrorMessage>Invalid Mail</FormControl.ErrorMessage>

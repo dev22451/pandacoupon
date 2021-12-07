@@ -27,6 +27,9 @@ export const loginSlice = createSlice({
       state.userData = action.payload.userData;
       state.isLoggedIn = true;
     },
+    apiSuccessful(state,action){
+      state.isLoading = false
+    },
     loginFailed(state, action) {
       state.isLoading = false;
       state.isError = true;
@@ -58,8 +61,8 @@ export const {
   loginSuccessful,
   loginFailed,
   restoreUser,
-  userLogout
-  
+  userLogout,
+  apiSuccessful
 } = loginSlice.actions;
 
 export const login = ({payload}) => {
@@ -67,6 +70,7 @@ export const login = ({payload}) => {
     dispatch(loginRequested());
     try {
       const res = await ApiService.login(payload);
+      console.log(res.data)
       if (res.data.success) {
         Toast.show({
           title: 'Login Success',
@@ -88,24 +92,29 @@ export const login = ({payload}) => {
         dispatch(getCategoryRequest());
         dispatch(getCoupon());
       } else {
+        dispatch(
+          loginFailed({
+            errorMessage: res.data.message || 'something Went wrong',
+          }))
         Toast.show({
-          title: 'Something went wrong',
+          title: res.data.message || 'Something went wrong',
           duration: 3000,
           placement: 'top',
           status: 'error',
         });
       }
     } catch (e) {
+      console.log(e.status,'login ')
       dispatch(
         loginFailed({
-          errorMessage: e.response.data.errors || 'something Went wrong',
+          errorMessage: e?.response?.data?.errors || 'something Went wrong',
         }),
         Toast.show({
           title: 'Something went wrong',
           duration: 3000,
           placement: 'top',
           status: 'error',
-          description: e.response.data.errors,
+          description: e?.response?.data?.errors || 'something Went wrong',
         }),
       );
     }
@@ -117,6 +126,7 @@ export const register = ({payload}, navigation) => {
     dispatch(loginRequested());
     try {
       const res = await ApiService.register(payload);
+      console.log(res,'wiwi')
       if (res.data.success) {
         Toast.show({
           title: 'Account Registered',
@@ -128,6 +138,10 @@ export const register = ({payload}, navigation) => {
         dispatch(apiSuccessful());
         navigation.navigate('SignIn');
       } else {
+        dispatch(
+          loginFailed({
+            errorMessage: res.data.message || 'something Went wrong',
+          }))
         Toast.show({
           title: 'Something went wrong',
           duration: 3000,
@@ -136,8 +150,9 @@ export const register = ({payload}, navigation) => {
         });
       }
     } catch (e) {
+      console.log(e)
       dispatch(
-        apiFailed({
+        loginFailed({
           errorMessage: e.response.data.errors || 'something Went wrong',
         }),
         Toast.show({

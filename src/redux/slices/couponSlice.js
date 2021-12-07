@@ -9,7 +9,8 @@ const couponSlice = createSlice({
     isLoading: false,
     isError: false,
     errorMessage: "",
-    isRedeem:false
+    isRedeem:false,
+    isRedeemCoupon:false,
   },
   reducers: {
     getCouponRequested: (state, action) => {
@@ -39,6 +40,20 @@ const couponSlice = createSlice({
       state.errorMessage = action.payload.errorMessage;
       state.isError = true;
     },
+    getCouponRedeemRequested: (state, action) => {
+      state.isRedeemCoupon = true;
+      state.errorMessage = "";
+      state.isError = false;
+    },
+    getCouponRedeemSuccessful: (state, action) => {
+      state.isRedeemCoupon = false;
+      state.couponList = action.payload.couponList;
+    },
+    getCouponredeemFailed: (state, action) => {
+      state.isRedeemCoupon = false;
+      state.errorMessage = action.payload.errorMessage;
+      state.isError = true;
+    },
     resetError: (state, action) => {
       state.isError = false
     },
@@ -61,7 +76,10 @@ export const {
   resetSlice,
   redeemCouponRequested,
   redeemCouponSuccessful,
-  redeemCouponFailed
+  redeemCouponFailed,
+  getCouponRedeemRequested,
+  getCouponRedeemSuccessful,
+  getCouponredeemFailed,
 } = couponSlice.actions;
 
 export default couponSlice.reducer;
@@ -70,8 +88,14 @@ export const getCoupon = () => {
   return async (dispatch, getState) => {
     dispatch(getCouponRequested());
     const {token} = getState().loginSlice;
+    const {location}=getState().locationSlice
+    //console.log(location.coords);
     try {
-      const res = await ApiService.getCoupon(token);
+      const payload ={
+        token,
+        additionalUrl:`?uLat=${location?.coords?.latitude}&uLon=${location?.coords?.longitude}`}
+      const res = await ApiService.getCoupon(payload);
+      console.log(res);
       
       if (res.data.success) {
         dispatch(
@@ -83,6 +107,30 @@ export const getCoupon = () => {
     } catch (e) {
       dispatch(
         getCouponFailed({
+          errorMessage: e?.response?.data?.errors || "Something went wrong",
+        })
+      );
+    }
+  };
+};
+
+export const getCouponRedeem = (_id) => {
+  return async (dispatch, getState) => {
+    dispatch(getCouponRedeemRequested());
+    const {token, userData:{email}} = getState().loginSlice;
+    token
+    try {
+      const res = await ApiService.getRedeemData({_id, userEmail:email},token);
+      console.log(res,'ghfhgfhfhg');
+      
+      if (res.data.success) {
+        dispatch(
+          getCouponRedeemSuccessful()
+        );
+      }
+    } catch (e) {
+      dispatch(
+        getCouponRedeemFailed({
           errorMessage: e?.response?.data?.errors || "Something went wrong",
         })
       );
@@ -121,7 +169,6 @@ export const redeemCoupon = (_id) => {
         });
       }
     } catch (e) {
-      console.log(e,'owowowowo')
       dispatch(
         redeemCouponFailed({
           errorMessage: e?.response?.data?.errors || "Something went wrong",
