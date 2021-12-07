@@ -124,6 +124,7 @@ const Account = ({navigation}) => {
         alignItems="center"
         py={wp(5)}>
         {/* <TouchableOpacity style={{top: wp(24), left: wp(40)}}>
+
           <Text>{accountIcon}</Text>
         </TouchableOpacity> */}
         <Avatar
