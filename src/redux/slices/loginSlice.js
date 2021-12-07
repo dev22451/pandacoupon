@@ -9,6 +9,7 @@ export const loginSlice = createSlice({
   name: 'user',
   initialState: {
     isLoggedIn: false,
+
     userData: [],
     token: '',
     isLoading: false,
