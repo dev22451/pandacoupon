@@ -30,6 +30,14 @@ export const ApiService = {
       token
     });
   },
+  getCategoryCoupon: async ({token, payload}) => {
+    return fireAjax({
+      method: 'POST',
+      URL: `${ApiUrl.getCategoryCoupon}`,
+      token,
+      data:payload
+    });
+  },
   getUser: async token => {
     return fireAjax({
       method: 'GET',
@@ -49,7 +57,8 @@ export const ApiService = {
     return fireAjax({
       method: 'GET',
       URL: `${ApiUrl.getRedeem}`,
-      token
+      token,
+      data
     });
   },
 };

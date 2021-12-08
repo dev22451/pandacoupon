@@ -11,7 +11,8 @@ const couponSlice = createSlice({
     errorMessage: "",
     isRedeem:false,
     isRedeemCoupon:false,
-    couponItem:{}
+    couponItem:{},
+    couponCategoryList:[]
   },
   reducers: {
     getCouponRequested: (state, action) => {
@@ -65,11 +66,28 @@ const couponSlice = createSlice({
         isError: false,
         errorMessage: "",
       }
-    }
+    },
+    getCategoryCouponRequested: (state, action) => {
+      state.isLoading = true;
+      state.errorMessage = "";
+      state.isError = false;
+    },
+    getCategoryCouponSuccessful: (state, action) => {
+      state.isLoading = false;
+      state.couponCategoryList = action.payload.couponList;
+    },
+    getCategoryCouponFailed: (state, action) => {
+      state.isLoading = false;
+      state.errorMessage = action.payload.errorMessage;
+      state.isError = true;
+    },
   },
 });
 
 export const {
+  getCategoryCouponRequested,
+  getCategoryCouponSuccessful,
+  getCategoryCouponFailed,
   getCouponRequested,
   getCouponSuccessful,
   getCouponFailed,
@@ -115,13 +133,45 @@ export const getCoupon = () => {
   };
 };
 
+export const getCategoryCoupon = (_id) => {
+  return async (dispatch, getState) => {
+    dispatch(getCategoryCouponRequested());
+    const {token} = getState().loginSlice;
+    const {location} = getState().locationSlice;
+    console.log(token,location.latitude,'locaion'); 
+    try {
+      const payload ={
+        token,
+        payload:{
+          categoryID:_id
+        }
+      }
+      const res = await ApiService.getCategoryCoupon(payload);
+      
+      if (res.data.success) {
+        dispatch(
+          getCategoryCouponSuccessful({
+            couponList: res.data.data.coupons,
+          })
+        );
+      }
+    } catch (e) {
+      dispatch(
+        getCategoryCouponFailed({
+          errorMessage: e?.response?.data?.errors || "Something went wrong",
+        })
+      );
+    }
+  };
+};
+
 export const getCouponRedeem = (_id) => {
   return async (dispatch, getState) => {
     dispatch(getCouponRedeemRequested());
     const {token, userData:{email}} = getState().loginSlice;
     token
     try {
-      const res = await ApiService.getRedeemData({_id, userEmail:email},token);
+      const res = await ApiService.getRedeemData({couponId:_id, userEmail:email},token);
       
       if (res.data.success) {
         dispatch(

@@ -12,12 +12,12 @@ const CouponDetail = (props) => {
 
   const dispatch = useDispatch()
   const { route: { params: { id } }, navigation } = props;
-  const { couponList, isRedeemCoupon } = useSelector(state => state.couponSlice);
+  const { couponList, isRedeemCoupon, couponItem } = useSelector(state => state.couponSlice);
   const couponData = couponList.find((instance) => instance._id === id);
   const handleRedeem = (itemID) => {
     dispatch(redeemCoupon(itemID))
   }
-  console.log(isRedeemCoupon)
+  console.log(couponItem)
   useEffect(() => {
     getCoupon()
     dispatch(getCouponRedeem(id))
@@ -32,13 +32,14 @@ const CouponDetail = (props) => {
         bgColor="secondary.500"
         navigation={navigation}
       />
-      {isRedeemCoupon ? <Loader /> : null}
-      <ScrollView
-      >
-        <Box alignItems='center' mt={wp(5)} >
-          <CouponCard {...{ couponData, handleRedeem }} />
-        </Box>
-      </ScrollView>
+      {isRedeemCoupon ? <Loader /> :
+        <ScrollView
+        >
+          <Box alignItems='center' mt={wp(5)} >
+            <CouponCard {...{ couponData, handleRedeem }} />
+          </Box>
+        </ScrollView>
+      }
     </>
   );
 };
