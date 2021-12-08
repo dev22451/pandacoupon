@@ -22,7 +22,7 @@ export default () => {
         tabBarContentContainerStyle: {
           backgroundColor: theme.colors.secondary[500],
         },
-        tabBarItemStyle: {width: wp(25)},
+        tabBarItemStyle: {width: wp(28)},
         tabBarPressColor: theme.colors.white,
         tabBarActiveTintColor: theme.colors.white,
       }}>

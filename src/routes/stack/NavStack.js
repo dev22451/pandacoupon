@@ -14,6 +14,8 @@ import {
   DashBoard,
   Notification,
   PasswordChange,
+  CouponDetail,
+  CouponList,
 } from '../../screens';
 import BottomTab from '../bottomTab/BottomTab';
 
@@ -69,6 +71,16 @@ const NavStack = () => {
       <Stack.Screen
         name="Redeem"
         component={Redeem}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="CouponDetail"
+        component={CouponDetail}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="CouponList"
+        component={CouponList}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

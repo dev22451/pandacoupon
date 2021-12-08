@@ -42,8 +42,7 @@ const giftIcon = (
   />
 );
 
-function CardComponent({item}) {
-  console.log({item})
+function CardComponent({item, navigateToDetail}) {
   const {
     brandLocation,
     brandName,
@@ -52,14 +51,18 @@ function CardComponent({item}) {
     brandcouponDescription,
     couponCategoryImageId,
     couponCode,
+    brandImage,
+    couponImage,
     couponDescription,
     couponTitle,
     expiryDate,
     noOfUser = 0,
-    _id
+    _id:id
   } = item;
+  console.log({brandImage});
+  const handleItemPressed = () => navigateToDetail(id)
   return (
-    <TouchableOpacity activeOpacity={0.9} key={item.id} onPress={() => null}>
+    <TouchableOpacity activeOpacity={0.9} key={item.id} onPress={handleItemPressed}>
       <Box
         mb={wp(4)}
         rounded="lg"
@@ -69,11 +72,21 @@ function CardComponent({item}) {
         shadow={1}
         _light={{backgroundColor: 'gray.50'}}
         _dark={{backgroundColor: 'gray.700'}}>
-        <HStack mt={5} mx="2" justifyContent="space-between">
+        <HStack pt={5} mx="2" justifyContent="space-between">
           <HStack>
             <Box width={wp(15)} px={wp(2)}>
               <AspectRatio ratio={1 / 1}>
-                <SvgExample />
+              {brandImage?
+                    <Image
+                    source={{
+                      uri: brandImage,
+                    }}
+                    style={{height:wp(10),width:wp(10)}}
+                    resizeMode="contain"
+                  />
+                  :
+                  <SvgExample />
+                  }  
               </AspectRatio>
             </Box>
             <VStack>
@@ -99,6 +112,15 @@ function CardComponent({item}) {
         </HStack>
         <Box mt={5} px={wp(2)}>
           <AspectRatio ratio={16 / 9}>
+            {
+            // !couponImage ?
+            // <Image
+            // source={{
+            //   uri: couponImage,
+            // }}
+            // resizeMode="contain"
+            // />
+            // :
             <Image
               source={mcDonald}
               alt="image"
@@ -107,6 +129,7 @@ function CardComponent({item}) {
               resizeMode="stretch"
               borderRadius="lg"
             />
+            }
           </AspectRatio>
         </Box>
         <Stack p="4" space={3}>

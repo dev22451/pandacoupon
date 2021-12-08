@@ -51,7 +51,7 @@ const Content = ({navigation}) => {
             {curLocIcon}
             <VStack mx={wp(2)}>
               <Text bold>Use current location</Text>
-              <Text>Shanghai, China</Text>
+              <Text>Using GPS</Text>
             </VStack>
           </HStack>
         </TouchableOpacity>

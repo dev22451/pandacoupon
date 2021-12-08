@@ -23,11 +23,19 @@ export const ApiService = {
       token
     });
   },
-  getCoupon: async (token) => {
+  getCoupon: async ({token, additionalUrl}) => {
     return fireAjax({
       method: 'GET',
-      URL: `${ApiUrl.getCoupon}`,
+      URL:  additionalUrl ? `${ApiUrl.getCoupon}?${additionalUrl}` :`${ApiUrl.getCoupon}`,
       token
+    });
+  },
+  getCategoryCoupon: async ({token, payload}) => {
+    return fireAjax({
+      method: 'POST',
+      URL: `${ApiUrl.getCategoryCoupon}`,
+      token,
+      data:payload
     });
   },
   getUser: async token => {
@@ -35,6 +43,22 @@ export const ApiService = {
       method: 'GET',
       URL: `${ApiUrl.getUser}`,
       token
+    });
+  },
+  redeemCoupon: async (payload,token) => {
+    return fireAjax({
+      method: 'POST',
+      URL: `${ApiUrl.redeem}`,
+      data: payload,
+      token
+    });
+  },
+  getRedeemData: async (data,token) => {
+    return fireAjax({
+      method: 'GET',
+      URL: `${ApiUrl.getRedeem}`,
+      token,
+      data
     });
   },
 };

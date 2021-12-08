@@ -1,5 +1,5 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity,Image} from 'react-native';
 import {
   Box,
   HStack,
@@ -24,6 +24,7 @@ const backIcon = (
 
 const CategoryFlatList = props => {
   const item = props.item;
+  console.log(item, 'itemm')
   return (
     <>
       <TouchableOpacity activeOpacity={0.4} onPress={() => null}>
@@ -42,12 +43,23 @@ const CategoryFlatList = props => {
                 backgroundColor: theme.colors.secondary[200],
               }}
               icon={
-                <Icon
+                
+                  (!!item.categoryImageURL)?
+                  <Icon
                   type="MaterialCommunityIcons"
-                  name={item.iconName}
-                  size={wp(7)}
+                  name={item.iconName||'spa'}
+                  size={wp(6)}
                   color={theme.colors.secondary[500]}
-                />
+                /> 
+                :
+                <Image
+                    source={{
+                      uri: item.categoryImageURL,
+                    }}
+                    style={{height:wp(10),width:wp(10)}}
+                    resizeMode="contain"
+                  />  
+
               }
               onPress={() => null}
             />

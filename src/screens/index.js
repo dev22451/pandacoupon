@@ -14,7 +14,8 @@ import Forgot from './start/forgotPassword/Forgot';
 import EditLocation from './editLocation/EditLocation';
 import PasswordChange from './password/PasswordChange';
 import Notification from './notifications/Notification';
-
+import CouponDetail from './couponDetail/couponDetail';
+import CouponList from './CouponList/CouponList';
 export {
   Home,
   Intro,
@@ -32,4 +33,6 @@ export {
   Notification,
   EditLocation,
   PasswordChange,
+  CouponDetail,
+  CouponList,
 };

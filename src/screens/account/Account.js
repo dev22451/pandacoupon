@@ -10,9 +10,10 @@ import {
   Avatar,
   FlatList,
   IconButton,
+  ScrollView,
 } from 'native-base';
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity,View} from 'react-native';
 
 import I18n from '../../translations/i18n';
 import Icon from '../../assets/icons/Icon';
@@ -46,21 +47,13 @@ const userIcon = (
 );
 
 const data = [
-  {
-    id: '1',
-    fullName: 'Histories',
-    iconName: 'history',
-  },
+  
   {
     id: '2',
     fullName: 'Categories',
     iconName: 'file-document-outline',
   },
-  {
-    id: '3',
-    fullName: 'Profile Information',
-    iconName: 'account',
-  },
+  
 ];
 
 const data1 = [
@@ -74,11 +67,7 @@ const data1 = [
     fullName: 'Notifications',
     iconName: 'bell',
   },
-  {
-    id: '3',
-    fullName: 'FAQ',
-    iconName: 'file-document',
-  },
+  
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d72',
     fullName: 'Settings',
@@ -134,9 +123,10 @@ const Account = ({navigation}) => {
         px={wp(5)}
         alignItems="center"
         py={wp(5)}>
-        <TouchableOpacity style={{top: wp(25), left: wp(40)}}>
+        {/* <TouchableOpacity style={{top: wp(24), left: wp(40)}}>
+
           <Text>{accountIcon}</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <Avatar
           zIndex={100}
           position="absolute"
@@ -147,11 +137,11 @@ const Account = ({navigation}) => {
           JD
         </Avatar>
         <Box
-          mt={hp(15)}
+          mt={hp(18)}
           p={wp(5)}
           rounded="xl"
           width={wp(90)}
-          height={hp(22)}
+          height={hp(25)}
           borderWidth="1"
           overflow="hidden"
           alignItems="center"
@@ -214,161 +204,161 @@ const Account = ({navigation}) => {
             </VStack>
           </TouchableOpacity>
         </Box>
-        <Box
-          mt={hp(3)}
-          rounded="xl"
-          width={wp(90)}
-          borderWidth="1"
-          overflow="hidden"
-          borderColor="coolGray.200"
-          _dark={{
-            borderColor: 'coolGray.600',
-            backgroundColor: 'gray.700',
-          }}
-          _web={{
-            shadow: 2,
-            borderWidth: 0,
-          }}
-          _light={{
-            backgroundColor: 'gray.50',
-          }}>
-          <FlatList
-            data={data}
-            renderItem={({item}) => (
-              <TouchableOpacity
-                onPress={() => handlePressFirst(item)}
-                activeOpacity={0.3}>
-                <Box
-                  borderBottomWidth="1"
-                  _dark={{
-                    borderColor: 'gray.600',
-                  }}
-                  borderColor="coolGray.200"
-                  pl="4"
-                  pr="5"
-                  py="2">
-                  <HStack
-                    space={3}
-                    justifyContent="space-between"
-                    alignItems="center">
-                    <IconButton
-                      _pressed={{
-                        backgroundColor: theme.colors.secondary[200],
-                      }}
-                      icon={
-                        <Icon
-                          type="MaterialCommunityIcons"
-                          name={item.iconName}
-                          size={wp(6)}
-                          color={theme.colors.secondary[500]}
-                        />
-                      }
-                    />
-                    <VStack>
-                      <Text
-                        _dark={{
-                          color: 'warmGray.50',
+          <Box
+            mt={hp(3)}
+            rounded="xl"
+            width={wp(90)}
+            borderWidth="1"
+            overflow="hidden"
+            borderColor="coolGray.200"
+            _dark={{
+              borderColor: 'coolGray.600',
+              backgroundColor: 'gray.700',
+            }}
+            _web={{
+              shadow: 2,
+              borderWidth: 0,
+            }}
+            _light={{
+              backgroundColor: 'gray.50',
+            }}>
+            <FlatList
+              data={data}
+              renderItem={({item}) => (
+                <TouchableOpacity
+                  onPress={() => handlePressFirst(item)}
+                  activeOpacity={0.3}>
+                  <Box
+                    borderBottomWidth="1"
+                    _dark={{
+                      borderColor: 'gray.600',
+                    }}
+                    borderColor="coolGray.200"
+                    pl="4"
+                    pr="5"
+                    py="2">
+                    <HStack
+                      space={3}
+                      justifyContent="space-between"
+                      alignItems="center">
+                      <IconButton
+                        _pressed={{
+                          backgroundColor: theme.colors.secondary[200],
                         }}
-                        color="coolGray.800"
-                        fontWeight="medium"
-                        fontSize="lg">
-                        {item.fullName}
-                      </Text>
-                    </VStack>
-                    <Spacer />
-                    <IconButton
-                      _pressed={{
-                        backgroundColor: theme.colors.secondary[200],
-                      }}
-                      icon={backIcon}
-                      onPress={() => null}
-                      size={wp(5)}
-                    />
-                  </HStack>
-                </Box>
-              </TouchableOpacity>
-            )}
-            keyExtractor={item => item.id}
-          />
-        </Box>
-        <Box
-          mt={hp(3)}
-          rounded="xl"
-          width={wp(90)}
-          borderWidth="1"
-          overflow="hidden"
-          borderColor="coolGray.200"
-          _dark={{
-            borderColor: 'coolGray.600',
-            backgroundColor: 'gray.700',
-          }}
-          _web={{
-            shadow: 2,
-            borderWidth: 0,
-          }}
-          _light={{
-            backgroundColor: 'gray.50',
-          }}>
-          <FlatList
-            data={data1}
-            renderItem={({item}) => (
-              <TouchableOpacity
-                onPress={() => handlePressSecond(item)}
-                activeOpacity={0.3}>
-                <Box
-                  borderBottomWidth="1"
-                  _dark={{
-                    borderColor: 'gray.600',
-                  }}
-                  borderColor="coolGray.200"
-                  pl="4"
-                  pr="5"
-                  py="2">
-                  <HStack
-                    space={3}
-                    justifyContent="space-between"
-                    alignItems="center">
-                    <IconButton
-                      _pressed={{
-                        backgroundColor: theme.colors.secondary[200],
-                      }}
-                      icon={
-                        <Icon
-                          type="MaterialCommunityIcons"
-                          name={item.iconName}
-                          size={wp(6)}
-                          color={theme.colors.secondary[500]}
-                        />
-                      }
-                      onPress={() => null}
-                    />
-                    <VStack>
-                      <Text
-                        _dark={{
-                          color: 'warmGray.50',
+                        icon={
+                          <Icon
+                            type="MaterialCommunityIcons"
+                            name={item.iconName}
+                            size={wp(6)}
+                            color={theme.colors.secondary[500]}
+                          />
+                        }
+                      />
+                      <VStack>
+                        <Text
+                          _dark={{
+                            color: 'warmGray.50',
+                          }}
+                          color="coolGray.800"
+                          fontWeight="medium"
+                          fontSize="lg">
+                          {item.fullName}
+                        </Text>
+                      </VStack>
+                      <Spacer />
+                      <IconButton
+                        _pressed={{
+                          backgroundColor: theme.colors.secondary[200],
                         }}
-                        color="coolGray.800"
-                        fontWeight="medium"
-                        fontSize="lg">
-                        {item.fullName}
-                      </Text>
-                    </VStack>
-                    <Spacer />
-                    <IconButton
-                      _pressed={{
-                        backgroundColor: theme.colors.secondary[200],
-                      }}
-                      icon={backIcon}
-                      onPress={() => null}
-                      size={wp(5)}
-                    />
-                  </HStack>
-                </Box>
-              </TouchableOpacity>
-            )}
-            keyExtractor={item => item.id}
-          />
-        </Box>
+                        icon={backIcon}
+                        onPress={() => null}
+                        size={wp(5)}
+                      />
+                    </HStack>
+                  </Box>
+                </TouchableOpacity>
+              )}
+              keyExtractor={item => item.id}
+            />
+          </Box>
+          <Box
+            mt={hp(3)}
+            rounded="xl"
+            width={wp(90)}
+            borderWidth="1"
+            overflow="hidden"
+            borderColor="coolGray.200"
+            _dark={{
+              borderColor: 'coolGray.600',
+              backgroundColor: 'gray.700',
+            }}
+            _web={{
+              shadow: 2,
+              borderWidth: 0,
+            }}
+            _light={{
+              backgroundColor: 'gray.50',
+            }}>
+            <FlatList
+              data={data1}
+              renderItem={({item}) => (
+                <TouchableOpacity
+                  onPress={() => handlePressSecond(item)}
+                  activeOpacity={0.3}>
+                  <Box
+                    borderBottomWidth="1"
+                    _dark={{
+                      borderColor: 'gray.600',
+                    }}
+                    borderColor="coolGray.200"
+                    pl="4"
+                    pr="5"
+                    py="2">
+                    <HStack
+                      space={3}
+                      justifyContent="space-between"
+                      alignItems="center">
+                      <IconButton
+                        _pressed={{
+                          backgroundColor: theme.colors.secondary[200],
+                        }}
+                        icon={
+                          <Icon
+                            type="MaterialCommunityIcons"
+                            name={item.iconName}
+                            size={wp(6)}
+                            color={theme.colors.secondary[500]}
+                          />
+                        }
+                        onPress={() => null}
+                      />
+                      <VStack>
+                        <Text
+                          _dark={{
+                            color: 'warmGray.50',
+                          }}
+                          color="coolGray.800"
+                          fontWeight="medium"
+                          fontSize="lg">
+                          {item.fullName}
+                        </Text>
+                      </VStack>
+                      <Spacer />
+                      <IconButton
+                        _pressed={{
+                          backgroundColor: theme.colors.secondary[200],
+                        }}
+                        icon={backIcon}
+                        onPress={() => null}
+                        size={wp(5)}
+                      />
+                    </HStack>
+                  </Box>
+                </TouchableOpacity>
+              )}
+              keyExtractor={item => item.id}
+            />
+          </Box>
       </Stack>
     </>
   );

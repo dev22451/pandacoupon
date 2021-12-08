@@ -16,7 +16,7 @@ import {useNavigation} from '@react-navigation/native';
 import {DBAppBar} from '../../components';
 import Icon from '../../assets/icons/Icon';
 import {wp} from '../../helpers/respDimension';
-import {updateLogin} from '../../redux/slices/loginSlice';
+import {logOut} from '../../redux/slices/loginSlice';
 
 const backIcon = (
   <Icon
@@ -100,7 +100,7 @@ const Setting = () => {
         break;
 
       case 'Logout':
-        dispatch(updateLogin(''));
+        dispatch(logOut());
         break;
 
       default:
@@ -119,6 +119,7 @@ const Setting = () => {
       />
       <SectionList
         mb="4"
+        zIndex={-1}
         mt={wp(-15)}
         sections={data}
         keyExtractor={item => item.id}

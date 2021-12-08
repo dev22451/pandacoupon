@@ -17,7 +17,7 @@ const ModalContent = ({content, show}) => {
     <>
       <Modalize
         ref={modalizeRef}
-        alwaysOpen={hp(30)}
+        alwaysOpen={hp(35)}
         modalStyle={{elevation: 5}}
         adjustToContentHeight={true}
         overlayStyle={{backgroundColor: 'transparent'}}

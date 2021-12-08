@@ -24,3 +24,13 @@ export const getData = async (key) => {
     console.log(e,'getData')
   }
 }
+
+export const clearAll = async () => {
+  try {
+    await AsyncStorage.clear()
+  } catch(e) {
+    // clear error
+  }
+
+  console.log('Done.')
+}
