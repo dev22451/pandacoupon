@@ -6,8 +6,9 @@ export const locationSlice = createSlice({
     location: {},
   },
   reducers: {
-    updateCurrentLocation(state, action) {
+      updateCurrentLocation(state, action) {
       state.location = action.payload;
+      console.log(state.location);
     },
     resetCurrentLocation(state, action) {
       state.location = action.payload;

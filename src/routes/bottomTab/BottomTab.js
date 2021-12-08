@@ -26,13 +26,13 @@ const BottomTab = () => {
           tabBarLabel: 'Home',
         }}
       />
-      <Tab.Screen
+      {/*<Tab.Screen
         name="EditLocation"
         component={EditLocation}
         options={{
           tabBarLabel: 'Nearby',
         }}
-      />
+      />*/}
       <Tab.Screen
         name="Categories"
         component={Categories}

@@ -16,6 +16,7 @@ import Icon from '../../assets/icons/Icon';
 import {fp, hp, wp} from '../../helpers/respDimension';
 import CardFlatList from '../../components/card/CardFlatList';
 import {CardComponent, CategoryCard, DBAppBar} from '../../components';
+import { height } from 'styled-system';
 
 
 const searchIcon = (
@@ -48,10 +49,13 @@ const rightArrowIcon1 = (
 const DashBoard = ({navigation}) => {
   const { categoryList } = useSelector(state => state.categorySlice);
   const { couponList } = useSelector(state => state.couponSlice);
+
+  const navigateToDetail = (id) => navigation.navigate('couponDetail',{id})
   
   const renderBanner = ({item}) => <CardFlatList item={item} />;
   const renderCategory = ({item}) => <CategoryCard item={item} />;
-  const renderCouponCard = ({item}) => <CardComponent item={item} />;
+  const renderCouponCard = ({item}) => <CardComponent {...{item,navigateToDetail}} />;
+  const renderEmpty=()=>( <Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>The list is empty</Text>) 
 
   return (
     <>
@@ -101,10 +105,11 @@ const DashBoard = ({navigation}) => {
           </Text>
         </VStack>
         <FlatList
-          pl={wp(4)}
+          //pl={wp(4)}
+
           py={hp(2)}
           top={hp(18)}
-          data={[1, 2, 3]}
+          data={[1,2,3]}
           horizontal={true}
           position="absolute"
           keyExtractor={item => item.id}
@@ -159,9 +164,10 @@ const DashBoard = ({navigation}) => {
         </HStack>
         <FlatList
           mx={wp(5)}
-          data={[1, 2, 3, 4, 5, 6, 7]}
+          data={couponList}
           keyExtractor={item => item.id}
           renderItem={renderCouponCard}
+          ListEmptyComponent={renderEmpty}
         />
       </ScrollView>
     </>

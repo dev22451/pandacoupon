@@ -47,21 +47,13 @@ const userIcon = (
 );
 
 const data = [
-  {
-    id: '1',
-    fullName: 'Histories',
-    iconName: 'history',
-  },
+  
   {
     id: '2',
     fullName: 'Categories',
     iconName: 'file-document-outline',
   },
-  {
-    id: '3',
-    fullName: 'Profile Information',
-    iconName: 'account',
-  },
+  
 ];
 
 const data1 = [
@@ -75,11 +67,7 @@ const data1 = [
     fullName: 'Notifications',
     iconName: 'bell',
   },
-  {
-    id: '3',
-    fullName: 'FAQ',
-    iconName: 'file-document',
-  },
+  
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d72',
     fullName: 'Settings',
@@ -135,9 +123,10 @@ const Account = ({navigation}) => {
         px={wp(5)}
         alignItems="center"
         py={wp(5)}>
-        <TouchableOpacity style={{top: wp(24), left: wp(40)}}>
+        {/* <TouchableOpacity style={{top: wp(24), left: wp(40)}}>
+
           <Text>{accountIcon}</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <Avatar
           zIndex={100}
           position="absolute"
@@ -148,7 +137,7 @@ const Account = ({navigation}) => {
           JD
         </Avatar>
         <Box
-          mt={hp(15)}
+          mt={hp(18)}
           p={wp(5)}
           rounded="xl"
           width={wp(90)}

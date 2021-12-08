@@ -15,7 +15,7 @@ const CategoryCard = ({item}) => {
         key={item.id}
         rounded="lg"
         overflow="hidden"
-        width={wp(20)}
+        width={wp(24)}
         height={hp(12)}
         shadow={1}
         justifyContent="center"
