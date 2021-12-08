@@ -45,15 +45,15 @@ const Home = ({navigation}) => {
   Geocoder.from(loc.latitude, loc.longitude)
     .then(json => {
       var addressComponent = json.results[0].address_components[0];
-      console.log(addressComponent);
+      // console.log(addressComponent);
     })
     .catch(error => console.warn(error));
 
   const geoLocation = () => {
     Geolocation.getCurrentPosition(
       position => {
-        console.log(position);
-        dispatch(updateCurrentLocation(position));
+      //  console.log({lang:position.coords.latitude,lati:position.coords.longitude});
+        dispatch(updateCurrentLocation({latitude:position.coords.latitude,longitude:position.coords.longitude} ));
         setLoc({
           heading: position.coords.heading,
           accuracy: position.coords.accuracy,

@@ -40,8 +40,8 @@ export default function fireAjax({method, URL, data, header,token}) {
         Authorization:`bearer ${token}`
       }}
     }
-    console.log(token)
-    console.log(headers)
+    // console.log(token)
+    // console.log(headers)
     if (header) {
       headers = header;
     }

@@ -9,6 +9,7 @@ const Notification = ({navigation}) => {
     <>
       <DBAppBar
         title="Notifications"
+        navigation={navigation}
         titleColor={theme.colors.white}
         iconColor={theme.colors.white}
         bgColor={theme.colors.secondary[500]}

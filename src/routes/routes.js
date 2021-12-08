@@ -28,7 +28,6 @@ const RootNavigation = () => {
         userData
       }));
       dispatch(getCategoryRequest());
-      dispatch(getCoupon());
     }
   }
 

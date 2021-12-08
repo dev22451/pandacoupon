@@ -11,6 +11,7 @@ const couponSlice = createSlice({
     errorMessage: "",
     isRedeem:false,
     isRedeemCoupon:false,
+    couponItem:{}
   },
   reducers: {
     getCouponRequested: (state, action) => {
@@ -47,7 +48,7 @@ const couponSlice = createSlice({
     },
     getCouponRedeemSuccessful: (state, action) => {
       state.isRedeemCoupon = false;
-      state.couponList = action.payload.couponList;
+      state.couponItem = action.payload.couponItem
     },
     getCouponredeemFailed: (state, action) => {
       state.isRedeemCoupon = false;
@@ -88,19 +89,19 @@ export const getCoupon = () => {
   return async (dispatch, getState) => {
     dispatch(getCouponRequested());
     const {token} = getState().loginSlice;
-    const {location}=getState().locationSlice
-    //console.log(location.coords);
+    const {location} = getState().locationSlice;
+    console.log(token,location.latitude,'locaion'); 
     try {
       const payload ={
         token,
-        additionalUrl:`?uLat=${location?.coords?.latitude}&uLon=${location?.coords?.longitude}`}
+        additionalUrl:`uLat=${112.45675}&uLon=${77.17591}`}
       const res = await ApiService.getCoupon(payload);
-      console.log(res);
+      console.log(res.data.success);
       
       if (res.data.success) {
         dispatch(
           getCouponSuccessful({
-            couponList: res.data.data,
+            couponList: res.data.data.coupons,
           })
         );
       }
@@ -121,11 +122,12 @@ export const getCouponRedeem = (_id) => {
     token
     try {
       const res = await ApiService.getRedeemData({_id, userEmail:email},token);
-      console.log(res,'ghfhgfhfhg');
       
       if (res.data.success) {
         dispatch(
-          getCouponRedeemSuccessful()
+          getCouponRedeemSuccessful({
+            couponItem: res.data.item
+          })
         );
       }
     } catch (e) {

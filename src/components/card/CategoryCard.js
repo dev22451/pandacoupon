@@ -1,15 +1,18 @@
 import React from 'react';
 import {Box, Pressable, Text, theme} from 'native-base';
+import { Image } from 'react-native'
 
 import Icon from '../../assets/icons/Icon';
 import {fp, wp, hp} from '../../helpers/respDimension';
 
-const CategoryCard = ({item}) => {
-  const {categoryName: fullName} = item;
+const CategoryCard = ({item, navigateToList}) => {
+  const {categoryName: fullName, categoryImageURL:image} = item;
+  const onItemPress = () => navigateToList(item)
   return (
       <Pressable
         mt={wp(2)}
         mb={wp(2)}
+        onPress={onItemPress}
         mr={wp(2)}
         ml={wp(2)}
         key={item.id}
@@ -30,12 +33,25 @@ const CategoryCard = ({item}) => {
           alignItems="center"
           borderRadius="full"
           justifyContent="center">
+          {
+          !!image?
+          
           <Icon
-            type="MaterialCommunityIcons"
-            name={item.iconName||'spa'}
-            size={wp(6)}
-            color={theme.colors.secondary[500]}
+          type="MaterialCommunityIcons"
+          name={item.iconName||'spa'}
+          size={wp(6)}
+          color={theme.colors.secondary[500]}
+        /> 
+        :
+        <Image
+            source={{
+              uri: image,
+            }}
+            style={{height:wp(10),width:wp(10)}}
+            resizeMode="contain"
           />
+        }  
+
         </Box>
         <Text fontSize={wp(3)} mt={wp(1)}>
           {fullName}

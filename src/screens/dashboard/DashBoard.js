@@ -8,7 +8,7 @@ import {
   FlatList,
   ScrollView,
 } from 'native-base';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {StatusBar, TouchableOpacity} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import I18n from '../../translations/i18n';
@@ -17,7 +17,7 @@ import {fp, hp, wp} from '../../helpers/respDimension';
 import CardFlatList from '../../components/card/CardFlatList';
 import {CardComponent, CategoryCard, DBAppBar} from '../../components';
 import { height } from 'styled-system';
-
+import { getCoupon } from '../../redux/slices/couponSlice';
 
 const searchIcon = (
   <Box ml={wp(4)}>
@@ -47,15 +47,21 @@ const rightArrowIcon1 = (
 );
 
 const DashBoard = ({navigation}) => {
+  const dispatch = useDispatch()
   const { categoryList } = useSelector(state => state.categorySlice);
   const { couponList } = useSelector(state => state.couponSlice);
 
-  const navigateToDetail = (id) => navigation.navigate('couponDetail',{id})
+  const navigateToDetail = (id) => navigation.navigate('CouponDetail',{id})
+  const navigateToList = (item) => navigation.navigate('CouponList',{item})
   
   const renderBanner = ({item}) => <CardFlatList item={item} />;
-  const renderCategory = ({item}) => <CategoryCard item={item} />;
+  const renderCategory = ({item}) => <CategoryCard item={item} {...{navigateToList}} />;
   const renderCouponCard = ({item}) => <CardComponent {...{item,navigateToDetail}} />;
   const renderEmpty=()=>( <Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>The list is empty</Text>) 
+
+  useEffect(()=>{
+    dispatch(getCoupon());
+  },[])
 
   return (
     <>
@@ -153,7 +159,7 @@ const DashBoard = ({navigation}) => {
           <Text fontSize={fp(2)} fontWeight="medium" color="warmGray.600">
             {I18n.t('DashBoard.featDetails')}
           </Text>
-          <TouchableOpacity onPress={() => null}>
+          <TouchableOpacity onPress={navigateToList}>
             <HStack alignItems="center">
               <Text fontSize={fp(1.8)} color="black">
                 {I18n.t('DashBoard.seeAll')}

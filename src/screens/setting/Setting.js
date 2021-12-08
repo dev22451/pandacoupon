@@ -119,6 +119,7 @@ const Setting = () => {
       />
       <SectionList
         mb="4"
+        zIndex={-1}
         mt={wp(-15)}
         sections={data}
         keyExtractor={item => item.id}
