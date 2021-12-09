@@ -22,12 +22,12 @@ const backIcon = (
   />
 );
 
-const CategoryFlatList = props => {
-  const item = props.item;
-  console.log(item, 'itemm')
+const CategoryFlatList = (props) => {
+  const {item,navigation} = props;
+  const navigateToList = () => navigation.navigate('CouponList',{item})
   return (
     <>
-      <TouchableOpacity activeOpacity={0.4} onPress={() => null}>
+      <TouchableOpacity activeOpacity={0.4} onPress={navigateToList}>
         <Box
           borderBottomWidth="1"
           _dark={{
@@ -44,7 +44,7 @@ const CategoryFlatList = props => {
               }}
               icon={
                 
-                  (!!item.categoryImageURL)?
+                  (!item.categoryImageURL)?
                   <Icon
                   type="MaterialCommunityIcons"
                   name={item.iconName||'spa'}
@@ -57,9 +57,8 @@ const CategoryFlatList = props => {
                       uri: item.categoryImageURL,
                     }}
                     style={{height:wp(10),width:wp(10)}}
-                    resizeMode="contain"
+                    resizeMode='contain'
                   />  
-
               }
               onPress={() => null}
             />

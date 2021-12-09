@@ -4,8 +4,9 @@ import { Image } from 'react-native'
 
 import Icon from '../../assets/icons/Icon';
 import {fp, wp, hp} from '../../helpers/respDimension';
+import FastImage from 'react-native-fast-image';
 
-const CategoryCard = ({item, navigateToList}) => {
+const CategoryCard = ({item,navigateToList}) => {
   const {categoryName: fullName, categoryImageURL:image} = item;
   const onItemPress = () => navigateToList(item)
   return (
@@ -34,7 +35,7 @@ const CategoryCard = ({item, navigateToList}) => {
           borderRadius="full"
           justifyContent="center">
           {
-          !!image?
+          !image?
           
           <Icon
           type="MaterialCommunityIcons"

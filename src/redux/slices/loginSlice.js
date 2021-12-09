@@ -109,15 +109,14 @@ export const login = ({payload}) => {
       dispatch(
         loginFailed({
           errorMessage: e?.response?.data?.errors || 'something Went wrong',
-        }),
-        Toast.show({
-          title: 'Something went wrong',
-          duration: 3000,
-          placement: 'top',
-          status: 'error',
-          description: e?.response?.data?.errors || 'something Went wrong',
-        }),
-      );
+        }))
+      Toast.show({
+        title: 'Something went wrong',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description: e?.response?.data?.errors || 'something Went wrong',
+      })
     }
   };
 };

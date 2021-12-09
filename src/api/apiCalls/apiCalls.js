@@ -45,17 +45,18 @@ export const ApiService = {
       token
     });
   },
-  redeemCoupon: async (payload,token) => {
+  redeemCoupon: async (data,token) => {
+    console.log(data)
     return fireAjax({
       method: 'POST',
       URL: `${ApiUrl.redeem}`,
-      data: payload,
+      data,
       token
     });
   },
   getRedeemData: async (data,token) => {
     return fireAjax({
-      method: 'GET',
+      method: 'POST',
       URL: `${ApiUrl.getRedeem}`,
       token,
       data

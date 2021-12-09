@@ -66,7 +66,7 @@ const Categories = ({navigation}) => {
         bgColor="secondary.500"
         navigation={navigation}
       />
-      <Input
+      {/* <Input
         w={{
           base: '100%',
           md: '25%',
@@ -76,11 +76,11 @@ const Categories = ({navigation}) => {
         InputLeftElement={searchIcon}
         _focus={{borderColor: 'secondary.500'}}
         placeholder={I18n.t('Categories.search')}
-      />
+      /> */}
       <ScrollView>
         <FlatList
           data={categoryData}
-          renderItem={({item}) => <CategoryFlatList item={item} />}
+          renderItem={({item}) => <CategoryFlatList item={item} navigation={navigation}/>}
           keyExtractor={item => item.id}
         />
       </ScrollView>

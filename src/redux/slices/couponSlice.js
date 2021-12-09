@@ -74,7 +74,7 @@ const couponSlice = createSlice({
     },
     getCategoryCouponSuccessful: (state, action) => {
       state.isLoading = false;
-      state.couponCategoryList = action.payload.couponList;
+      state.couponCategoryList = action.payload;
     },
     getCategoryCouponFailed: (state, action) => {
       state.isLoading = false;
@@ -122,6 +122,12 @@ export const getCoupon = () => {
             couponList: res.data.data.coupons,
           })
         );
+      }else{
+        dispatch(
+          getCouponFailed({
+            errorMessage: e?.response?.data?.errors || "Something went wrong",
+          })
+        );
       }
     } catch (e) {
       dispatch(
@@ -147,11 +153,12 @@ export const getCategoryCoupon = (_id) => {
         }
       }
       const res = await ApiService.getCategoryCoupon(payload);
+      console.log(res)
       
       if (res.data.success) {
         dispatch(
           getCategoryCouponSuccessful({
-            couponList: res.data.data.coupons,
+            couponCategoryList: res.data.data,
           })
         );
       }
@@ -176,7 +183,7 @@ export const getCouponRedeem = (_id) => {
       if (res.data.success) {
         dispatch(
           getCouponRedeemSuccessful({
-            couponItem: res.data.item
+            couponItem: res.data.data.isRedeem
           })
         );
       }
@@ -196,10 +203,12 @@ export const redeemCoupon = (_id) => {
     const {token, userData:{email}} = getState().loginSlice;
     try {
       const res = await ApiService.redeemCoupon({_id, userEmail:email},token);
+      console.log(res,'asdasd')
       if (res.data.success) {
         dispatch(
           redeemCouponSuccessful()
         );
+        dispatch(getCouponRedeem(_id))
         Toast.show({
           title: 'Redeem Success',
           placement: 'top',

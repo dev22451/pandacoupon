@@ -4,20 +4,22 @@ import ReactNativeSwipeableViewStack from 'react-native-swipeable-view-stack';
 import { wp } from '../../helpers/respDimension';
 import { useSelector, useDispatch } from 'react-redux';
 import { CouponCard } from '../../components';
-import { redeemCoupon, getCouponRedeem, getCoupon } from '../../redux/slices/couponSlice'
+import { redeemCoupon, getCouponRedeem, getCoupon, getCategoryCoupon } from '../../redux/slices/couponSlice'
 import { DBAppBar, Loader } from '../../components';
 //import { useEffect } from 'react';
 
 const CouponDetail = (props) => {
-
   const dispatch = useDispatch()
   const { route: { params: { id } }, navigation } = props;
-  const { couponList, isRedeemCoupon, couponItem } = useSelector(state => state.couponSlice);
-  const couponData = couponList.find((instance) => instance._id === id);
+  const { couponList, isRedeemCoupon, couponItem,couponCategoryList } = useSelector(state => state.couponSlice);
+  let couponData = couponList.find((instance) =>  instance._id === id);
+  if(!couponData){
+    couponData = couponCategoryList.couponCategoryList.find((instance) =>  instance._id === id);
+  }
   const handleRedeem = (itemID) => {
+    console.log({itemID})
     dispatch(redeemCoupon(itemID))
   }
-  console.log(couponItem)
   useEffect(() => {
     getCoupon()
     dispatch(getCouponRedeem(id))
@@ -33,10 +35,9 @@ const CouponDetail = (props) => {
         navigation={navigation}
       />
       {isRedeemCoupon ? <Loader /> :
-        <ScrollView
-        >
+        <ScrollView>
           <Box alignItems='center' mt={wp(5)} >
-            <CouponCard {...{ couponData, handleRedeem }} />
+            <CouponCard {...{ couponData, handleRedeem, couponItem}} />
           </Box>
         </ScrollView>
       }

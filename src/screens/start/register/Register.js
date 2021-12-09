@@ -8,6 +8,7 @@ import {
   Box,
   FormControl,
   ScrollView,
+  Toast
 } from 'native-base';
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -74,9 +75,10 @@ const Register = ({navigation}) => {
   const isLoading = useSelector(state => state.loginSlice.isLoading);
 
   const handleEmail = text => {
-    validateEmail(text)
-      ? setEmail({email: '', valid: true})
-      : setEmail({email: text, valid: false});
+    // validateEmail(text)
+    //   ? setEmail({email: '', valid: true})
+    //   : setEmail({email: text, valid: false});
+      setEmail({email: text, valid: false});
   };
   const handlePassword = text => {
     // validatePassword(text)
@@ -86,13 +88,28 @@ const Register = ({navigation}) => {
   };
 
   const handleSignUp = () => {
-    const payload = {
-      userName: name,
-      PhoneNumber: number.number,
-      userEmail: email.email,
-      Password: password.password,
-    };
-    dispatch(register({payload}, navigation));
+    const isEmailValidate = email.email !== '';
+    const isPasswordValidate = password.password !== ''
+    const isValidPhoneNumber = number.number !== '' 
+    console.log(isEmailValidate , isPasswordValidate)
+    if(isEmailValidate && isPasswordValidate){
+      const payload = {
+        userName: name,
+        PhoneNumber: number.number,
+        userEmail: email.email,
+        Password: password.password,
+      };
+      dispatch(register({payload}, navigation));
+    }else {
+      let message = 'Please Enter Correct Data';
+      Toast.show({
+        title: 'Invalid Data',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description:message
+      });
+    }
   };
 
   return (
