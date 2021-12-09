@@ -84,7 +84,7 @@ const Register = ({navigation}) => {
     // validatePassword(text)
     //   ? setPassword({password: '', valid: true})
     //   :
-    setPassword({password: text, valid: true});
+    setPassword({password: text, valid: false});
   };
 
   const handleSignUp = () => {
