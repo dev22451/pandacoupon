@@ -14,10 +14,11 @@ import {
 } from 'native-base';
 import React from 'react';
 import {TouchableOpacity,View} from 'react-native';
-
+import { useSelector } from 'react-redux';
 import I18n from '../../translations/i18n';
 import Icon from '../../assets/icons/Icon';
 import {wp, hp, fp} from '../../helpers/respDimension';
+import {login} from '../../redux/slices/loginSlice';
 
 const backIcon = (
   <Icon
@@ -75,7 +76,10 @@ const data1 = [
   },
 ];
 
+
 const Account = ({navigation}) => {
+  const userData = useSelector((state) => state.loginSlice.userData);
+  console.log(userData.email,'tygyuhef');
   const handlePressSecond = item => {
     switch (item.fullName) {
       case 'Coupons':
@@ -110,6 +114,7 @@ const Account = ({navigation}) => {
         null;
     }
   };
+  console.log(login)
 
   return (
     <>
@@ -158,8 +163,8 @@ const Account = ({navigation}) => {
           _light={{
             backgroundColor: 'gray.50',
           }}>
-          <Text mt={hp(5)} bold fontSize={fp(3)}>
-            John Doe
+          <Text mt={hp(2)} bold fontSize={fp(3)}>
+            {userData.name}
           </Text>
           <TouchableOpacity activeOpacity={0.5} onPress={() => null}>
             <VStack mt={hp(1)} justifyContent="center" alignItems="center">
@@ -190,7 +195,7 @@ const Account = ({navigation}) => {
                   mr={wp(2)}
                   color={theme.colors.coolGray[600]}>
                   {/* {I18n.t('Drawer.rewards')} : 265 Points */}
-                  john@gmail.com
+                  {userData.email}
                 </Text>
                 <IconButton
                   _pressed={{

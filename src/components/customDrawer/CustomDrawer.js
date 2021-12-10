@@ -17,11 +17,11 @@ import {useDispatch} from 'react-redux';
 import {TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
-
+import { useSelector } from 'react-redux';
 import Icon from '../../assets/icons/Icon';
 import I18n from '../../translations/i18n';
 import {hp, wp} from '../../helpers/respDimension';
-import {resetLogin} from '../../redux/slices/loginSlice';
+import {logOut} from '../../redux/slices/loginSlice';
 
 const backIcon = (
   <Icon
@@ -51,9 +51,10 @@ const getIcon = screenName => {
 
 const CustomDrawer = props => {
   const dispatch = useDispatch();
+  const userData = useSelector((state) => state.loginSlice.userData);
   const navigation = useNavigation();
   const handleLogout = () => {
-    dispatch(resetLogin(false))
+    dispatch(logOut())
   }
   return (
     <DrawerContentScrollView>
@@ -62,7 +63,7 @@ const CustomDrawer = props => {
           <Avatar bg="pink.600" size="lg" space={2}>
             JD
           </Avatar>
-          <Heading mt={hp(2)}>John Doe</Heading>
+          <Heading mt={hp(2)}>{userData.name}</Heading>
           {/* <TouchableOpacity
             activeOpacity={0.4}
             onPress={() => navigation.navigate('Rewards')}>

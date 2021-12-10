@@ -77,9 +77,9 @@ const DashBoard = ({navigation}) => {
         <VStack
           width={wp(100)}
           bg="secondary.500"
-          borderBottomLeftRadius="200"
-          borderBottomRightRadius="200"
-          height={wp(80)}
+          // borderBottomLeftRadius="200"
+          // borderBottomRightRadius="200"
+          height={wp(60)}
           px={wp(5)}>
           {/* <Input
             w={{
@@ -111,10 +111,11 @@ const DashBoard = ({navigation}) => {
           </Text>
         </VStack>
         <FlatList
-          //pl={wp(4)}
+          // pl={wp(2)}
 
-          py={hp(2)}
-          top={hp(14)}
+          // py={hp(2)}
+          //contentContainerStyle={{px:6}}
+          top={hp(8)}
           data={[1,2,3]}
           horizontal={true}
           position="absolute"

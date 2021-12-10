@@ -9,6 +9,7 @@ export const loginSlice = createSlice({
   name: 'user',
   initialState: {
     isLoggedIn: false,
+    isLoggedOut:false,
 
     userData: [],
     token: '',
@@ -27,6 +28,22 @@ export const loginSlice = createSlice({
       state.token = action.payload.token;
       state.userData = action.payload.userData;
       state.isLoggedIn = true;
+    },
+    logoutRequested(state, action) {
+      state.isLoading = true;
+      state.isError = false;
+      state.errorMessage = '';
+    },
+    logoutSuccessful(state, action) {
+      state.isLoading = false;
+      state.token = action.payload.token;
+      state.userData = action.payload.userData;
+      state.isLoggedOut = true;
+    },
+    logoutFailed(state, action) {
+      state.isLoading = false;
+      state.isError = true;
+      state.errorMessage = action.payload.errorMessage;
     },
     apiSuccessful(state,action){
       state.isLoading = false
@@ -63,7 +80,10 @@ export const {
   loginFailed,
   restoreUser,
   userLogout,
-  apiSuccessful
+  apiSuccessful,
+  logoutSuccessful,
+  logoutRequested,
+  logoutFailed,
 } = loginSlice.actions;
 
 export const login = ({payload}) => {
@@ -95,6 +115,59 @@ export const login = ({payload}) => {
       } else {
         dispatch(
           loginFailed({
+            errorMessage: res.data.message || 'something Went wrong',
+          }))
+        Toast.show({
+          title: res.data.message || 'Something went wrong',
+          duration: 3000,
+          placement: 'top',
+          status: 'error',
+        });
+      }
+    } catch (e) {
+      dispatch(
+        loginFailed({
+          errorMessage: e?.response?.data?.errors || 'something Went wrong',
+        }))
+      Toast.show({
+        title: 'Something went wrong',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description: e?.response?.data?.errors || 'something Went wrong',
+      })
+    }
+  };
+};
+
+export const logout = ({payload}) => {
+  return async (dispatch, getState) => {
+    dispatch(logoutRequested());
+    try {
+      const res = await ApiService.logout(id);
+      if (res.data.success) {
+        Toast.show({
+          title: 'Logout Success',
+          placement: 'top',
+          status: 'success',
+          duration: 3000,
+          description: `You have logged out`,
+        });
+        // await storeData(
+        //   'userData',
+        //   res.data.data
+        // );
+        dispatch(
+          logoutSuccessful({
+            userData: res.data.data,
+            token: res.data.data.accessToken,
+          }),
+        );
+        dispatch(getCategoryRequest());
+        dispatch(getCoupon());
+      } else {
+        dispatch(
+          logoutFailed({
             errorMessage: res.data.message || 'something Went wrong',
           }))
         Toast.show({

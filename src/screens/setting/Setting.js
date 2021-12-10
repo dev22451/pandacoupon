@@ -36,13 +36,13 @@ const data = [
         iconName: 'key',
         recentText: 'Change your password',
       },
-      {
-        id: '2',
+      // {
+      //   id: '2',
 
-        fullName: 'Change language',
-        iconName: 'translate',
-        recentText: 'Change your language',
-      },
+      //   fullName: 'Change language',
+      //   iconName: 'translate',
+      //   recentText: 'Change your language',
+      // },
     ],
   },
   {
@@ -56,23 +56,23 @@ const data = [
       },
     ],
   },
-  {
-    title: 'MORE',
-    data: [
-      {
-        id: '1',
-        fullName: 'Rate Us',
-        iconName: 'star',
-        recentText: 'Rate us playstore, appstore',
-      },
-      {
-        id: '1',
-        fullName: 'FAQs',
-        iconName: 'book',
-        recentText: 'Frequently asked questions',
-      },
-    ],
-  },
+  // {
+  //   title: 'MORE',
+  //   data: [
+  //     {
+  //       id: '1',
+  //       fullName: 'Rate Us',
+  //       iconName: 'star',
+  //       recentText: 'Rate us playstore, appstore',
+  //     },
+  //     {
+  //       id: '1',
+  //       fullName: 'FAQs',
+  //       iconName: 'book',
+  //       recentText: 'Frequently asked questions',
+  //     },
+  //   ],
+  // },
   {
     title: 'ACCOUNT',
     data: [
