@@ -67,7 +67,7 @@ const DashBoard = ({navigation}) => {
     <>
       <StatusBar backgroundColor={theme.colors.secondary[500]} />
       <DBAppBar
-        loc={true}
+        // loc={true}
         rewards={true}
         navigation={navigation}
         iconColor={theme.colors.white}
@@ -81,7 +81,7 @@ const DashBoard = ({navigation}) => {
           borderBottomRightRadius="200"
           height={wp(80)}
           px={wp(5)}>
-          <Input
+          {/* <Input
             w={{
               base: '100%',
               md: '25%',
@@ -92,14 +92,14 @@ const DashBoard = ({navigation}) => {
             InputLeftElement={searchIcon}
             _focus={{borderColor: 'secondary.500'}}
             placeholder={I18n.t('DashBoard.searchTitle')}
-          />
+          /> */}
           <HStack justifyContent="space-between" alignItems="center">
             <Text bold fontSize={fp(2)} color="white">
               {I18n.t('DashBoard.explore')}
             </Text>
             <TouchableOpacity onPress={() => null}>
               <HStack alignItems="center">
-                <Text fontSize={fp(1.8)} color="white">
+                <Text fontSize={fp(1.8)} color="white" bold >
                   {I18n.t('DashBoard.seeAll')}
                 </Text>
                 {rightArrowIcon}
@@ -114,7 +114,7 @@ const DashBoard = ({navigation}) => {
           //pl={wp(4)}
 
           py={hp(2)}
-          top={hp(18)}
+          top={hp(14)}
           data={[1,2,3]}
           horizontal={true}
           position="absolute"
@@ -133,7 +133,7 @@ const DashBoard = ({navigation}) => {
             </Text>
             <TouchableOpacity onPress={() => navigation.navigate('Categories')}>
               <HStack alignItems="center">
-                <Text fontSize={fp(1.8)} color="black">
+                <Text fontSize={fp(1.8)} color="black" bold >
                   {I18n.t('DashBoard.seeAll')}
                 </Text>
                 {rightArrowIcon1}
@@ -161,7 +161,7 @@ const DashBoard = ({navigation}) => {
           </Text>
           <TouchableOpacity onPress={navigateToList}>
             <HStack alignItems="center">
-              <Text fontSize={fp(1.8)} color="black">
+              <Text fontSize={fp(1.8)} color="black" bold>
                 {I18n.t('DashBoard.seeAll')}
               </Text>
               {rightArrowIcon1}

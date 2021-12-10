@@ -18,6 +18,8 @@ import NButton from '../button/NButton';
 import Icon from '../../assets/icons/Icon';
 import { SvgExample } from '../../assets/images';
 import { hp, wp, fp } from '../../helpers/respDimension';
+import { Loader } from '..';
+import FastImage from 'react-native-fast-image';
 
 const rightArrowIcon = (
   <Icon
@@ -81,7 +83,7 @@ const giftIcon = (
   />
 );
 
-const CouponCard = ({ navigation, couponData, handleRedeem }) => {
+const CouponCard = ({ navigation, couponData, handleRedeem, couponItem: isRedeem }) => {
   const {
     brandLocation,
     brandName,
@@ -95,17 +97,15 @@ const CouponCard = ({ navigation, couponData, handleRedeem }) => {
     couponTitle,
     couponImage,
     expiryDate,
-    isRedeem = true,
+    
     noOfUser = 0,
     _id: id
   } = couponData;
   const handlePressRedeem = () => {
     handleRedeem(id)
-    setShow(true)
   }
-  const [show, setShow] = useState(false);
+  //const [show, setShow] = useState(false);
   return (
-
     <Stack>
       <Box
         mb={wp(4)}

@@ -52,6 +52,9 @@ const getIcon = screenName => {
 const CustomDrawer = props => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const handleLogout = () => {
+    dispatch(resetLogin(false))
+  }
   return (
     <DrawerContentScrollView>
       <Center mt={hp(5)}>
@@ -130,6 +133,25 @@ const CustomDrawer = props => {
             </HStack>
           </Pressable>
         ))}
+        <Pressable
+            px="5"
+            py="3"
+            rounded="md"
+            onPress={handleLogout}>        
+        <HStack space={wp(5)} alignItems="center">   
+          <Icon
+            type="MaterialCommunityIcons"
+            name={getIcon('Logout')}
+            size={wp(5)}
+            color={'#71717a'}
+          />    
+          <Text
+            fontWeight="500"
+           >
+            Logout
+          </Text>
+        </HStack>
+        </Pressable>
       </VStack>
     </DrawerContentScrollView>
   );

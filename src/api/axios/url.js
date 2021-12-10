@@ -6,5 +6,5 @@ export default {
   getUser: 'user-data',
   redeem: 'redeem',
   getRedeem:'redeem-data',
-  getCategoryCoupon:'sendCoupon'
+  getCategoryCoupon:'getCouponbyCategoryId'
 };

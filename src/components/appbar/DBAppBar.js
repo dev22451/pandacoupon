@@ -78,7 +78,7 @@ const DBAppBar = ({
       </HStack>
 
       {!loc ? (
-        <Text color={titleColor} fontWeight="medium" fontSize={fp(2)}>
+        <Text color={titleColor} fontWeight="medium" fontSize={fp(2)} paddingRight={10}>
           {title}
         </Text>
       ) : null}

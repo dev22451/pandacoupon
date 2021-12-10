@@ -1,23 +1,29 @@
 import React,{useEffect} from 'react';
-import {Box, FlatList} from 'native-base';
-import ReactNativeSwipeableViewStack from 'react-native-swipeable-view-stack';
-import {hp, wp} from '../../helpers/respDimension';
+import {Box, FlatList,Text} from 'native-base';
 import { useSelector, useDispatch } from 'react-redux';
-import {CouponCard} from '../../components';
-import {getCoupon} from '../../redux/slices/couponSlice'
-//import { useEffect } from 'react';
-import {CardComponent,  DBAppBar} from '../../components';
 
+import {hp, wp,fp} from '../../helpers/respDimension';
+import {CardComponent,  DBAppBar} from '../../components';
+import {getCoupon, getCategoryCoupon} from '../../redux/slices/couponSlice'
 
 const CouponList = (props) => {
-    
-    const dispatch = useDispatch()
-    const {route:{params:{id}},navigation} = props;
-    const { couponList } = useSelector(state => state.couponSlice);
-    const navigateToDetail = (id) => navigation.navigate('CouponDetail',{id})
-    
-    useEffect(()=>{
+  const {navigation} = props;
+  const categoryId = props.route.params.item._id
+ 
+  const dispatch = useDispatch()
+  const { couponList, couponCategoryList } = useSelector(state => state.couponSlice);
+
+  const categoryDataList = categoryId ? couponCategoryList.couponCategoryList : couponList
+ 
+  const navigateToDetail = (id) => navigation.navigate('CouponDetail',{id})
+
+  useEffect(()=>{
+      if(categoryId) {
+        dispatch(getCategoryCoupon(categoryId))
+      }
+      else{
         dispatch(getCoupon());
+      }
     },[]);
 
   const renderCouponCard = ({item}) => <CardComponent {...{item,navigateToDetail}} />;
@@ -39,7 +45,8 @@ const CouponList = (props) => {
       <FlatList
           mx={wp(5)}
           mb={hp(9)}
-          data={couponList}
+          data={categoryDataList}
+          extraData={categoryDataList}
           keyExtractor={item => item.id}
           renderItem={renderCouponCard}
           ListEmptyComponent={renderEmpty}

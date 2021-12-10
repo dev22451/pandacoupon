@@ -10,6 +10,7 @@ import {
   Pressable,
   FormControl,
   ScrollView,
+  Toast
 } from 'native-base';
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -71,30 +72,31 @@ const SignIn = ({navigation}) => {
   const [password, setPassword] = useState({password: '', valid: ''});
 
   const dispatch = useDispatch();
-  const isLoading = useSelector(state => state.loginSlice.isLoading);
+  const {isLoading} = useSelector(state => state.loginSlice);
 
   const handleClick = () => setShow(!show);
 
-  const handleEmail = text => {
-    // validateEmail(text)
-    //   ? setEmail({email: '', valid: true})
-    //   : setEmail({email: text, valid: false});
-       setEmail({email: text, valid: false});
-  };
-  const handlePassword = text => {
-    // validatePassword(text)
-    //   ?
-    setPassword({password: text, valid: false});
-    // :
-    // setPassword({password: text, valid: false});
-  };
+  const handleEmail = text => setEmail({email: text, valid: false});
+  const handlePassword = text => setPassword({password: text, valid: false});
 
   const handleSignIn = () => {
-    const payload = {
-      userEmail: email.email,
-      Password: password.password,
-    };
-    dispatch(login({payload}));
+    const isEmailValidate = email.email !== ''
+    const isPasswordValidate = password.password !== ''
+    if(isEmailValidate && isPasswordValidate){
+      const payload = {
+        userEmail: email.email,
+        Password: password.password,
+      };
+      dispatch(login({payload}));
+    } else {
+      Toast.show({
+        title: 'Invalid Data',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description:'Please Enter Email and Password'
+      });
+    }
   };
 
   return (

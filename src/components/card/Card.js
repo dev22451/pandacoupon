@@ -59,7 +59,6 @@ function CardComponent({item, navigateToDetail}) {
     noOfUser = 0,
     _id:id
   } = item;
-  console.log({brandImage});
   const handleItemPressed = () => navigateToDetail(id)
   return (
     <TouchableOpacity activeOpacity={0.9} key={item.id} onPress={handleItemPressed}>
@@ -113,14 +112,16 @@ function CardComponent({item, navigateToDetail}) {
         <Box mt={5} px={wp(2)}>
           <AspectRatio ratio={16 / 9}>
             {
-            // !couponImage ?
-            // <Image
-            // source={{
-            //   uri: couponImage,
-            // }}
-            // resizeMode="contain"
-            // />
-            // :
+            couponImage ?
+            <Image
+            source={{
+              uri: couponImage,
+            }}
+            width={wp(86)}
+            height={hp(23)}
+            resizeMode="contain"
+            />
+            :
             <Image
               source={mcDonald}
               alt="image"

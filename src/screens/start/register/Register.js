@@ -8,6 +8,7 @@ import {
   Box,
   FormControl,
   ScrollView,
+  Toast,
 } from 'native-base';
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -74,25 +75,40 @@ const Register = ({navigation}) => {
   const isLoading = useSelector(state => state.loginSlice.isLoading);
 
   const handleEmail = text => {
-    validateEmail(text)
-      ? setEmail({email: '', valid: true})
-      : setEmail({email: text, valid: false});
+    // validateEmail(text)
+    //   ? setEmail({email: '', valid: true})
+    //   : setEmail({email: text, valid: false});
+    setEmail({email: text, valid: false});
   };
   const handlePassword = text => {
     // validatePassword(text)
     //   ? setPassword({password: '', valid: true})
     //   :
-    setPassword({password: text, valid: true});
+    setPassword({password: text, valid: false});
   };
 
   const handleSignUp = () => {
-    const payload = {
-      userName: name,
-      PhoneNumber: number.number,
-      userEmail: email.email,
-      Password: password.password,
-    };
-    dispatch(register({payload}, navigation));
+    const isEmailValidate = email.email !== '';
+    const isPasswordValidate = password.password !== '';
+    const isValidPhoneNumber = number.number !== '';
+    if (isEmailValidate && isPasswordValidate) {
+      const payload = {
+        userName: name,
+        PhoneNumber: number.number,
+        userEmail: email.email,
+        Password: password.password,
+      };
+      dispatch(register({payload}, navigation));
+    } else {
+      let message = 'Please Enter Correct Data';
+      Toast.show({
+        title: 'Invalid Data',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description: message,
+      });
+    }
   };
 
   return (
@@ -100,93 +116,89 @@ const Register = ({navigation}) => {
       <AppBar navigation={navigation} />
       {isLoading ? <Loader /> : null}
       <ScrollView>
-      <VStack paddingX={wp(10)} my={hp(3)} >
-        <Heading fontSize={fp(4)} lineHeight={hp(5)} color="black">
-          {I18n.t('Register.title')}
-        </Heading>
-        <Text color="gray.500" mt={hp(2)}>
-          {I18n.t('Register.loginHelp')}{' '}
+        <VStack paddingX={wp(10)} my={hp(3)}>
+          <Heading fontSize={fp(4)} lineHeight={hp(5)} color="black">
+            {I18n.t('Register.title')}
+          </Heading>
+          <Text color="gray.500" mt={hp(2)}>
+            {I18n.t('Register.loginHelp')}{' '}
+            <Text bold color="secondary.500" mt={hp(2)} onPress={() => null}>
+              {I18n.t('Register.help')}
+            </Text>
+          </Text>
+          <Stack space={4} mt={hp(5)} alignItems="center">
+            <Input
+              w={{
+                base: '100%',
+                md: '25%',
+              }}
+              _focus={{borderColor: 'secondary.500'}}
+              InputLeftElement={userIcon}
+              placeholder="Name"
+              onChangeText={text => setName(text)}
+            />
+            <FormControl
+              w={{
+                base: '100%',
+                md: '25%',
+              }}
+              isInvalid={email.valid}>
+              <Input
+                placeholder="Email"
+                InputLeftElement={emailIcon}
+                _focus={{borderColor: 'secondary.500'}}
+                onChangeText={text => handleEmail(text)}
+              />
+              <FormControl.ErrorMessage>Invalid Mail</FormControl.ErrorMessage>
+            </FormControl>
+            <Input
+              placeholder="Number"
+              InputLeftElement={phoneIcon}
+              _focus={{borderColor: 'secondary.500'}}
+              onChangeText={text => setNumber({number: text})}
+            />
+            <FormControl
+              w={{
+                base: '100%',
+                md: '25%',
+              }}
+              isInvalid={password.valid}>
+              <Input
+                placeholder="Password"
+                InputLeftElement={keyIcon}
+                _focus={{borderColor: 'secondary.500'}}
+                onChangeText={text => handlePassword(text)}
+              />
+              <FormControl.ErrorMessage>
+                Invalid Password
+              </FormControl.ErrorMessage>
+            </FormControl>
+          </Stack>
+          <Text color="gray.500" mt={hp(5)}>
+            {I18n.t('Register.accountCheck')}{' '}
+          </Text>
           <Text
             bold
-            color="secondary.500"
-            mt={hp(2)}
-            onPress={() => console.log('hello world')}>
-            {I18n.t('Register.help')}
+            color="gray.600"
+            onPress={() => navigation.navigate('SignIn')}>
+            {I18n.t('Register.loginLink')}
           </Text>
-        </Text>
-        <Stack space={4} mt={hp(5)} alignItems="center">
-          <Input
-            w={{
-              base: '100%',
-              md: '25%',
-            }}
-            _focus={{borderColor: 'secondary.500'}}
-            InputLeftElement={userIcon}
-            placeholder="Name"
-            onChangeText={text => setName(text)}
+          <NButton
+            title={I18n.t('Register.signUp')}
+            mt={hp(4)}
+            onPress={handleSignUp}
           />
-          <FormControl
-            w={{
-              base: '100%',
-              md: '25%',
-            }}
-            isInvalid={email.valid}>
-            <Input
-              placeholder="Email"
-              InputLeftElement={emailIcon}
-              _focus={{borderColor: 'secondary.500'}}
-              onChangeText={text => handleEmail(text)}
-            />
-            <FormControl.ErrorMessage>Invalid Mail</FormControl.ErrorMessage>
-          </FormControl>
-          <Input
-            placeholder="Number"
-            InputLeftElement={phoneIcon}
-            _focus={{borderColor: 'secondary.500'}}
-            onChangeText={text => setNumber({number: text})}
-          />
-          <FormControl
-            w={{
-              base: '100%',
-              md: '25%',
-            }}
-            isInvalid={password.valid}>
-            <Input
-              placeholder="Password"
-              InputLeftElement={keyIcon}
-              _focus={{borderColor: 'secondary.500'}}
-              onChangeText={text => handlePassword(text)}
-            />
-            <FormControl.ErrorMessage>
-              Invalid Password
-            </FormControl.ErrorMessage>
-          </FormControl>
-        </Stack>
-        <Text color="gray.500" mt={hp(5)}>
-          {I18n.t('Register.accountCheck')}{' '}
-        </Text>
-        <Text
-          bold
-          color="gray.600"
-          onPress={() => navigation.navigate('SignIn')}>
-          {I18n.t('Register.loginLink')}
-        </Text>
-        <NButton
-          title={I18n.t('Register.signUp')}
-          mt={hp(4)}
-          onPress={handleSignUp}
-        />
-        <Text color="gray.500" mt={hp(5)} textAlign="center">
-          {I18n.t('Intro.footerLine')}{' '}
-          <Text color="black" bold>
-            {I18n.t('Intro.terms')}
-          </Text>{' '}
-          {I18n.t('Intro.and')}{' '}
-          <Text color="black" bold>
-            {I18n.t('Intro.policy')}
+          <Text color="gray.500" mt={hp(5)} textAlign="center">
+            {I18n.t('Intro.footerLine')}{' '}
+            <Text color="black" bold>
+              {I18n.t('Intro.terms')}
+            </Text>{' '}
+            {I18n.t('Intro.and')}{' '}
+            <Text color="black" bold>
+              {I18n.t('Intro.policy')}
+            </Text>
           </Text>
-        </Text>
-      </VStack>
+        </VStack>
       </ScrollView>
     </>
   );
