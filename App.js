@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import 'react-native-gesture-handler';
 import {Provider} from 'react-redux';
 import {NativeBaseProvider} from 'native-base';
@@ -8,7 +8,6 @@ import {SafeAreaView, LogBox, StatusBar, useColorScheme} from 'react-native';
 import {store} from './src/redux/store';
 import RootNavigation from './src/routes/routes';
 import {colorModeManager, config, theme} from './src/themes/theme';
-import {getDeviceToken} from './src/helpers/firebase';
 
 LogBox.ignoreLogs([
   'Reanimated 2',
@@ -17,7 +16,7 @@ LogBox.ignoreLogs([
   'NativeBase',
   'If you want to use Reanimated 2',
   'Require cycles',
-  'Require cycle'
+  'Require cycle',
 ]);
 
 const App = () => {
@@ -25,10 +24,6 @@ const App = () => {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
-
-  useEffect(()=>{
-    getDeviceToken()
-  },[])
 
   return (
     <NativeBaseProvider

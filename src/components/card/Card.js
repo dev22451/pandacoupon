@@ -59,7 +59,6 @@ function CardComponent({item, navigateToDetail}) {
     noOfUser = 0,
     _id:id
   } = item;
-  console.log({id},'pwpwpwp');
   const handleItemPressed = () => navigateToDetail(id)
   return (
     <TouchableOpacity activeOpacity={0.9} key={item.id} onPress={handleItemPressed}>

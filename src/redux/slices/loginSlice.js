@@ -3,18 +3,18 @@ import {Toast, useToast} from 'native-base';
 import {ApiService} from '../../api';
 import {getCategoryRequest} from './categorySlice';
 import {getCoupon} from './couponSlice';
-import { storeData, clearAll } from '../../helpers/localStorgae';
+import {storeData, clearAll} from '../../helpers/localStorgae';
 
 export const loginSlice = createSlice({
   name: 'user',
   initialState: {
-    isLoggedIn: false,
-
-    userData: [],
     token: '',
-    isLoading: false,
+    userData: [],
     isError: false,
+    fbDeviceToken: '',
     errorMessage: '',
+    isLoading: false,
+    isLoggedIn: false,
   },
   reducers: {
     loginRequested(state, action) {
@@ -28,8 +28,8 @@ export const loginSlice = createSlice({
       state.userData = action.payload.userData;
       state.isLoggedIn = true;
     },
-    apiSuccessful(state,action){
-      state.isLoading = false
+    apiSuccessful(state, action) {
+      state.isLoading = false;
     },
     loginFailed(state, action) {
       state.isLoading = false;
@@ -42,15 +42,18 @@ export const loginSlice = createSlice({
     resetLogin(state, action) {
       state.isLoggedIn = action.payload;
     },
-    restoreUser: (state,action) => {
+    restoreUser: (state, action) => {
+      state.isLoggedIn = true;
       state.token = action.payload.token;
       state.userData = action.payload.userData;
-      state.isLoggedIn = true;
     },
-    userLogout: (state,action) => {
-      state.isLoggedIn= false,
-      state.userData= [],
-      state.token= ''
+    userLogout: (state, action) => {
+      state.isLoggedIn = false;
+      state.userData = [];
+      state.token = '';
+    },
+    updateDeviceToken: (state, action) => {
+      state.fbDeviceToken = action.payload;
     },
   },
 });
@@ -63,7 +66,8 @@ export const {
   loginFailed,
   restoreUser,
   userLogout,
-  apiSuccessful
+  apiSuccessful,
+  updateDeviceToken,
 } = loginSlice.actions;
 
 export const login = ({payload}) => {
@@ -71,7 +75,6 @@ export const login = ({payload}) => {
     dispatch(loginRequested());
     try {
       const res = await ApiService.login(payload);
-      console.log(res.data)
       if (res.data.success) {
         Toast.show({
           title: 'Login Success',
@@ -80,10 +83,7 @@ export const login = ({payload}) => {
           duration: 3000,
           description: `You have logged in`,
         });
-        await storeData(
-          'userData',
-          res.data.data
-        );
+        await storeData('userData', res.data.data);
         dispatch(
           loginSuccessful({
             userData: res.data.data,
@@ -96,7 +96,8 @@ export const login = ({payload}) => {
         dispatch(
           loginFailed({
             errorMessage: res.data.message || 'something Went wrong',
-          }))
+          }),
+        );
         Toast.show({
           title: res.data.message || 'Something went wrong',
           duration: 3000,
@@ -108,14 +109,15 @@ export const login = ({payload}) => {
       dispatch(
         loginFailed({
           errorMessage: e?.response?.data?.errors || 'something Went wrong',
-        }))
+        }),
+      );
       Toast.show({
         title: 'Something went wrong',
         duration: 3000,
         placement: 'top',
         status: 'error',
         description: e?.response?.data?.errors || 'something Went wrong',
-      })
+      });
     }
   };
 };
@@ -125,7 +127,6 @@ export const register = ({payload}, navigation) => {
     dispatch(loginRequested());
     try {
       const res = await ApiService.register(payload);
-      console.log(res,'wiwi')
       if (res.data.success) {
         Toast.show({
           title: 'Account Registered',
@@ -140,7 +141,8 @@ export const register = ({payload}, navigation) => {
         dispatch(
           loginFailed({
             errorMessage: res.data.message || 'something Went wrong',
-          }))
+          }),
+        );
         Toast.show({
           title: 'Something went wrong',
           duration: 3000,
@@ -149,7 +151,6 @@ export const register = ({payload}, navigation) => {
         });
       }
     } catch (e) {
-      console.log(e)
       dispatch(
         loginFailed({
           errorMessage: e.response.data.errors || 'something Went wrong',
@@ -169,8 +170,8 @@ export const register = ({payload}, navigation) => {
 export const logOut = () => {
   return async (dispatch, getState) => {
     dispatch(userLogout());
-    clearAll()
-  }
-}
+    clearAll();
+  };
+};
 
 export default loginSlice.reducer;
