@@ -13,6 +13,7 @@ const couponSlice = createSlice({
     isRedeemCoupon: false,
     couponItem: {},
     couponCategoryList: [],
+    bannerImage:[],
   },
   reducers: {
     getCouponRequested: (state, action) => {
@@ -29,6 +30,21 @@ const couponSlice = createSlice({
       state.errorMessage = action.payload.errorMessage;
       state.isError = true;
     },
+    getBannerImageRequested: (state, action) => {
+      state.isLoading = true;
+      state.errorMessage = '';
+      state.isError = false;
+    },
+    getBannerImageSuccessful: (state, action) => {
+      state.isLoading = false;
+      state.bannerImage = action.payload.bannerImage;
+    },
+    getBannerImageFailed: (state, action) => {
+      state.isLoading = false;
+      state.errorMessage = action.payload.errorMessage;
+      state.isError = true;
+    },
+
     redeemCouponRequested: (state, action) => {
       state.isRedeem = true;
       state.errorMessage = '';
@@ -99,6 +115,9 @@ export const {
   getCouponRedeemRequested,
   getCouponRedeemSuccessful,
   getCouponredeemFailed,
+  getBannerImageRequested,
+  getBannerImageSuccessful,
+  getBannerImageFailed,
 } = couponSlice.actions;
 
 export default couponSlice.reducer;
@@ -108,10 +127,11 @@ export const getCoupon = () => {
     dispatch(getCouponRequested());
     const {token} = getState().loginSlice;
     const {location} = getState().locationSlice;
+    console.log(location.latitude);
     try {
       const payload = {
         token,
-        additionalUrl: `uLat=${112.45675}&uLon=${77.17591}`,
+        additionalUrl: `uLat=${location.latitude}&uLon=${location.longitude}`,
       };
       const res = await ApiService.getCoupon(payload);
       if (res.data.success) {
@@ -136,6 +156,41 @@ export const getCoupon = () => {
     }
   };
 };
+
+export const getBannerImage = () => {
+  return async (dispatch, getState) => {
+    dispatch(getBannerImageRequested());
+    //const {token} = getState().loginSlice;
+    //const {location} = getState().locationSlice;
+    try {
+      const payload = {
+        token,
+        //additionalUrl: `uLat=${112.45675}&uLon=${77.17591}`,
+      };
+      const res = await ApiService.getBanner();
+      if (res.data.success) {
+        dispatch(
+          getBannerImageSuccessful({
+            bannerImage: res.data,
+          }),
+        );
+      } else {
+        dispatch(
+          getBannerImageFailed({
+            errorMessage: e?.response?.data?.errors || 'Something went wrong',
+          }),
+        );
+      }
+    } catch (e) {
+      dispatch(
+        getBannerImageFailed({
+          errorMessage: e?.response?.data?.errors || 'Something went wrong',
+        }),
+      );
+    }
+  };
+};
+
 
 export const getCategoryCoupon = _id => {
   return async (dispatch, getState) => {

@@ -10,6 +10,7 @@ import Content from './Content';
 import I18n from '../../translations/i18n';
 import {DBAppBar, ModalContent} from '../../components';
 import {updateCurrentLocation} from '../../redux/slices/locationSlice';
+import { useSelector } from 'react-redux';
 
 const Home = ({navigation}) => {
   const [highAccuracy, setHighAccuracy] = useState(true);
@@ -23,9 +24,10 @@ const Home = ({navigation}) => {
     longitude: 0,
     coordinates: [],
   });
-
+  const userData = useSelector((state) => state.loginSlice.userData);
   const dispatch = useDispatch();
   const mapRef = useRef(null);
+  console.log(loc);
 
   useEffect(() => {
     if (!!loc && mapRef.current) {
@@ -96,7 +98,7 @@ const Home = ({navigation}) => {
       <DBAppBar
         navigation={navigation}
         account={true}
-        title={`${I18n.t('Dash.welcome')}, Umer`}
+        title={`${I18n.t('Dash.welcome')},` +" "+userData.name}
       />
       <ModalContent show={true} content={<Content navigation={navigation} />} />
       <View style={styles.map}>
@@ -113,8 +115,8 @@ const Home = ({navigation}) => {
             zoom: 11,
           }}
           initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
+            latitude: loc.latitude,
+            longitude: loc.longitude,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}

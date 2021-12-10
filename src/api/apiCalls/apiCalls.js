@@ -63,4 +63,30 @@ export const ApiService = {
       data,
     });
   },
+  logout: async (data,token) => {
+    return fireAjax({
+      method: 'POST',
+      URL: `${ApiUrl.userLogout}`,
+      token,
+      data
+    });
+  },
+
+  updateLocation: async (data,token) => {
+    console.log(data,token)
+    return fireAjax({
+      method: 'POST',
+      URL: `${ApiUrl.updateLocation}`,
+      token,
+      data
+    });
+  },
+  
+  getBanner: async (token) => {
+    return fireAjax({
+      method: 'GET',
+      URL: `${ApiUrl.getBanner}`,
+      token,
+    });
+  },
 };

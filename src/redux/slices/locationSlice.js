@@ -5,6 +5,7 @@ export const locationSlice = createSlice({
   initialState: {
     location: {},
   },
+  
   reducers: {
       updateCurrentLocation(state, action) {
       state.location = action.payload;

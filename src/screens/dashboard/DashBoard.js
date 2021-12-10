@@ -2,22 +2,22 @@ import {
   Box,
   Text,
   theme,
-  Input,
   HStack,
   VStack,
   FlatList,
   ScrollView,
 } from 'native-base';
 import React, { useEffect } from 'react';
-import {StatusBar, TouchableOpacity} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import {StatusBar, TouchableOpacity} from 'react-native';
+
 import I18n from '../../translations/i18n';
 import Icon from '../../assets/icons/Icon';
 import {fp, hp, wp} from '../../helpers/respDimension';
 import CardFlatList from '../../components/card/CardFlatList';
+import { updateUserLocation } from '../../redux/slices/loginSlice';
 import {CardComponent, CategoryCard, DBAppBar} from '../../components';
-import { height } from 'styled-system';
-import { getCoupon } from '../../redux/slices/couponSlice';
+import { getCoupon, getBannerImage } from '../../redux/slices/couponSlice';
 
 const searchIcon = (
   <Box ml={wp(4)}>
@@ -49,7 +49,9 @@ const rightArrowIcon1 = (
 const DashBoard = ({navigation}) => {
   const dispatch = useDispatch()
   const { categoryList } = useSelector(state => state.categorySlice);
-  const { couponList } = useSelector(state => state.couponSlice);
+  const { couponList, bannerImage } = useSelector(state => state.couponSlice);
+  const  deviceToken =useSelector(state=>state.loginSlice);
+  const {location} =useSelector (state=>state.locationSlice);
 
   const navigateToDetail = (id) => navigation.navigate('CouponDetail',{id})
   const navigateToList = (item) => navigation.navigate('CouponList',{item})
@@ -60,7 +62,14 @@ const DashBoard = ({navigation}) => {
   const renderEmpty=()=>( <Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>The list is empty</Text>) 
 
   useEffect(()=>{
+    dispatch(updateUserLocation({
+      _id:deviceToken.userData.user_id,
+      userLat:location.latitude,
+      userLon:location.longitude,
+      deviceToken:deviceToken.fbDeviceToken,
+    }))
     dispatch(getCoupon());
+    dispatch(getBannerImage());
   },[])
 
   return (
@@ -77,9 +86,9 @@ const DashBoard = ({navigation}) => {
         <VStack
           width={wp(100)}
           bg="secondary.500"
-          borderBottomLeftRadius="200"
-          borderBottomRightRadius="200"
-          height={wp(80)}
+          // borderBottomLeftRadius="200"
+          // borderBottomRightRadius="200"
+          height={wp(60)}
           px={wp(5)}>
           {/* <Input
             w={{
@@ -111,10 +120,11 @@ const DashBoard = ({navigation}) => {
           </Text>
         </VStack>
         <FlatList
-          //pl={wp(4)}
+          // pl={wp(2)}
 
-          py={hp(2)}
-          top={hp(14)}
+          // py={hp(2)}
+          //contentContainerStyle={{px:6}}
+          top={hp(8)}
           data={[1,2,3]}
           horizontal={true}
           position="absolute"

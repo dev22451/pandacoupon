@@ -8,13 +8,15 @@ import {storeData, clearAll} from '../../helpers/localStorgae';
 export const loginSlice = createSlice({
   name: 'user',
   initialState: {
-    token: '',
     userData: [],
+    token: '',
     isError: false,
-    fbDeviceToken: '',
     errorMessage: '',
     isLoading: false,
     isLoggedIn: false,
+    fbDeviceToken: '',
+    isLoggedIn: false,
+    isLoggedOut:false,
   },
   reducers: {
     loginRequested(state, action) {
@@ -28,8 +30,40 @@ export const loginSlice = createSlice({
       state.userData = action.payload.userData;
       state.isLoggedIn = true;
     },
-    apiSuccessful(state, action) {
+    logoutRequested(state, action) {
+      state.isLoading = true;
+      state.isError = false;
+      state.errorMessage = '';
+    },
+    logoutSuccessful(state, action) {
       state.isLoading = false;
+      state.token = action.payload.token;
+      state.userData = action.payload.userData;
+      state.isLoggedOut = true;
+    },
+    logoutFailed(state, action) {
+      state.isLoading = false;
+      state.isError = true;
+      state.errorMessage = action.payload.errorMessage;
+    },
+    updateUserLocationRequested(state, action) {
+      state.isLoading = true;
+      state.isError = false;
+      state.errorMessage = '';
+    },
+    updateUserLocationSuccessful(state, action) {
+      state.isLoading = false;
+      state.token = action.payload.token;
+      state.userData = action.payload.userData;
+      state.isLoggedOut = true;
+    },
+    updateUserLocationFailed(state, action) {
+      state.isLoading = false;
+      state.isError = true;
+      state.errorMessage = action.payload.errorMessage;
+    },
+    apiSuccessful(state,action){
+      state.isLoading = false
     },
     loginFailed(state, action) {
       state.isLoading = false;
@@ -67,7 +101,13 @@ export const {
   restoreUser,
   userLogout,
   apiSuccessful,
+  logoutSuccessful,
+  logoutRequested,
+  logoutFailed,
   updateDeviceToken,
+  updateUserLocationRequested,
+  updateUserLocationSuccessful,
+  updateUserLocationFailed,
 } = loginSlice.actions;
 
 export const login = ({payload}) => {
@@ -75,6 +115,7 @@ export const login = ({payload}) => {
     dispatch(loginRequested());
     try {
       const res = await ApiService.login(payload);
+      console.log(res);
       if (res.data.success) {
         Toast.show({
           title: 'Login Success',
@@ -122,6 +163,59 @@ export const login = ({payload}) => {
   };
 };
 
+export const logout = ({payload}) => {
+  return async (dispatch, getState) => {
+    dispatch(logoutRequested());
+    try {
+      const res = await ApiService.logout(id);
+      if (res.data.success) {
+        Toast.show({
+          title: 'Logout Success',
+          placement: 'top',
+          status: 'success',
+          duration: 3000,
+          description: `You have logged out`,
+        });
+        // await storeData(
+        //   'userData',
+        //   res.data.data
+        // );
+        dispatch(
+          logoutSuccessful({
+            userData: res.data.data,
+            token: res.data.data.accessToken,
+          }),
+        );
+        dispatch(getCategoryRequest());
+        dispatch(getCoupon());
+      } else {
+        dispatch(
+          logoutFailed({
+            errorMessage: res.data.message || 'something Went wrong',
+          }))
+        Toast.show({
+          title: res.data.message || 'Something went wrong',
+          duration: 3000,
+          placement: 'top',
+          status: 'error',
+        });
+      }
+    } catch (e) {
+      dispatch(
+        loginFailed({
+          errorMessage: e?.response?.data?.errors || 'something Went wrong',
+        }))
+      Toast.show({
+        title: 'Something went wrong',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description: e?.response?.data?.errors || 'something Went wrong',
+      })
+    }
+  };
+};
+
 export const register = ({payload}, navigation) => {
   return async (dispatch, getState) => {
     dispatch(loginRequested());
@@ -153,6 +247,51 @@ export const register = ({payload}, navigation) => {
     } catch (e) {
       dispatch(
         loginFailed({
+          errorMessage: e.response.data.errors || 'something Went wrong',
+        }),
+        Toast.show({
+          title: 'Something went wrong',
+          duration: 3000,
+          placement: 'top',
+          status: 'error',
+          description: e.response.data.errors,
+        }),
+      );
+    }
+  };
+};
+
+export const updateUserLocation = (payload,token) => {
+  return async (dispatch, getState) => {
+    dispatch(updateUserLocationRequested());
+    try {
+      const res = await ApiService.updateLocation(payload,token);
+      if (res.data.success) {
+        Toast.show({
+          title: 'Location Update',
+          placement: 'top',
+          status: 'success',
+          duration: 3000,
+          //description: 'Location Updated.',
+        });
+        dispatch(updateUserLocationSuccessful());
+        
+      } else {
+        dispatch(
+          updateUserLocationFailed({
+            errorMessage: res.data.message || 'something Went wrong',
+          }),
+        );
+        Toast.show({
+          title: 'Something went wrong',
+          duration: 3000,
+          placement: 'top',
+          status: 'error',
+        });
+      }
+    } catch (e) {
+      dispatch(
+        updateUserLocationFailed({
           errorMessage: e.response.data.errors || 'something Went wrong',
         }),
         Toast.show({

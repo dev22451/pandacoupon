@@ -81,6 +81,7 @@ const SignIn = ({navigation}) => {
 
   const handleSignIn = () => {
     const isEmailValidate = email.email !== ''
+    //const isEmailValidate = email.email !== validateEmail
     const isPasswordValidate = password.password !== ''
     if(isEmailValidate && isPasswordValidate){
       const payload = {

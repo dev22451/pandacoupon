@@ -44,12 +44,13 @@ const CategoryCard = ({item,navigateToList}) => {
           color={theme.colors.secondary[500]}
         /> 
         :
-        <Image
+        <FastImage
             source={{
               uri: image,
+              priority: FastImage.priority.normal,
             }}
             style={{height:wp(10),width:wp(10)}}
-            resizeMode="contain"
+            resizeMode={FastImage.resizeMode.contain}
           />
         }  
 

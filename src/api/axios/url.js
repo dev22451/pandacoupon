@@ -6,5 +6,8 @@ export default {
   getUser: 'user-data',
   redeem: 'redeem',
   getRedeem:'redeem-data',
-  getCategoryCoupon:'getCouponbyCategoryId'
+  getCategoryCoupon:'getCouponbyCategoryId',
+  userLogout:'logout',
+  getBanner:'bannerImageGet',
+  updateLocation:'updateUserLocation',
 };
