@@ -19,5 +19,5 @@ export const getDeviceToken = async () => {
 
   // Get the token
   const token = await messaging().getToken();
-  console.log({token})
+  console.log(token,"token")
 }

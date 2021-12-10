@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'react-native-gesture-handler';
 import {Provider} from 'react-redux';
 import {NativeBaseProvider} from 'native-base';
@@ -15,15 +15,21 @@ LogBox.ignoreLogs([
   'VirtualizedLists should never be nested',
   'Require cycle',
   'NativeBase',
+  'If you want to use Reanimated 2',
+  'Require cycles',
+  'Require cycle'
 ]);
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
-  console.disableYellowBox = true;
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
-  console.log(getDeviceToken(),'asdas')
+
+  useEffect(()=>{
+    getDeviceToken()
+  },[])
+
   return (
     <NativeBaseProvider
       theme={theme}
