@@ -8,6 +8,7 @@ import {SafeAreaView, LogBox, StatusBar, useColorScheme} from 'react-native';
 import {store} from './src/redux/store';
 import RootNavigation from './src/routes/routes';
 import {colorModeManager, config, theme} from './src/themes/theme';
+import {getDeviceToken} from './src/helpers/firebase';
 
 LogBox.ignoreLogs([
   'Reanimated 2',
@@ -18,11 +19,11 @@ LogBox.ignoreLogs([
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
-
+  console.disableYellowBox = true;
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
-
+  console.log(getDeviceToken(),'asdas')
   return (
     <NativeBaseProvider
       theme={theme}
