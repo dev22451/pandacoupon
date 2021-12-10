@@ -105,7 +105,6 @@ export const login = ({payload}) => {
         });
       }
     } catch (e) {
-      console.log(e.status,'login ')
       dispatch(
         loginFailed({
           errorMessage: e?.response?.data?.errors || 'something Went wrong',

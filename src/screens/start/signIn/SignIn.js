@@ -94,7 +94,7 @@ const SignIn = ({navigation}) => {
         duration: 3000,
         placement: 'top',
         status: 'error',
-        description:'Please Enter Correct Email and Password'
+        description:'Please Enter Email and Password'
       });
     }
   };

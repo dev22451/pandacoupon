@@ -154,7 +154,9 @@ const Register = ({navigation}) => {
               _focus={{borderColor: 'secondary.500'}}
               onChangeText={text => handleEmail(text)}
             />
-            <FormControl.ErrorMessage>Invalid Mail</FormControl.ErrorMessage>
+            <FormControl.ErrorMessage>
+              Invalid Mail
+            </FormControl.ErrorMessage>
           </FormControl>
           <Input
             placeholder="Number"
