@@ -16,6 +16,7 @@ import Icon from '../../assets/icons/Icon';
 import {fp, hp, wp} from '../../helpers/respDimension';
 import {mcDonald, SvgExample} from '../../assets/images';
 import moment from 'moment';
+import FastImage from 'react-native-fast-image';
 
 const rightArrowIcon = (
   <Icon
@@ -59,7 +60,6 @@ function CardComponent({item, navigateToDetail}) {
     noOfUser = 0,
     _id:id
   } = item;
-  console.log({id},'pwpwpwp');
   const handleItemPressed = () => navigateToDetail(id)
   return (
     <TouchableOpacity activeOpacity={0.9} key={item.id} onPress={handleItemPressed}>
@@ -77,12 +77,13 @@ function CardComponent({item, navigateToDetail}) {
             <Box width={wp(15)} px={wp(2)}>
               <AspectRatio ratio={1 / 1}>
               {brandImage?
-                    <Image
+                    <FastImage
                     source={{
                       uri: brandImage,
+                      priority: FastImage.priority.normal,
                     }}
                     style={{height:wp(10),width:wp(10)}}
-                    resizeMode="contain"
+                    resizeMode={FastImage.resizeMode.contain}
                   />
                   :
                   <SvgExample />
@@ -114,13 +115,14 @@ function CardComponent({item, navigateToDetail}) {
           <AspectRatio ratio={16 / 9}>
             {
             couponImage ?
-            <Image
+            <FastImage
             source={{
               uri: couponImage,
+              priority: FastImage.priority.normal,
             }}
             width={wp(86)}
             height={hp(23)}
-            resizeMode="contain"
+            resizeMode={FastImage.resizeMode.contain}
             />
             :
             <Image

@@ -1,5 +1,6 @@
 import React from 'react';
 import {TouchableOpacity,Image} from 'react-native';
+import FastImage from 'react-native-fast-image';
 import {
   Box,
   HStack,
@@ -52,12 +53,13 @@ const CategoryFlatList = (props) => {
                   color={theme.colors.secondary[500]}
                 /> 
                 :
-                <Image
+                <FastImage
                     source={{
                       uri: item.categoryImageURL,
+                      priority: FastImage.priority.normal,
                     }}
                     style={{height:wp(10),width:wp(10)}}
-                    resizeMode='contain'
+                    resizeMode={FastImage.resizeMode.contain}
                   />  
               }
               onPress={() => null}

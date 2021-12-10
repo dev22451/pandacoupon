@@ -27,10 +27,7 @@ const Forgot = ({navigation}) => {
         </Heading>
         <Text bold color="black" mt={hp(2)}>
           {I18n.t('Forgot.emailHelp1')}{' '}
-          <Text
-            color="gray.500"
-            mt={hp(2)}
-            onPress={() => console.log('hello world')}>
+          <Text color="gray.500" mt={hp(2)} onPress={() => null}>
             {I18n.t('Forgot.emailHelp2')}
           </Text>
         </Text>

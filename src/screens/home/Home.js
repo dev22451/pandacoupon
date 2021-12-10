@@ -27,6 +27,7 @@ const Home = ({navigation}) => {
   const userData = useSelector((state) => state.loginSlice.userData);
   const dispatch = useDispatch();
   const mapRef = useRef(null);
+  console.log(loc);
 
   useEffect(() => {
     if (!!loc && mapRef.current) {
@@ -46,15 +47,18 @@ const Home = ({navigation}) => {
   Geocoder.from(loc.latitude, loc.longitude)
     .then(json => {
       var addressComponent = json.results[0].address_components[0];
-      // console.log(addressComponent);
     })
     .catch(error => console.warn(error));
 
   const geoLocation = () => {
     Geolocation.getCurrentPosition(
       position => {
-      //  console.log({lang:position.coords.latitude,lati:position.coords.longitude});
-        dispatch(updateCurrentLocation({latitude:position.coords.latitude,longitude:position.coords.longitude} ));
+        dispatch(
+          updateCurrentLocation({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          }),
+        );
         setLoc({
           heading: position.coords.heading,
           accuracy: position.coords.accuracy,
@@ -111,8 +115,8 @@ const Home = ({navigation}) => {
             zoom: 11,
           }}
           initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
+            latitude: loc.latitude,
+            longitude: loc.longitude,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}

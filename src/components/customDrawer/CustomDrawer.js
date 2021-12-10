@@ -61,7 +61,7 @@ const CustomDrawer = props => {
       <Center mt={hp(5)}>
         <VStack justifyContent="center" alignItems="center">
           <Avatar bg="pink.600" size="lg" space={2}>
-            JD
+          {userData.name[0]}
           </Avatar>
           <Heading mt={hp(2)}>{userData.name}</Heading>
           {/* <TouchableOpacity

@@ -16,18 +16,20 @@ export const ApiService = {
       data: payload,
     });
   },
-  getCategory: async (token) => {
+  getCategory: async token => {
     return fireAjax({
       method: 'GET',
       URL: `${ApiUrl.getCategory}`,
-      token
+      token,
     });
   },
   getCoupon: async ({token, additionalUrl}) => {
     return fireAjax({
       method: 'GET',
-      URL:  additionalUrl ? `${ApiUrl.getCoupon}?${additionalUrl}` :`${ApiUrl.getCoupon}`,
-      token
+      URL: additionalUrl
+        ? `${ApiUrl.getCoupon}?${additionalUrl}`
+        : `${ApiUrl.getCoupon}`,
+      token,
     });
   },
   getCategoryCoupon: async ({token, payload}) => {
@@ -35,31 +37,30 @@ export const ApiService = {
       method: 'POST',
       URL: `${ApiUrl.getCategoryCoupon}`,
       token,
-      data:payload
+      data: payload,
     });
   },
   getUser: async token => {
     return fireAjax({
       method: 'GET',
       URL: `${ApiUrl.getUser}`,
-      token
+      token,
     });
   },
-  redeemCoupon: async (data,token) => {
-    console.log(data)
+  redeemCoupon: async (data, token) => {
     return fireAjax({
       method: 'POST',
       URL: `${ApiUrl.redeem}`,
       data,
-      token
+      token,
     });
   },
-  getRedeemData: async (data,token) => {
+  getRedeemData: async (data, token) => {
     return fireAjax({
       method: 'POST',
       URL: `${ApiUrl.getRedeem}`,
       token,
-      data
+      data,
     });
   },
   logout: async (data,token) => {
@@ -70,8 +71,18 @@ export const ApiService = {
       data
     });
   },
+
+  updateLocation: async (data,token) => {
+    console.log(data,token)
+    return fireAjax({
+      method: 'POST',
+      URL: `${ApiUrl.updateLocation}`,
+      token,
+      data
+    });
+  },
   
-  banner: async (token) => {
+  getBanner: async (token) => {
     return fireAjax({
       method: 'GET',
       URL: `${ApiUrl.getBanner}`,

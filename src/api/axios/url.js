@@ -9,4 +9,5 @@ export default {
   getCategoryCoupon:'getCouponbyCategoryId',
   userLogout:'logout',
   getBanner:'bannerImageGet',
+  updateLocation:'updateUserLocation',
 };

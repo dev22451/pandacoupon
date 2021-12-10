@@ -101,10 +101,10 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem: isRedeem
     noOfUser = 0,
     _id: id
   } = couponData;
-  console.log(couponData)
   const handlePressRedeem = () => {
     handleRedeem(id)
   }
+  console.log(couponData,"gegfyugeuigdfu");
   //const [show, setShow] = useState(false);
   return (
     <Stack>
@@ -121,12 +121,13 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem: isRedeem
             <Box width={wp(15)} px={wp(2)}>
               <AspectRatio ratio={1 / 1}>
                 {brandImage ?
-                  <Image
+                  <FastImage
                     source={{
                       uri: brandImage,
+                      priority: FastImage.priority.normal,
                     }}
                     style={{ height: wp(10), width: wp(10) }}
-                    resizeMode="contain"
+                    resizeMode={FastImage.resizeMode.contain}
                   />
                   :
                   <SvgExample />
@@ -169,7 +170,7 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem: isRedeem
             </Text>
             <Spacer />
             <Text fontSize={fp(2)} fontWeight="500">
-              {brandLocation}
+              {/* {brandLocation} */}
             </Text>
             <Box
               ml={wp(2)}

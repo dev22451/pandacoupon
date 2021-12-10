@@ -79,7 +79,7 @@ const data1 = [
 
 const Account = ({navigation}) => {
   const userData = useSelector((state) => state.loginSlice.userData);
-  console.log(userData.email,'tygyuhef');
+
   const handlePressSecond = item => {
     switch (item.fullName) {
       case 'Coupons':
@@ -139,7 +139,7 @@ const Account = ({navigation}) => {
           bg="pink.600"
           size="xl"
           space={2}>
-          JD
+          {userData.name[0]}
         </Avatar>
         <Box
           mt={hp(18)}
