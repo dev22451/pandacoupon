@@ -14,6 +14,7 @@ const couponSlice = createSlice({
     couponItem: {},
     couponCategoryList: [],
     bannerImage:[],
+    redeemUserCoupon:[],
   },
   reducers: {
     getCouponRequested: (state, action) => {
@@ -55,6 +56,20 @@ const couponSlice = createSlice({
     },
     redeemCouponFailed: (state, action) => {
       state.isRedeem = false;
+      state.errorMessage = action.payload.errorMessage;
+      state.isError = true;
+    },
+    getRedeemCouponbyUserRequested: (state, action) => {
+      state.isLoading = true;
+      state.errorMessage = '';
+      state.isError = false;
+    },
+    getRedeemCouponbyUserSuccessful: (state, action) => {
+      state.isLoading = false;
+      state.redeemUserCoupon = action.payload;
+    },
+    getRedeemCouponbyUserFailed: (state, action) => {
+      state.isLoading = false;
       state.errorMessage = action.payload.errorMessage;
       state.isError = true;
     },
@@ -118,6 +133,9 @@ export const {
   getBannerImageRequested,
   getBannerImageSuccessful,
   getBannerImageFailed,
+  getRedeemCouponbyUserRequested,
+  getRedeemCouponbyUserSuccessful,
+  getRedeemCouponbyUserFailed,
 } = couponSlice.actions;
 
 export default couponSlice.reducer;
@@ -160,7 +178,7 @@ export const getCoupon = () => {
 export const getBannerImage = () => {
   return async (dispatch, getState) => {
     dispatch(getBannerImageRequested());
-    //const {token} = getState().loginSlice;
+    const {token} = getState().loginSlice;
     //const {location} = getState().locationSlice;
     try {
       const payload = {
@@ -171,7 +189,7 @@ export const getBannerImage = () => {
       if (res.data.success) {
         dispatch(
           getBannerImageSuccessful({
-            bannerImage: res.data,
+            bannerImage: res.data.data,
           }),
         );
       } else {
@@ -295,3 +313,36 @@ export const redeemCoupon = _id => {
     }
   };
 };
+
+export const getredeemCouponbyUser = _id => {
+  return async (dispatch, getState) => {
+    dispatch(getRedeemCouponbyUserRequested());
+    const {token} = getState().loginSlice;
+    //const {location} = getState().locationSlice;
+    try {
+      const payload = {
+        token,
+        payload: {
+          categoryID: _id,
+        },
+      };
+      const res = await ApiService.redeemCouponbyUser(payload);
+
+      if (res.data.success) {
+        dispatch(
+          getRedeemCouponbyUserSuccessful({
+            redeemUserCoupon: res.data,
+          }),
+        );
+      }
+    } catch (e) {
+      dispatch(
+        getRedeemCouponbyUserFailed({
+          errorMessage: e?.response?.data?.errors || 'Something went wrong',
+        }),
+      );
+    }
+  };
+};
+
+

@@ -9,14 +9,13 @@ import {
   IconButton,
   SectionList,
 } from 'native-base';
-import {useDispatch} from 'react-redux';
+import {useDispatch,useSelector} from 'react-redux';
 import {TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-
 import {DBAppBar} from '../../components';
 import Icon from '../../assets/icons/Icon';
 import {wp} from '../../helpers/respDimension';
-import {logOut} from '../../redux/slices/loginSlice';
+import {logout} from '../../redux/slices/loginSlice';
 
 const backIcon = (
   <Icon
@@ -88,6 +87,7 @@ const data = [
 
 const Setting = () => {
   const dispatch = useDispatch();
+  const userData = useSelector((state) => state.loginSlice.userData);
   const navigation = useNavigation();
   const handlePress = item => {
     switch (item.fullName) {
@@ -100,7 +100,9 @@ const Setting = () => {
         break;
 
       case 'Logout':
-        dispatch(logOut());
+        dispatch(logout({
+          user_id:userData.user_id
+        }));
         break;
 
       default:

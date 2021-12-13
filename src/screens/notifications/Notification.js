@@ -1,10 +1,21 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import {VStack, Text, theme} from 'native-base';
 
 import {fp} from '../../helpers/respDimension';
 import {DBAppBar} from '../../components';
+import { useSelector, useDispatch } from 'react-redux';
+import { getNotification } from '../../redux/slices/notificationSlice';
 
 const Notification = ({navigation}) => {
+  const dispatch = useDispatch()
+  const Notifications = useSelector((state) => state.notificationSlice);
+  //console.log(Notifications,"notifications");
+  
+  useEffect(()=>{
+    dispatch(getNotification());
+  },[])
+
+
   return (
     <>
       <DBAppBar

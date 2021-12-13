@@ -64,6 +64,7 @@ export const ApiService = {
     });
   },
   logout: async (data,token) => {
+    console.log(data);
     return fireAjax({
       method: 'POST',
       URL: `${ApiUrl.userLogout}`,
@@ -73,10 +74,19 @@ export const ApiService = {
   },
 
   updateLocation: async (data,token) => {
-    console.log(data,token)
     return fireAjax({
       method: 'POST',
       URL: `${ApiUrl.updateLocation}`,
+      token,
+      data
+    });
+  },
+
+  redeemCouponbyUser: async (data,token) => {
+    console.log(data,token)
+    return fireAjax({
+      method: 'POST',
+      URL: `${ApiUrl.redeemCouponbyUser}`,
       token,
       data
     });
@@ -86,6 +96,14 @@ export const ApiService = {
     return fireAjax({
       method: 'GET',
       URL: `${ApiUrl.getBanner}`,
+      token,
+    });
+  },
+  
+  getNotification: async (token) => {
+    return fireAjax({
+      method: 'GET',
+      URL: `${ApiUrl.getNotification}`,
       token,
     });
   },

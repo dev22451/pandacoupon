@@ -7,14 +7,14 @@ import {
   FlatList,
   ScrollView,
 } from 'native-base';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {StatusBar, TouchableOpacity} from 'react-native';
 
 import I18n from '../../translations/i18n';
 import Icon from '../../assets/icons/Icon';
 import {fp, hp, wp} from '../../helpers/respDimension';
-import CardFlatList from '../../components/card/CardFlatList';
+import BannerCard from '../../components/card/bannerCard';
 import { updateUserLocation } from '../../redux/slices/loginSlice';
 import {CardComponent, CategoryCard, DBAppBar} from '../../components';
 import { getCoupon, getBannerImage } from '../../redux/slices/couponSlice';
@@ -47,21 +47,25 @@ const rightArrowIcon1 = (
 );
 
 const DashBoard = ({navigation}) => {
+  
   const dispatch = useDispatch()
   const { categoryList } = useSelector(state => state.categorySlice);
   const { couponList, bannerImage } = useSelector(state => state.couponSlice);
+  
+ 
   const  deviceToken =useSelector(state=>state.loginSlice);
   const {location} =useSelector (state=>state.locationSlice);
 
   const navigateToDetail = (id) => navigation.navigate('CouponDetail',{id})
   const navigateToList = (item) => navigation.navigate('CouponList',{item})
   
-  const renderBanner = ({item}) => <CardFlatList item={item} />;
+  const renderBanner = ({item}) => <BannerCard item={item} />;
   const renderCategory = ({item}) => <CategoryCard item={item} {...{navigateToList}} />;
   const renderCouponCard = ({item}) => <CardComponent {...{item,navigateToDetail}} />;
   const renderEmpty=()=>( <Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>The list is empty</Text>) 
-
+ 
   useEffect(()=>{
+   
     dispatch(updateUserLocation({
       _id:deviceToken.userData.user_id,
       userLat:location.latitude,
@@ -71,7 +75,7 @@ const DashBoard = ({navigation}) => {
     dispatch(getCoupon());
     dispatch(getBannerImage());
   },[])
-
+ 
   return (
     <>
       <StatusBar backgroundColor={theme.colors.secondary[500]} />
@@ -125,7 +129,7 @@ const DashBoard = ({navigation}) => {
           // py={hp(2)}
           //contentContainerStyle={{px:6}}
           top={hp(8)}
-          data={[1,2,3]}
+          data={bannerImage}
           horizontal={true}
           position="absolute"
           keyExtractor={item => item.id}

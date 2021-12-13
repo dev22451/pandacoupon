@@ -21,7 +21,7 @@ import { useSelector } from 'react-redux';
 import Icon from '../../assets/icons/Icon';
 import I18n from '../../translations/i18n';
 import {hp, wp} from '../../helpers/respDimension';
-import {logOut} from '../../redux/slices/loginSlice';
+import {logOut,logout} from '../../redux/slices/loginSlice';
 
 const backIcon = (
   <Icon
@@ -52,9 +52,14 @@ const getIcon = screenName => {
 const CustomDrawer = props => {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.loginSlice.userData);
+ 
   const navigation = useNavigation();
   const handleLogout = () => {
-    dispatch(logOut())
+   
+    dispatch(logout({
+      user_id:userData.user_id
+    }
+    ))
   }
   return (
     <DrawerContentScrollView>

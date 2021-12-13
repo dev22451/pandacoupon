@@ -15,7 +15,6 @@ export const loginSlice = createSlice({
     isLoading: false,
     isLoggedIn: false,
     fbDeviceToken: '',
-    isLoggedIn: false,
     isLoggedOut:false,
   },
   reducers: {
@@ -39,7 +38,7 @@ export const loginSlice = createSlice({
       state.isLoading = false;
       state.token = action.payload.token;
       state.userData = action.payload.userData;
-      state.isLoggedOut = true;
+      state.isLoggedIn= false;
     },
     logoutFailed(state, action) {
       state.isLoading = false;
@@ -163,11 +162,13 @@ export const login = ({payload}) => {
   };
 };
 
-export const logout = ({payload}) => {
+export const logout = (payload,token) => {
   return async (dispatch, getState) => {
     dispatch(logoutRequested());
     try {
-      const res = await ApiService.logout(id);
+      const res = await ApiService.logout(payload,token);
+      
+      console.log(res,"logout");
       if (res.data.success) {
         Toast.show({
           title: 'Logout Success',
@@ -176,18 +177,17 @@ export const logout = ({payload}) => {
           duration: 3000,
           description: `You have logged out`,
         });
-        // await storeData(
-        //   'userData',
-        //   res.data.data
-        // );
+       
         dispatch(
           logoutSuccessful({
-            userData: res.data.data,
-            token: res.data.data.accessToken,
+            userData: '',
+            token: '',
+        
           }),
         );
-        dispatch(getCategoryRequest());
-        dispatch(getCoupon());
+        
+        //dispatch(logOut());
+       
       } else {
         dispatch(
           logoutFailed({

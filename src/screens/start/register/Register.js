@@ -75,23 +75,22 @@ const Register = ({navigation}) => {
   const isLoading = useSelector(state => state.loginSlice.isLoading);
 
   const handleEmail = text => {
-    // validateEmail(text)
-    //   ? setEmail({email: '', valid: true})
-    //   : setEmail({email: text, valid: false});
-    setEmail({email: text, valid: false});
+    validateEmail(text)
+      ? setEmail({email: '', valid: true})
+      : setEmail({email: text, valid: false});
+   // setEmail({email: text, valid: false});
   };
   const handlePassword = text => {
-    // validatePassword(text)
-    //   ? setPassword({password: '', valid: true})
-    //   :
-    setPassword({password: text, valid: false});
+    validatePassword(text)
+      ? setPassword({password: '', valid: true})
+      : setPassword({password: text, valid: false});
   };
 
   const handleSignUp = () => {
     const isEmailValidate = email.email !== '';
     const isPasswordValidate = password.password !== '';
     const isValidPhoneNumber = number.number !== '';
-    if (isEmailValidate && isPasswordValidate) {
+    if (isEmailValidate && isPasswordValidate && isValidPhoneNumber) {
       const payload = {
         userName: name,
         PhoneNumber: number.number,
