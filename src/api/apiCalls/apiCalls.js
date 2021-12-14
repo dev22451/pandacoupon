@@ -64,7 +64,6 @@ export const ApiService = {
     });
   },
   logout: async (data,token) => {
-    console.log(data);
     return fireAjax({
       method: 'POST',
       URL: `${ApiUrl.userLogout}`,
@@ -83,7 +82,6 @@ export const ApiService = {
   },
 
   redeemCouponbyUser: async (data,token) => {
-    console.log(data,token)
     return fireAjax({
       method: 'POST',
       URL: `${ApiUrl.redeemCouponbyUser}`,

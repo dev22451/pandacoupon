@@ -177,17 +177,16 @@ export const logout = (payload,token) => {
           duration: 3000,
           description: `You have logged out`,
         });
-       
+        
         dispatch(
           logoutSuccessful({
             userData: '',
             token: '',
         
           }),
+          await clearAll()
         );
         
-        //dispatch(logOut());
-       
       } else {
         dispatch(
           logoutFailed({

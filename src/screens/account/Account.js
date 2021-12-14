@@ -50,9 +50,14 @@ const userIcon = (
 const data = [
   
   {
-    id: '2',
+    id: '1',
     fullName: 'Categories',
     iconName: 'file-document-outline',
+  },
+  {
+    id: '2',
+    fullName: 'Histories',
+    iconName: 'history',
   },
   
 ];

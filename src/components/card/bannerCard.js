@@ -9,14 +9,9 @@ import FastImage from 'react-native-fast-image'
 
 function BannerCard(item) {
     
-    const data=item.item.image
-    
     return (
         <>
-            {
-                data.map((item)=>{
-                return(
-                    <>
+           
                     <TouchableOpacity onPress={() => null} key={item.id} activeOpacity={0.8}>
                 <Box
                     mx={wp(2)}
@@ -36,7 +31,7 @@ function BannerCard(item) {
                                 alt="image"
                                 height="90%"
                                 source={{ 
-                                    uri: item.image,
+                                    uri: item.item.images,
                                     priority: FastImage.priority.normal,}}
                                 //source={mcDonald}
                                 borderRadius="lg"
@@ -47,11 +42,6 @@ function BannerCard(item) {
 
                 </Box>
             </TouchableOpacity>
-            </>
-                )
-                    
-                })
-            }
             
         </>
     );

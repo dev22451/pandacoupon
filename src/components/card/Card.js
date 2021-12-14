@@ -43,10 +43,10 @@ const giftIcon = (
   />
 );
 
-function CardComponent({item, navigateToDetail}) {
+function CardComponent({item, navigateToDetail,navigation}) {
   const {
-    brandLocation,
     brandName,
+    brandLocation,
     brandPhone,
     brandWebsite,
     brandcouponDescription,
@@ -57,10 +57,12 @@ function CardComponent({item, navigateToDetail}) {
     couponDescription,
     couponTitle,
     expiryDate,
-    noOfUser = 0,
+    noOfUser,
     _id:id
   } = item;
+  
   const handleItemPressed = () => navigateToDetail(id)
+  
   return (
     <TouchableOpacity activeOpacity={0.9} key={item.id} onPress={handleItemPressed}>
       <Box
@@ -163,7 +165,7 @@ function CardComponent({item, navigateToDetail}) {
                 Used
               </Text>
               <Text fontSize="xs" fontWeight="600" color="black">
-                {/*62 times (103 remainings)*/}{noOfUser}
+                {noOfUser}
               </Text>
             </VStack>
           </HStack>

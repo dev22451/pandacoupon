@@ -18,7 +18,7 @@ const notificationSlice = createSlice({
         },
         getNotificationSuccessful: (state, action) => {
           state.isLoading = false;
-          state.Notifications = action.payload;
+          state.Notifications = action.payload.Notifications;
         },
         getNotificationFailed: (state, action) => {
           state.isLoading = false;
