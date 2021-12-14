@@ -145,8 +145,9 @@ export const getCoupon = () => {
     dispatch(getCouponRequested());
     const {token} = getState().loginSlice;
     const {location} = getState().locationSlice;
-    console.log(location.latitude);
+    console.log(location,'rajneesh');
     const data = await getData('locationData');
+    console.log(data,"rajneesh");
     try {
       const payload = {
         token,

@@ -18,6 +18,7 @@ import BannerCard from '../../components/card/bannerCard';
 import { updateUserLocation } from '../../redux/slices/loginSlice';
 import {CardComponent, CategoryCard, DBAppBar} from '../../components';
 import { getCoupon, getBannerImage } from '../../redux/slices/couponSlice';
+import { updateCurrentLocation } from '../../redux/slices/locationSlice';
 import Geolocation from 'react-native-geolocation-service';
 
 const searchIcon = (
@@ -64,41 +65,78 @@ const DashBoard = ({navigation}) => {
   const renderCouponCard = ({item}) => <CardComponent {...{item,navigateToDetail}} />;
   const renderEmpty=()=>( <Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>The list is empty</Text>) 
   
-  const geoLocation = () => {
-    Geolocation.getCurrentPosition(
-      position => {
-        dispatch(updateUserLocation({
-          _id:deviceToken.userData.user_id,
-          userLat:position.coords.latitude,
-          userLon:position.coords.longitude,
-          deviceToken:deviceToken.fbDeviceToken,
-        }));
-      },
-      error => {
+  // const geoLocation = () => {
+  //   Geolocation.getCurrentPosition(
+  //     position => {
+  //       dispatch(updateUserLocation({
+  //         _id:deviceToken.userData.user_id,
+  //         userLat:position.coords.latitude,
+  //         userLon:position.coords.longitude,
+  //         deviceToken:deviceToken.fbDeviceToken,
+  //       }));
+  //       dispatch(getCoupon());
+  //       dispatch(getBannerImage());
+  //     },
+  //     error => {
         
-      },
-      {
-        accuracy: {
-          android: 'high',
-          ios: 'best',
-        },
-        enableHighAccuracy: true,
-        timeout: 15000,
-        maximumAge: 10000,
-        distanceFilter: 0,
-        forceRequestLocation: true,
-        forceLocationManager: false,
-        showLocationDialog: true,
-      },
-    );
-  };
+  //     },
+  //     {
+  //       accuracy: {
+  //         android: 'high',
+  //         ios: 'best',
+  //       },
+  //       enableHighAccuracy: true,
+  //       timeout: 15000,
+  //       maximumAge: 10000,
+  //       distanceFilter: 0,
+  //       forceRequestLocation: true,
+  //       forceLocationManager: false,
+  //       showLocationDialog: true,
+  //     },
+  //   );
+  // };
  
   useEffect(()=>{
-    
-    geoLocation();
-   
+    const geoLocation =async () => {
+      await Geolocation.getCurrentPosition(
+        position => {
+          dispatch(
+            updateCurrentLocation({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            }),
+          );
+          dispatch(updateUserLocation({
+            _id:deviceToken.userData.user_id,
+            userLat:position.coords.latitude,
+            userLon:position.coords.longitude,
+            deviceToken:deviceToken.fbDeviceToken,
+          }));
+          dispatch(getCoupon());
+          dispatch(getBannerImage());
+        },
+        error => {
+          
+        },
+        {
+          accuracy: {
+            android: 'high',
+            ios: 'best',
+          },
+          enableHighAccuracy: true,
+          timeout: 15000,
+          maximumAge: 10000,
+          distanceFilter: 0,
+          forceRequestLocation: true,
+          forceLocationManager: false,
+          showLocationDialog: true,
+        },
+      );
+    };
+     geoLocation();
     dispatch(getCoupon());
     dispatch(getBannerImage());
+  
   },[])
  
   return (
