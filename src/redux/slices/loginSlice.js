@@ -114,7 +114,6 @@ export const login = ({payload}) => {
     dispatch(loginRequested());
     try {
       const res = await ApiService.login(payload);
-      console.log(res);
       if (res.data.success) {
         Toast.show({
           title: 'Login Success',
@@ -168,7 +167,6 @@ export const logout = (payload,token) => {
     try {
       const res = await ApiService.logout(payload,token);
       
-      console.log(res,"logout");
       if (res.data.success) {
         Toast.show({
           title: 'Logout Success',
@@ -260,10 +258,12 @@ export const register = ({payload}, navigation) => {
   };
 };
 
-export const updateUserLocation = (payload,token) => {
+export const updateUserLocation = (payload) => {
   return async (dispatch, getState) => {
     dispatch(updateUserLocationRequested());
     try {
+    const {token, userData} = getState().loginSlice;
+
       const res = await ApiService.updateLocation(payload,token);
       if (res.data.success) {
         Toast.show({
@@ -291,14 +291,7 @@ export const updateUserLocation = (payload,token) => {
     } catch (e) {
       dispatch(
         updateUserLocationFailed({
-          errorMessage: e.response.data.errors || 'something Went wrong',
-        }),
-        Toast.show({
-          title: 'Something went wrong',
-          duration: 3000,
-          placement: 'top',
-          status: 'error',
-          description: e.response.data.errors,
+          errorMessage: e?.response?.data?.errors || 'something Went wrong',
         }),
       );
     }

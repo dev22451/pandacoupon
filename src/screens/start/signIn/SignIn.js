@@ -165,12 +165,12 @@ const SignIn = ({navigation}) => {
               </FormControl.ErrorMessage>
             </FormControl>
           </Stack>
-          <Link
+          {/* <Link
             onPress={() => navigation.navigate('Forgot')}
             mt={hp(1)}
             justifyContent="flex-end">
             {I18n.t('SignIn.forgotPass')}
-          </Link>
+          </Link> */}
           <Text color="gray.500" mt={hp(5)}>
             {I18n.t('SignIn.accountCheck')}{' '}
           </Text>

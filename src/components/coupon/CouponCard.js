@@ -12,7 +12,7 @@ import {
   Center,
   ScrollView,
 } from 'native-base';
-import { Image } from 'react-native'
+import { Linking } from 'react-native'
 import moment from 'moment';
 import NButton from '../button/NButton';
 import Icon from '../../assets/icons/Icon';
@@ -82,9 +82,9 @@ const giftIcon = (
   />
 );
 
-const CouponCard = ({ navigation, couponData, handleRedeem, couponItem: isRedeem }) => {
-  const {
-    brandLocation,
+const CouponCard = ({ navigation, couponData, handleRedeem, couponItem, page }) => {
+  const isRedeem = page === 'history' ? true : couponItem
+  const {    
     brandName,
     brandPhone,
     brandWebsite,
@@ -100,10 +100,21 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem: isRedeem
     noOfUser = 0,
     _id: id
   } = couponData;
-  console.log(couponData,"rajneesh")
+  //console.log(couponData,"rajneesh")
   const handlePressRedeem = () => {
     handleRedeem(id)
   }
+
+  const hanldePressWebSite = () => {
+    Linking.canOpenURL(brandWebsite).then(supported => {
+      if (supported) {
+        Linking.openURL(brandWebsite);
+      } else {
+        console.log("Don't know how to open URI: " + brandWebsite);
+      }
+    });
+  }
+
   return (
     <Stack>
       <Box
@@ -162,25 +173,7 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem: isRedeem
           </Text>
         </VStack>
         <VStack mb={wp(5)} px={wp(5)}>
-          <HStack my={wp(1)} alignItems="center">
-            <Text fontSize={fp(2)} color="warmGray.400" fontWeight="500">
-              Branch Location
-            </Text>
-            <Spacer />
-            <Text fontSize={fp(2)} fontWeight="500">
-              {brandLocation}
-            </Text>
-            <Box
-              ml={wp(2)}
-              width={wp(7)}
-              height={wp(7)}
-              bg="secondary.500"
-              borderRadius="full"
-              justifyContent="center"
-              alignItems="center">
-              {telegramIcon}
-            </Box>
-          </HStack>
+            
           <HStack my={wp(1)} alignItems="center">
             <Text fontSize={fp(2)} color="warmGray.400" fontWeight="500">
               Phone
@@ -200,7 +193,9 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem: isRedeem
               {phoneIcon}
             </Box>
           </HStack>
-          <HStack my={wp(1)} alignItems="center">
+          <HStack my={wp(1)} alignItems="center" 
+              onPress={hanldePressWebSite}
+              >
             <Text fontSize={fp(2)} color="warmGray.400" fontWeight="500">
               Website
             </Text>
@@ -215,6 +210,7 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem: isRedeem
               bg="secondary.500"
               borderRadius="full"
               justifyContent="center"
+              onPress={hanldePressWebSite}
               alignItems="center">
               {webIcon}
             </Box>
@@ -239,7 +235,7 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem: isRedeem
           </Stack>
           <View
             position="absolute"
-            top={wp(37)}
+            top={wp(28)}
             right={wp(-5)}
             width={wp(10)}
             height={wp(10)}

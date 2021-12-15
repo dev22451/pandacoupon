@@ -26,8 +26,7 @@ const NavStack = () => {
   const data = async ()=> {
 
   let locD = await getData('locationData');
-  console.log(locD,"ernderer");
-  return (locD)
+  return locD ? locD : null
   }
   data()
   return (

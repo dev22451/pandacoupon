@@ -1,7 +1,7 @@
 import React,{useEffect} from 'react';
-import {FlatList, VStack} from 'native-base';
+import {FlatList, VStack, Text} from 'native-base';
 import { useSelector,useDispatch } from 'react-redux';
-import {hp, wp} from '../../helpers/respDimension';
+import {hp, wp, fp} from '../../helpers/respDimension';
 import {CardComponent, DBAppBar} from '../../components';
 import {getredeemCouponbyUser} from '../../redux/slices/couponSlice'
 
@@ -10,8 +10,10 @@ const Redeem = ({navigation}) => {
   const userData = useSelector((state) => state.loginSlice.userData);
   const redeemCouponbyUser=useSelector((state)=>state.couponSlice.redeemUserCoupon);
   
-  const navigateToDetail = (id) => navigation.navigate('CouponDetail',{id});
+  const navigateToDetail = (id) => navigation.navigate('CouponDetail',{id, page:'history'});
   const renderCouponCard = ({item}) => <CardComponent {...{item,navigateToDetail}} />;
+
+  const renderEmpty=()=>( <Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>The list is empty</Text>) 
 
   useEffect(()=>{
       dispatch(getredeemCouponbyUser({
@@ -35,6 +37,7 @@ const Redeem = ({navigation}) => {
           showsVerticalScrollIndicator={false}
           renderItem={renderCouponCard}
           contentContainerStyle={{marginTop: hp(2)}}
+          ListEmptyComponent={renderEmpty}
         />
       </VStack>
     </>

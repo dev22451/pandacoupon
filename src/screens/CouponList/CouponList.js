@@ -8,7 +8,7 @@ import {getCoupon, getCategoryCoupon} from '../../redux/slices/couponSlice'
 
 const CouponList = (props) => {
   const {navigation} = props;
-  const categoryId = props.route.params.item._id
+  const categoryId = (props?.route?.params && props?.route?.params?.item) ? props?.route?.params?.item?._id : ''
  
   const dispatch = useDispatch()
   const { couponList, couponCategoryList } = useSelector(state => state.couponSlice);
@@ -29,7 +29,6 @@ const CouponList = (props) => {
   const renderCouponCard = ({item}) => <CardComponent {...{item,navigateToDetail}} />;
 
   const renderEmpty=()=>( <Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>The list is empty</Text>) 
-
 
     return (
       <>

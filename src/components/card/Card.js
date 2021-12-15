@@ -113,8 +113,8 @@ function CardComponent({item, navigateToDetail,navigation}) {
             </Text>
           </HStack>
         </HStack>
-        <Box mt={5} px={wp(2)}>
-          <AspectRatio ratio={16 / 9}>
+        <Box mt={5} px={wp(2)}  >
+          <AspectRatio ratio={20 / 10}>
             {
             couponImage ?
             <FastImage
@@ -122,9 +122,7 @@ function CardComponent({item, navigateToDetail,navigation}) {
               uri: couponImage,
               priority: FastImage.priority.normal,
             }}
-            width={wp(86)}
-            height={hp(23)}
-            resizeMode={FastImage.resizeMode.contain}
+            
             />
             :
             <Image

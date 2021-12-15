@@ -59,7 +59,7 @@ const Categories = ({navigation}) => {
   return (
     <>
       <DBAppBar
-        account
+        //account
         title="Categories"
         iconColor="white"
         titleColor="white"

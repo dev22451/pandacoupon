@@ -29,12 +29,12 @@ const backIcon = (
 const data = [
   {
     data: [
-      {
-        id: '1',
-        fullName: 'Change Password',
-        iconName: 'key',
-        recentText: 'Change your password',
-      },
+      // {
+      //   id: '1',
+      //   fullName: 'Change Password',
+      //   iconName: 'key',
+      //   recentText: 'Change your password',
+      // },
       // {
       //   id: '2',
 
