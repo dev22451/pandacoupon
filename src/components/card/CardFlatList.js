@@ -1,11 +1,12 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import {TouchableOpacity} from 'react-native';
 import {Box, Image, AspectRatio} from 'native-base';
-
 import {mcDonald} from '../../assets/images';
 import {hp, wp} from '../../helpers/respDimension';
 
+
 function CardFlatList({item}) {
+  
   return (
     <TouchableOpacity onPress={() => null} key={item.id} activeOpacity={0.8}>
       <Box
@@ -31,6 +32,7 @@ function CardFlatList({item}) {
             />
           </AspectRatio>
         </Box>
+        
       </Box>
     </TouchableOpacity>
   );

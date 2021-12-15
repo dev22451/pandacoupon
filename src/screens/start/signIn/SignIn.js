@@ -76,8 +76,16 @@ const SignIn = ({navigation}) => {
 
   const handleClick = () => setShow(!show);
 
-  const handleEmail = text => setEmail({email: text, valid: false});
-  const handlePassword = text => setPassword({password: text, valid: false});
+  const handleEmail = text => {
+    validateEmail(text)
+      ? setEmail({email: '', valid: true})
+      : setEmail({email: text, valid: false});
+  };
+  const handlePassword = text => {
+    validatePassword(text)
+      ? setPassword({password: '', valid: true})
+      : setPassword({password: text, valid: false});
+  };
 
   const handleSignIn = () => {
     const isEmailValidate = email.email !== ''
@@ -117,29 +125,27 @@ const SignIn = ({navigation}) => {
             {I18n.t('SignIn.loginHelp')}
           </Text>
           <Stack space={4} mt={hp(5)} alignItems="center">
-            <FormControl
-              isInvalid={email.valid}
+          <FormControl
               w={{
                 base: '100%',
                 md: '25%',
-              }}>
+              }}
+              isInvalid={email.valid}>
               <Input
-                _focus={{borderColor: email.valid ? 'red' : 'secondary.500'}}
-                InputLeftElement={emailIcon}
                 placeholder="Email"
-                value={email.email}
+                InputLeftElement={emailIcon}
+                _focus={{borderColor: 'secondary.500'}}
                 onChangeText={text => handleEmail(text)}
-                // value={email.email}
-                //fontSize={fp(2)}
               />
               <FormControl.ErrorMessage>Invalid Mail</FormControl.ErrorMessage>
             </FormControl>
             <FormControl
-              isInvalid={password.valid}
               w={{
                 base: '100%',
                 md: '25%',
-              }}>
+              }}
+              isInvalid={password.valid}>
+                
               <Input
                 type={show ? 'text' : 'password'}
                 _focus={{borderColor: password.valid ? 'red' : 'secondary.500'}}
@@ -151,7 +157,7 @@ const SignIn = ({navigation}) => {
                     {show ? eyeIcon : eyeSlashIcon}
                   </Pressable>
                 }
-                value={password.password}
+                // value={password.password}
                 onChangeText={text => handlePassword(text)}
               />
               <FormControl.ErrorMessage>

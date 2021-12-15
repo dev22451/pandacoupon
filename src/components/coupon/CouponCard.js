@@ -18,7 +18,6 @@ import NButton from '../button/NButton';
 import Icon from '../../assets/icons/Icon';
 import { SvgExample } from '../../assets/images';
 import { hp, wp, fp } from '../../helpers/respDimension';
-import { Loader } from '..';
 import FastImage from 'react-native-fast-image';
 
 const rightArrowIcon = (
@@ -101,11 +100,10 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem: isRedeem
     noOfUser = 0,
     _id: id
   } = couponData;
+  console.log(couponData,"rajneesh")
   const handlePressRedeem = () => {
     handleRedeem(id)
   }
-  console.log(couponData,"gegfyugeuigdfu");
-  //const [show, setShow] = useState(false);
   return (
     <Stack>
       <Box
@@ -170,7 +168,7 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem: isRedeem
             </Text>
             <Spacer />
             <Text fontSize={fp(2)} fontWeight="500">
-              {/* {brandLocation} */}
+              {brandLocation}
             </Text>
             <Box
               ml={wp(2)}

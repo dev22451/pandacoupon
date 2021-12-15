@@ -50,9 +50,14 @@ const userIcon = (
 const data = [
   
   {
-    id: '2',
+    id: '1',
     fullName: 'Categories',
     iconName: 'file-document-outline',
+  },
+  {
+    id: '2',
+    fullName: 'Histories',
+    iconName: 'history',
   },
   
 ];
@@ -79,6 +84,8 @@ const data1 = [
 
 const Account = ({navigation}) => {
   const userData = useSelector((state) => state.loginSlice.userData);
+  // const {couponList}=useSelector((state)=>state.couponSlice);
+  // console.log(couponList);
 
   const handlePressSecond = item => {
     switch (item.fullName) {
@@ -114,8 +121,7 @@ const Account = ({navigation}) => {
         null;
     }
   };
-  console.log(login)
-
+  
   return (
     <>
       <Stack
