@@ -22,7 +22,7 @@ import {register} from '../../../redux/slices/loginSlice';
 import {validateEmail, validatePassword} from '../../../helpers/validation';
 
 const userIcon = (
-  <Box ml={wp(5)}>
+  <Box ml={wp(10)}>
     <Icon
       type="MaterialCommunityIcons"
       name="account"
@@ -115,7 +115,7 @@ const Register = ({navigation}) => {
     <>
       <AppBar navigation={navigation} />
       {isLoading ? <Loader /> : null}
-      <ScrollView>
+    <ScrollView> 
         <VStack paddingX={wp(10)} my={hp(3)}>
           <Heading fontSize={fp(4)} lineHeight={hp(5)} color="black">
             {I18n.t('Register.title')}
