@@ -260,11 +260,15 @@ export const register = ({payload}, navigation) => {
   };
 };
 
-export const updateUserLocation = (payload,token) => {
+export const updateUserLocation = (payload) => {
   return async (dispatch, getState) => {
     dispatch(updateUserLocationRequested());
     try {
+    const {token, userData} = getState().loginSlice;
+
+      console.log({token},'oaoao',userData)
       const res = await ApiService.updateLocation(payload,token);
+      console.log({res},'location')
       if (res.data.success) {
         Toast.show({
           title: 'Location Update',
@@ -289,16 +293,10 @@ export const updateUserLocation = (payload,token) => {
         });
       }
     } catch (e) {
+      console.log(e.response,'pwpwpwp')
       dispatch(
         updateUserLocationFailed({
-          errorMessage: e.response.data.errors || 'something Went wrong',
-        }),
-        Toast.show({
-          title: 'Something went wrong',
-          duration: 3000,
-          placement: 'top',
-          status: 'error',
-          description: e.response.data.errors,
+          errorMessage: e?.response?.data?.errors || 'something Went wrong',
         }),
       );
     }

@@ -20,6 +20,8 @@ import {CardComponent, CategoryCard, DBAppBar} from '../../components';
 import { getCoupon, getBannerImage } from '../../redux/slices/couponSlice';
 import { updateCurrentLocation } from '../../redux/slices/locationSlice';
 import Geolocation from 'react-native-geolocation-service';
+import {getCategoryRequest} from '../../redux/slices/categorySlice';
+
 
 const searchIcon = (
   <Box ml={wp(4)}>
@@ -49,14 +51,15 @@ const rightArrowIcon1 = (
 );
 
 const DashBoard = ({navigation}) => {
+
   
   const dispatch = useDispatch()
   const { categoryList } = useSelector(state => state.categorySlice);
   const { couponList, bannerImage } = useSelector(state => state.couponSlice);
- 
+  
   const  deviceToken =useSelector(state=>state.loginSlice);
   const {location} =useSelector (state=>state.locationSlice);
-
+  
   const navigateToDetail = (id) => navigation.navigate('CouponDetail',{id})
   const navigateToList = (item) => navigation.navigate('CouponList',{item})
   
@@ -64,44 +67,53 @@ const DashBoard = ({navigation}) => {
   const renderCategory = ({item}) => <CategoryCard item={item} {...{navigateToList}} />;
   const renderCouponCard = ({item}) => <CardComponent {...{item,navigateToDetail}} />;
   const renderEmpty=()=>( <Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>The list is empty</Text>) 
- 
- 
+  
+  useEffect(()=>{
+    dispatch(getCategoryRequest());
+
+  },[])
+  
   useEffect(()=>{
     const geoLocation =async () => {
-      await Geolocation.getCurrentPosition(
-        position => {
-          dispatch(
-            updateCurrentLocation({
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-            }),
-          );
-          dispatch(updateUserLocation({
-            _id:deviceToken.userData.user_id,
-            userLat:position.coords.latitude,
-            userLon:position.coords.longitude,
-            deviceToken:deviceToken.fbDeviceToken,
-          }));
-          dispatch(getCoupon());
-          dispatch(getBannerImage());
-        },
-        error => {
-          
-        },
-        {
-          accuracy: {
-            android: 'high',
-            ios: 'best',
-          },
-          enableHighAccuracy: true,
-          timeout: 15000,
-          maximumAge: 10000,
-          distanceFilter: 0,
-          forceRequestLocation: true,
-          forceLocationManager: false,
-          showLocationDialog: true,
-        },
-      );
+      try{
+
+        await Geolocation.getCurrentPosition(
+          position => {
+            dispatch(
+              updateCurrentLocation({
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+              }),
+              );
+              dispatch(updateUserLocation({
+                _id:deviceToken.userData.user_id,
+                userLat:position.coords.latitude,
+                userLon:position.coords.longitude,
+                deviceToken:deviceToken.fbDeviceToken,
+              }));
+               dispatch(getCoupon());
+               dispatch(getBannerImage());
+            },
+            error => {
+              console.log(error,'osososo002020202020')
+            },
+            {
+              accuracy: {
+                android: 'high',
+                ios: 'best',
+              },
+              enableHighAccuracy: true,
+              timeout: 15000,
+              maximumAge: 10000,
+              distanceFilter: 0,
+              forceRequestLocation: true,
+              forceLocationManager: false,
+              showLocationDialog: true,
+            },
+            );
+          } catch(e){
+            console.log('erro',e)
+          }
     };
      geoLocation();
     // dispatch(getCoupon());
@@ -122,7 +134,7 @@ const DashBoard = ({navigation}) => {
       <ScrollView nestedScrollEnabled={true}>
         <VStack
           width={wp(100)}
-          bg="secondary.500"
+          // bg="secondary.500"
           // borderBottomLeftRadius="200"
           // borderBottomRightRadius="200"
           height={wp(50)}
@@ -181,7 +193,7 @@ const DashBoard = ({navigation}) => {
             </Text>
             <TouchableOpacity onPress={() => navigation.navigate('Categories')}>
               <HStack alignItems="center">
-                <Text fontSize={fp(1.8)} color="black" bold >
+                <Text fontSize={fp(2)} color="secondary.500" bold >
                   {I18n.t('DashBoard.seeAll')}
                 </Text>
                 {rightArrowIcon1}
@@ -210,7 +222,7 @@ const DashBoard = ({navigation}) => {
           </Text>
           <TouchableOpacity onPress={navigateToList}>
             <HStack alignItems="center">
-              <Text fontSize={fp(1.8)} color="black" bold>
+              <Text fontSize={fp(2)} color="secondary.500" bold>
                 {I18n.t('DashBoard.seeAll')}
               </Text>
               {rightArrowIcon1}

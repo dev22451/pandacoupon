@@ -29,7 +29,6 @@ const RootNavigation = () => {
           userData,
         }),
       );
-      dispatch(getCategoryRequest());
     }
   };
 

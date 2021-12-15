@@ -53,7 +53,7 @@ export const getCategoryRequest = () => {
     const {token} = getState().loginSlice;
     try {
       const res = await ApiService.getCategory(token);
-      if (res.data.success) {
+      if (res?.data?.success) {
         dispatch(
           getCategorySuccessful({
             categoryList: res.data.data,

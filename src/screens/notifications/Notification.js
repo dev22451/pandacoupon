@@ -26,10 +26,10 @@ const Notification = ({navigation}) => {
         bgColor={theme.colors.secondary[500]}
       />
       <VStack flex="1" justifyContent="center" alignItems="center">
-        <Text fontWeight="md" fontSize={fp(3)}>
+        <Text  fontSize={fp(3)}>
           Coming Soon
         </Text>
-        <Text fontWeight="md" fontSize={fp(2)} color="gray.500">
+        <Text fontSize={fp(2)} color="gray.500">
           This screen is in under Developement.
         </Text>
       </VStack>

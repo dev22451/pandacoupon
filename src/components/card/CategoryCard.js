@@ -30,7 +30,7 @@ const CategoryCard = ({item,navigateToList}) => {
         <Box
           width={wp(10)}
           height={wp(10)}
-          bg="secondary.100"
+          // bg="secondary.100"
           alignItems="center"
           borderRadius="full"
           justifyContent="center">
@@ -49,13 +49,13 @@ const CategoryCard = ({item,navigateToList}) => {
               uri: image,
               priority: FastImage.priority.normal,
             }}
-            style={{height:wp(10),width:wp(10)}}
-            resizeMode={FastImage.resizeMode.contain}
+            style={{height:wp(10),width:wp(15), borderRadius:wp(30)}}
+            resizeMode={'center'}
           />
         }  
 
         </Box>
-        <Text fontSize={wp(3)} mt={wp(1)}>
+        <Text fontSize={wp(3.5)} mt={wp(4)} bold>
           {fullName}
         </Text>
       </Pressable>

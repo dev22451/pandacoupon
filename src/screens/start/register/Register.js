@@ -124,9 +124,9 @@ const Register = ({navigation}) => {
       };
       dispatch(register({payload}, navigation));
     } else {
-      let message = 'Please Enter Correct Data';
+      let message = 'Please Enter All Data';
       Toast.show({
-        title: 'Invalid Data',
+        title: 'Fill All Data',
         duration: 3000,
         placement: 'top',
         status: 'error',

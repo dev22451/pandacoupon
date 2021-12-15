@@ -154,7 +154,7 @@ export const getCoupon = () => {
         additionalUrl: `uLat=${location.latitude}&uLon=${location.longitude}`,
       };
       const res = await ApiService.getCoupon(payload);
-      if (res.data.success) {
+      if (res?.data?.success) {
         dispatch(
           getCouponSuccessful({
             couponList: res.data.data.coupons,
@@ -163,7 +163,7 @@ export const getCoupon = () => {
       } else {
         dispatch(
           getCouponFailed({
-            errorMessage: e?.response?.data?.errors || 'Something went wrong',
+            errorMessage: res.data.message || 'Something went wrong',
           }),
         );
       }
@@ -197,7 +197,7 @@ export const getBannerImage = () => {
       } else {
         dispatch(
           getBannerImageFailed({
-            errorMessage: e?.response?.data?.errors || 'Something went wrong',
+            errorMessage: res?.data?.errors || 'Something went wrong',
           }),
         );
       }
@@ -266,7 +266,7 @@ export const getCouponRedeem = _id => {
       }
     } catch (e) {
       dispatch(
-        getCouponRedeemFailed({
+        getCouponredeemFailed({
           errorMessage: e?.response?.data?.errors || 'Something went wrong',
         }),
       );
@@ -326,7 +326,6 @@ export const getredeemCouponbyUser = userEmail => {
         token,
       };
       const res = await ApiService.redeemCouponbyUser(userEmail,token);
-      console.log(res.data.data,"yufvuyuy");
 
       if (res.data.success) {
         dispatch(

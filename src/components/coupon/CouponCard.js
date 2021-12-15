@@ -12,7 +12,7 @@ import {
   Center,
   ScrollView,
 } from 'native-base';
-import { Image } from 'react-native'
+import { Linking } from 'react-native'
 import moment from 'moment';
 import NButton from '../button/NButton';
 import Icon from '../../assets/icons/Icon';
@@ -104,6 +104,17 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem, page }) 
   const handlePressRedeem = () => {
     handleRedeem(id)
   }
+
+  const hanldePressWebSite = () => {
+    Linking.canOpenURL(brandWebsite).then(supported => {
+      if (supported) {
+        Linking.openURL(brandWebsite);
+      } else {
+        console.log("Don't know how to open URI: " + brandWebsite);
+      }
+    });
+  }
+
   return (
     <Stack>
       <Box
@@ -182,7 +193,9 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem, page }) 
               {phoneIcon}
             </Box>
           </HStack>
-          <HStack my={wp(1)} alignItems="center">
+          <HStack my={wp(1)} alignItems="center" 
+              onPress={hanldePressWebSite}
+              >
             <Text fontSize={fp(2)} color="warmGray.400" fontWeight="500">
               Website
             </Text>
@@ -197,6 +210,7 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem, page }) 
               bg="secondary.500"
               borderRadius="full"
               justifyContent="center"
+              onPress={hanldePressWebSite}
               alignItems="center">
               {webIcon}
             </Box>
@@ -221,7 +235,7 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem, page }) 
           </Stack>
           <View
             position="absolute"
-            top={wp(37)}
+            top={wp(28)}
             right={wp(-5)}
             width={wp(10)}
             height={wp(10)}
