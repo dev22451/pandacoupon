@@ -90,7 +90,7 @@ const Account = ({navigation}) => {
   const handlePressSecond = item => {
     switch (item.fullName) {
       case 'Coupons':
-        navigation.navigate('Coupon');
+        navigation.navigate('CouponList',{});
         break;
       case 'Notifications':
         navigation.navigate('Notification');

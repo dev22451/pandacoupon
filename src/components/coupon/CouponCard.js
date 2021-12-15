@@ -100,7 +100,7 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem: isRedeem
     noOfUser = 0,
     _id: id
   } = couponData;
-  console.log(couponData,"rajneesh")
+  //console.log(couponData,"rajneesh")
   const handlePressRedeem = () => {
     handleRedeem(id)
   }

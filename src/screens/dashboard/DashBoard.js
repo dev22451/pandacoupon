@@ -64,37 +64,7 @@ const DashBoard = ({navigation}) => {
   const renderCategory = ({item}) => <CategoryCard item={item} {...{navigateToList}} />;
   const renderCouponCard = ({item}) => <CardComponent {...{item,navigateToDetail}} />;
   const renderEmpty=()=>( <Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>The list is empty</Text>) 
-  
-  // const geoLocation = () => {
-  //   Geolocation.getCurrentPosition(
-  //     position => {
-  //       dispatch(updateUserLocation({
-  //         _id:deviceToken.userData.user_id,
-  //         userLat:position.coords.latitude,
-  //         userLon:position.coords.longitude,
-  //         deviceToken:deviceToken.fbDeviceToken,
-  //       }));
-  //       dispatch(getCoupon());
-  //       dispatch(getBannerImage());
-  //     },
-  //     error => {
-        
-  //     },
-  //     {
-  //       accuracy: {
-  //         android: 'high',
-  //         ios: 'best',
-  //       },
-  //       enableHighAccuracy: true,
-  //       timeout: 15000,
-  //       maximumAge: 10000,
-  //       distanceFilter: 0,
-  //       forceRequestLocation: true,
-  //       forceLocationManager: false,
-  //       showLocationDialog: true,
-  //     },
-  //   );
-  // };
+ 
  
   useEffect(()=>{
     const geoLocation =async () => {
@@ -134,8 +104,8 @@ const DashBoard = ({navigation}) => {
       );
     };
      geoLocation();
-    dispatch(getCoupon());
-    dispatch(getBannerImage());
+    // dispatch(getCoupon());
+    // dispatch(getBannerImage());
   
   },[])
  
