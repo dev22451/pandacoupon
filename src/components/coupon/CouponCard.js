@@ -82,9 +82,9 @@ const giftIcon = (
   />
 );
 
-const CouponCard = ({ navigation, couponData, handleRedeem, couponItem: isRedeem }) => {
-  const {
-    brandLocation,
+const CouponCard = ({ navigation, couponData, handleRedeem, couponItem, page }) => {
+  const isRedeem = page === 'history' ? true : couponItem
+  const {    
     brandName,
     brandPhone,
     brandWebsite,
@@ -162,25 +162,7 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem: isRedeem
           </Text>
         </VStack>
         <VStack mb={wp(5)} px={wp(5)}>
-          <HStack my={wp(1)} alignItems="center">
-            <Text fontSize={fp(2)} color="warmGray.400" fontWeight="500">
-              Branch Location
-            </Text>
-            <Spacer />
-            <Text fontSize={fp(2)} fontWeight="500">
-              {brandLocation}
-            </Text>
-            <Box
-              ml={wp(2)}
-              width={wp(7)}
-              height={wp(7)}
-              bg="secondary.500"
-              borderRadius="full"
-              justifyContent="center"
-              alignItems="center">
-              {telegramIcon}
-            </Box>
-          </HStack>
+            
           <HStack my={wp(1)} alignItems="center">
             <Text fontSize={fp(2)} color="warmGray.400" fontWeight="500">
               Phone

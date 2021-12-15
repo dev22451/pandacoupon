@@ -10,7 +10,7 @@ const Redeem = ({navigation}) => {
   const userData = useSelector((state) => state.loginSlice.userData);
   const redeemCouponbyUser=useSelector((state)=>state.couponSlice.redeemUserCoupon);
   
-  const navigateToDetail = (id) => navigation.navigate('CouponDetail',{id});
+  const navigateToDetail = (id) => navigation.navigate('CouponDetail',{id, page:'history'});
   const renderCouponCard = ({item}) => <CardComponent {...{item,navigateToDetail}} />;
 
   const renderEmpty=()=>( <Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>The list is empty</Text>) 

@@ -17,24 +17,33 @@ const CouponDetail = props => {
   const dispatch = useDispatch();
   const {
     route: {
-      params: {id},
+      params: {id, page},
     },
     navigation,
   } = props;
-  const {couponList, isRedeemCoupon, couponItem, couponCategoryList} =
+  const {couponList, isRedeemCoupon, couponItem, couponCategoryList, redeemUserCoupon} =
     useSelector(state => state.couponSlice);
-  let couponData = couponList.find(instance => instance._id === id);
-  if (!couponData) {
-    couponData = couponCategoryList.couponCategoryList.find(
-      instance => instance._id === id,
-    );
-  }
+    
+    let couponData;
+    if(page === 'history'){
+      couponData = redeemUserCoupon?.find(instance => instance._id === id);
+    } else {
+
+      couponData = couponList?.find(instance => instance._id === id);
+      if (!couponData) {
+        couponData = couponCategoryList?.couponCategoryList?.find(
+          instance => instance._id === id,
+          );
+        }
+      }
   const handleRedeem = itemID => {
     dispatch(redeemCoupon(itemID));
   };
   useEffect(() => {
     getCoupon();
-    dispatch(getCouponRedeem(id));
+    if(page !== 'history'){
+      dispatch(getCouponRedeem(id));
+    }
   }, []);
   return (
     <>
@@ -51,7 +60,7 @@ const CouponDetail = props => {
       ) : (
         <ScrollView>
           <Box alignItems="center" mt={wp(5)}>
-            <CouponCard {...{couponData, handleRedeem, couponItem}} />
+            <CouponCard {...{couponData, handleRedeem, couponItem, page}} />
           </Box>
         </ScrollView>
       )}

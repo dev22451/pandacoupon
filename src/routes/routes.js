@@ -13,8 +13,8 @@ import {getDeviceToken, requestUserPermission} from '../helpers/firebase';
 import {hasLocationPermission} from '../helpers/locRequest';
 import {getCategoryRequest} from '../redux/slices/categorySlice';
 
-firebase.initializeApp({});
-Geocoder.init('AIzaSyAB720ENkbeEfGrROeMMCxNvEUFqeeuxJw');
+// firebase.initializeApp();
+// Geocoder.init('AIzaSyAB720ENkbeEfGrROeMMCxNvEUFqeeuxJw');
 
 const RootNavigation = () => {
   const dispatch = useDispatch();

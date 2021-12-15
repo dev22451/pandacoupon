@@ -125,7 +125,7 @@ const DashBoard = ({navigation}) => {
           bg="secondary.500"
           // borderBottomLeftRadius="200"
           // borderBottomRightRadius="200"
-          height={wp(60)}
+          height={wp(50)}
           px={wp(5)}>
           {/* <Input
             w={{
@@ -139,7 +139,7 @@ const DashBoard = ({navigation}) => {
             _focus={{borderColor: 'secondary.500'}}
             placeholder={I18n.t('DashBoard.searchTitle')}
           /> */}
-          <HStack justifyContent="space-between" alignItems="center">
+          {/* <HStack justifyContent="space-between" alignItems="center">
             <Text bold fontSize={fp(2)} color="white">
               {I18n.t('DashBoard.explore')}
             </Text>
@@ -151,17 +151,18 @@ const DashBoard = ({navigation}) => {
                 {rightArrowIcon}
               </HStack>
             </TouchableOpacity>
-          </HStack>
-          <Text fontSize={fp(1.8)} color="white">
+          </HStack> */}
+          {/* <Text fontSize={fp(1.8)} color="white">
             {I18n.t('DashBoard.latestDeal')}
-          </Text>
+          </Text> */}
         </VStack>
         <FlatList
           // pl={wp(2)}
 
           // py={hp(2)}
           //contentContainerStyle={{px:6}}
-          top={hp(8)}
+          //top={hp(3)}
+          marginTop={3}
           data={bannerImage}
           horizontal={true}
           position="absolute"
@@ -196,6 +197,7 @@ const DashBoard = ({navigation}) => {
             keyExtractor={item => item.id}
             showsHorizontalScrollIndicator={false}
             renderItem={renderCategory}
+            ListEmptyComponent={<Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>The list is empty</Text>}
           />
         </VStack>
         <HStack
