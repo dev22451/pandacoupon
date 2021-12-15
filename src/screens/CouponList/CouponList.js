@@ -30,7 +30,6 @@ const CouponList = (props) => {
 
   const renderEmpty=()=>( <Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>The list is empty</Text>) 
 
-    console.log(categoryDataList  ,'owowowoo')
     return (
       <>
        <DBAppBar

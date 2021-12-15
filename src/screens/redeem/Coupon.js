@@ -11,10 +11,8 @@ const Coupon = ({navigation}) => {
   const dispatch = useDispatch()
   const {couponList, isRedeemCoupon, couponItem, couponCategoryList} =
     useSelector(state => state.couponSlice);
-    console.log(isRedeemCoupon);
   
   const handleRedeem = itemID => {
-    console.log(itemID,'jdsgfbuj');
     dispatch(redeemCoupon(itemID));
   };
 

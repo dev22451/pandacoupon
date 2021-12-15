@@ -84,8 +84,6 @@ const data1 = [
 
 const Account = ({navigation}) => {
   const userData = useSelector((state) => state.loginSlice.userData);
-  // const {couponList}=useSelector((state)=>state.couponSlice);
-  // console.log(couponList);
 
   const handlePressSecond = item => {
     switch (item.fullName) {

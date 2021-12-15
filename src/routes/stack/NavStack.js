@@ -26,11 +26,9 @@ const NavStack = () => {
   const data = async ()=> {
 
   let locD = await getData('locationData');
-  console.log(locD,"ernderer");
   return locD ? locD : null
   }
   data()
-  console.log(data())
   return (
     <Stack.Navigator
       initialRouteName={(data() ===null)?"HomeScreen":"BottomTab"}

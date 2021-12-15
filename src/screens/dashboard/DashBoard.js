@@ -95,7 +95,6 @@ const DashBoard = ({navigation}) => {
                dispatch(getBannerImage());
             },
             error => {
-              console.log(error,'osososo002020202020')
             },
             {
               accuracy: {
