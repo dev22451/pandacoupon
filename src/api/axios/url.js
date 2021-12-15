@@ -11,5 +11,5 @@ export default {
   getBanner:'getBannerImage',
   updateLocation:'updateUserLocation',
   redeemCouponbyUser:'redeemedCouponbyUser',
-  getNotification:'notification',
+  getNotification:'getNotificationByUser',
 };

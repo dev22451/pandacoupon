@@ -18,8 +18,8 @@ import {
   import moment from 'moment';
   import FastImage from 'react-native-fast-image';
 
- export function NotificatonCard() {
-  
+ export function NotificatonCard({item}) {
+    console.log(item)
     
     // const handleItemPressed = () => navigateToDetail(id)
     
@@ -40,30 +40,30 @@ import {
           <HStack width={wp(55)} >
             <Box width={wp(15)} px={wp(2)}>
               <AspectRatio ratio={1 / 1}>
-              {/* {brandImage?
+              {item.brandImage?
                     <FastImage
                     source={{
-                      uri: brandImage,
+                      uri: item.brandImage,
                       priority: FastImage.priority.normal,
                     }}
                     style={{height:wp(10),width:wp(10)}}
                     resizeMode={FastImage.resizeMode.contain}
                   />
-                  : */}
+                  :
                   <SvgExample />
-                
+                }
               </AspectRatio>
             </Box>
             <VStack>
             <HStack px={3} >
               <Text fontSize={fp(1.8)} bold fontWeight="500">
-               Title
+              {item.notificationMsg.title}
               </Text>
              
               </HStack>
               <HStack px={3} style={{flexWrap:'wrap',width:wp(40)}} >
               <Text fontSize={fp(1.8)} color="warmGray.500" fontWeight="500" numberOfLines={5} >
-                Descriptionjhsdkjfhkajhskjashdkjhasjkdhasdkjasdhjkahsdkjahsdkjhaskjdh
+                {item.notificationMsg.body}
               </Text>
               </HStack>
             </VStack>
@@ -71,7 +71,7 @@ import {
           </HStack>
           <HStack px={3} alignItems="center">
               <Text fontSize={fp(1.8)} color="warmGray.500" fontWeight="500">
-                {moment.utc().fromNow()}
+                {moment.utc(item.createdAt).fromNow()}
               </Text>
               </HStack>
           </HStack>

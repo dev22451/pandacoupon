@@ -10,10 +10,10 @@ import {NotificatonCard} from '../../components/card/notificationCard';
 
 const Notification = ({navigation}) => {
   const dispatch = useDispatch()
-  const Notifications = useSelector((state) => state.notificationSlice);
+  const {Notifications} = useSelector((state) => state.notificationSlice);
   //console.log(Notifications,"notifications");
   //const navigateToList = (item) => navigation.navigate('')
-  const renderCategory = () => <NotificatonCard/>;
+  const renderCategory = ({item}) => <NotificatonCard {...{item}} />;
   useEffect(()=>{
     dispatch(getNotification());
   },[])
@@ -40,8 +40,8 @@ const Notification = ({navigation}) => {
       <FlatList
             pl={wp(2)}
             pr={wp(2)}
-            data={[{}]}
-            extraData={[]}
+            data={Notifications}
+            extraData={Notifications}
             horizontal={true}
             keyExtractor={item => item.id}
             showsHorizontalScrollIndicator={false}

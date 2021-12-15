@@ -98,11 +98,12 @@ export const ApiService = {
     });
   },
   
-  getNotification: async (token) => {
+  getNotification: async (data,token) => {
     return fireAjax({
-      method: 'GET',
+      method: 'POST',
       URL: `${ApiUrl.getNotification}`,
       token,
+      data
     });
   },
 };
