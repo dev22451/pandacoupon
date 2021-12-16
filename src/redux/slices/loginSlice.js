@@ -129,8 +129,6 @@ export const login = ({payload}) => {
             token: res.data.data.accessToken,
           }),
         );
-        dispatch(getCategoryRequest());
-        dispatch(getCoupon());
       } else {
         dispatch(
           loginFailed({
