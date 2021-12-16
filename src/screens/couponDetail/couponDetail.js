@@ -22,7 +22,7 @@ const CouponDetail = props => {
     },
     navigation,
   } = props;
-  const {couponList, isRedeemCoupon, couponItem, couponCategoryList, redeemUserCoupon, couponData} =
+  const {couponList, isLoading:isRedeemCoupon, couponItem, couponCategoryList, redeemUserCoupon, couponData} =
     useSelector(state => state.couponSlice);
     
     useEffect(()=>{

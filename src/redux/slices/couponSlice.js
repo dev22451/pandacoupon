@@ -159,6 +159,7 @@ export const {
 export default couponSlice.reducer;
 
 export const getCoupon = () => {
+  console.log('call')
   return async (dispatch, getState) => {
     dispatch(getCouponRequested());
     const {token} = getState().loginSlice;
@@ -371,7 +372,7 @@ export const getCouponWithId = _id => {
     const {token} = getState().loginSlice;
     try {
       
-      const res = await ApiService.getCoupon({_id},token);
+      const res = await ApiService.getCouponById({_id},token);
       console.log(res)
       if (res.data.success) {
         dispatch(

@@ -105,7 +105,7 @@ export const ApiService = {
       token,
     });
   },
-  getCoupon: async (data,token) => {
+  getCouponById: async (data,token) => {
     return fireAjax({
       method: 'GET',
       URL: `${ApiUrl.getCouponById}?_id=${data._id}`,

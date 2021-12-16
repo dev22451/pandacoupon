@@ -115,17 +115,17 @@ const DashBoard = ({navigation}) => {
      geoLocation();
   },[])
 
-  useFocusEffect(
-    React.useCallback(()=>{
-      const intervalId = setTimeout(()=>{
-        dispatch(getCategoryRequest());
-        dispatch(getCoupon());
-        dispatch(getBannerImage());
-      },1000)
+  // useFocusEffect(
+  //   React.useCallback(()=>{
+  //     const intervalId = setTimeout(()=>{
+  //       dispatch(getCategoryRequest());
+  //       dispatch(getCoupon());
+  //       dispatch(getBannerImage());
+  //     },1000)
 
-      return () => clearInterval(intervalId)
-    },[])
-  )
+  //     return () => clearInterval(intervalId)
+  //   },[])
+  // )
 
 
   return (
@@ -238,8 +238,8 @@ const DashBoard = ({navigation}) => {
         </HStack>
         <FlatList
           mx={wp(5)}
-          data={couponList }
-          extraData={couponList }
+          data={couponList}
+          extraData={couponList}
           keyExtractor={item => item?.couponCode}
           renderItem={renderCouponCard}
           horizontal={true}
