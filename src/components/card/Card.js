@@ -43,24 +43,25 @@ const giftIcon = (
   />
 );
 
-function CardComponent({item, navigateToDetail}) {
+function CardComponent({item, navigateToDetail,navigation}) {
   const {
-    brandLocation,
-    brandName,
-    brandPhone,
-    brandWebsite,
-    brandcouponDescription,
-    couponCategoryImageId,
-    couponCode,
-    brandImage,
-    couponImage,
-    couponDescription,
-    couponTitle,
-    expiryDate,
+    brandName = '',
+    brandLocation = '',
+    brandPhone = '',
+    brandWebsite = '',
+    brandcouponDescription = '',
+    
+    brandImage = null,
+    couponImage = null,
+    couponDescription = '',
+    couponTitle = '',
+    expiryDate = moment(),
     noOfUser = 0,
-    _id:id
+    _id:id = ''
   } = item;
+  
   const handleItemPressed = () => navigateToDetail(id)
+  
   return (
     <TouchableOpacity activeOpacity={0.9} key={item.id} onPress={handleItemPressed}>
       <Box
@@ -94,7 +95,7 @@ function CardComponent({item, navigateToDetail}) {
               <Text fontSize={fp(1.8)} bold fontWeight="500">
               {brandName}
               </Text>
-              <Text fontSize={fp(1.6)} color="warmGray.500" fontWeight="500">
+              <Text fontSize={fp(1.6)} color="warmGray.500" fontWeight="500" numberOfLines={2}>
                 {brandcouponDescription}
               </Text>
             </VStack>
@@ -111,8 +112,8 @@ function CardComponent({item, navigateToDetail}) {
             </Text>
           </HStack>
         </HStack>
-        <Box mt={5} px={wp(2)}>
-          <AspectRatio ratio={16 / 9}>
+        <Box mt={5} px={wp(2)}  >
+          <AspectRatio ratio={20 / 10}>
             {
             couponImage ?
             <FastImage
@@ -120,9 +121,7 @@ function CardComponent({item, navigateToDetail}) {
               uri: couponImage,
               priority: FastImage.priority.normal,
             }}
-            width={wp(86)}
-            height={hp(23)}
-            resizeMode={FastImage.resizeMode.contain}
+            
             />
             :
             <Image
@@ -140,7 +139,7 @@ function CardComponent({item, navigateToDetail}) {
           <Heading size="md" ml="-1" fontWeight="semibold">
             {couponTitle}
           </Heading>
-          <Text fontWeight="400" color="warmGray.600">
+          <Text fontWeight="400" color="warmGray.600" numberOfLines={2} >
             {couponDescription}
           </Text>
         </Stack>
@@ -163,7 +162,7 @@ function CardComponent({item, navigateToDetail}) {
                 Used
               </Text>
               <Text fontSize="xs" fontWeight="600" color="black">
-                {/*62 times (103 remainings)*/}{noOfUser}
+                {noOfUser}
               </Text>
             </VStack>
           </HStack>

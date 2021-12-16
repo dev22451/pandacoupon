@@ -7,17 +7,22 @@ import {
   FlatList,
   ScrollView,
 } from 'native-base';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {StatusBar, TouchableOpacity} from 'react-native';
+import {ActivityIndicator, StatusBar, TouchableOpacity, View} from 'react-native';
 
 import I18n from '../../translations/i18n';
 import Icon from '../../assets/icons/Icon';
 import {fp, hp, wp} from '../../helpers/respDimension';
-import CardFlatList from '../../components/card/CardFlatList';
+import BannerCard from '../../components/card/bannerCard';
 import { updateUserLocation } from '../../redux/slices/loginSlice';
 import {CardComponent, CategoryCard, DBAppBar} from '../../components';
 import { getCoupon, getBannerImage } from '../../redux/slices/couponSlice';
+import { updateCurrentLocation } from '../../redux/slices/locationSlice';
+import Geolocation from 'react-native-geolocation-service';
+import {getCategoryRequest} from '../../redux/slices/categorySlice';
+import { useFocusEffect } from '@react-navigation/core';
+
 
 const searchIcon = (
   <Box ml={wp(4)}>
@@ -47,30 +52,81 @@ const rightArrowIcon1 = (
 );
 
 const DashBoard = ({navigation}) => {
+
+  
   const dispatch = useDispatch()
   const { categoryList } = useSelector(state => state.categorySlice);
-  const { couponList, bannerImage } = useSelector(state => state.couponSlice);
+  const { couponList, bannerImage , isLoading:isCouponLoading } = useSelector(state => state.couponSlice);
+  
   const  deviceToken =useSelector(state=>state.loginSlice);
   const {location} =useSelector (state=>state.locationSlice);
-
+  
   const navigateToDetail = (id) => navigation.navigate('CouponDetail',{id})
   const navigateToList = (item) => navigation.navigate('CouponList',{item})
   
-  const renderBanner = ({item}) => <CardFlatList item={item} />;
+  const renderBanner = ({item}) => <BannerCard item={item} />;
   const renderCategory = ({item}) => <CategoryCard item={item} {...{navigateToList}} />;
   const renderCouponCard = ({item}) => <CardComponent {...{item,navigateToDetail}} />;
   const renderEmpty=()=>( <Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>The list is empty</Text>) 
 
+  const geoLocation =async () => {
+    try{
+
+      await Geolocation.getCurrentPosition(
+        async position => {
+          await dispatch(
+            updateCurrentLocation({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            }),
+            );
+            await dispatch(updateUserLocation({
+              _id:deviceToken.userData.user_id,
+              userLat:position.coords.latitude,
+              userLon:position.coords.longitude,
+              deviceToken:deviceToken.fbDeviceToken,
+            }));
+            dispatch(getCategoryRequest());
+            dispatch(getCoupon());
+            dispatch(getBannerImage());
+          },
+          error => {
+          },
+          {
+            accuracy: {
+              android: 'high',
+              ios: 'best',
+            },
+            enableHighAccuracy: true,
+            timeout: 15000,
+            maximumAge: 10000,
+            distanceFilter: 0,
+            forceRequestLocation: true,
+            forceLocationManager: false,
+            showLocationDialog: true,
+          },
+          );
+        } catch(e){
+          console.log('erro',e)
+        }
+  };
+  
   useEffect(()=>{
-    dispatch(updateUserLocation({
-      _id:deviceToken.userData.user_id,
-      userLat:location.latitude,
-      userLon:location.longitude,
-      deviceToken:deviceToken.fbDeviceToken,
-    }))
-    dispatch(getCoupon());
-    dispatch(getBannerImage());
+     geoLocation();
   },[])
+
+  // useFocusEffect(
+  //   React.useCallback(()=>{
+  //     const intervalId = setTimeout(()=>{
+  //       dispatch(getCategoryRequest());
+  //       dispatch(getCoupon());
+  //       dispatch(getBannerImage());
+  //     },1000)
+
+  //     return () => clearInterval(intervalId)
+  //   },[])
+  // )
+
 
   return (
     <>
@@ -85,10 +141,10 @@ const DashBoard = ({navigation}) => {
       <ScrollView nestedScrollEnabled={true}>
         <VStack
           width={wp(100)}
-          bg="secondary.500"
+          // bg="secondary.500"
           // borderBottomLeftRadius="200"
           // borderBottomRightRadius="200"
-          height={wp(60)}
+          height={wp(50)}
           px={wp(5)}>
           {/* <Input
             w={{
@@ -102,7 +158,7 @@ const DashBoard = ({navigation}) => {
             _focus={{borderColor: 'secondary.500'}}
             placeholder={I18n.t('DashBoard.searchTitle')}
           /> */}
-          <HStack justifyContent="space-between" alignItems="center">
+          {/* <HStack justifyContent="space-between" alignItems="center">
             <Text bold fontSize={fp(2)} color="white">
               {I18n.t('DashBoard.explore')}
             </Text>
@@ -114,18 +170,19 @@ const DashBoard = ({navigation}) => {
                 {rightArrowIcon}
               </HStack>
             </TouchableOpacity>
-          </HStack>
-          <Text fontSize={fp(1.8)} color="white">
+          </HStack> */}
+          {/* <Text fontSize={fp(1.8)} color="white">
             {I18n.t('DashBoard.latestDeal')}
-          </Text>
+          </Text> */}
         </VStack>
         <FlatList
           // pl={wp(2)}
 
           // py={hp(2)}
           //contentContainerStyle={{px:6}}
-          top={hp(8)}
-          data={[1,2,3]}
+          //top={hp(3)}
+          marginTop={3}
+          data={bannerImage}
           horizontal={true}
           position="absolute"
           keyExtractor={item => item.id}
@@ -143,7 +200,7 @@ const DashBoard = ({navigation}) => {
             </Text>
             <TouchableOpacity onPress={() => navigation.navigate('Categories')}>
               <HStack alignItems="center">
-                <Text fontSize={fp(1.8)} color="black" bold >
+                <Text fontSize={fp(2)} color="secondary.500" bold >
                   {I18n.t('DashBoard.seeAll')}
                 </Text>
                 {rightArrowIcon1}
@@ -156,9 +213,10 @@ const DashBoard = ({navigation}) => {
             data={categoryList}
             extraData={categoryList}
             horizontal={true}
-            keyExtractor={item => item.id}
+            keyExtractor={item => item?._id}
             showsHorizontalScrollIndicator={false}
             renderItem={renderCategory}
+            ListEmptyComponent={<Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>The list is empty</Text>}
           />
         </VStack>
         <HStack
@@ -171,7 +229,7 @@ const DashBoard = ({navigation}) => {
           </Text>
           <TouchableOpacity onPress={navigateToList}>
             <HStack alignItems="center">
-              <Text fontSize={fp(1.8)} color="black" bold>
+              <Text fontSize={fp(2)} color="secondary.500" bold>
                 {I18n.t('DashBoard.seeAll')}
               </Text>
               {rightArrowIcon1}
@@ -181,8 +239,11 @@ const DashBoard = ({navigation}) => {
         <FlatList
           mx={wp(5)}
           data={couponList}
-          keyExtractor={item => item.id}
+          extraData={couponList}
+          keyExtractor={item => item?.couponCode}
           renderItem={renderCouponCard}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
           ListEmptyComponent={renderEmpty}
         />
       </ScrollView>

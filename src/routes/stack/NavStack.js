@@ -18,12 +18,20 @@ import {
   CouponList,
 } from '../../screens';
 import BottomTab from '../bottomTab/BottomTab';
+import {storeData,getData} from '../../helpers/localStorgae';
 
 const Stack = createStackNavigator();
 
 const NavStack = () => {
+  const data = async ()=> {
+
+  let locD = await getData('locationData');
+  return locD ? locD : null
+  }
+  data()
   return (
     <Stack.Navigator
+      initialRouteName={(data() ===null)?"HomeScreen":"BottomTab"}
       screenOptions={{
         headerShown: false,
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,

@@ -8,6 +8,7 @@ import {
   Box,
   FormControl,
   ScrollView,
+  Pressable,
   Toast,
 } from 'native-base';
 import React, {useState} from 'react';
@@ -65,33 +66,56 @@ const phoneIcon = (
   </Box>
 );
 
+const eyeIcon = (
+  <Box ml={wp(5)}>
+    <Icon
+      type="MaterialIcons"
+      name="visibility"
+      size={20}
+      color={theme.colors.secondary[500]}
+    />
+  </Box>
+);
+
+const eyeSlashIcon = (
+  <Box ml={wp(5)}>
+    <Icon
+      type="MaterialIcons"
+      name="visibility-off"
+      size={20}
+      color={theme.colors.secondary[500]}
+    />
+  </Box>
+);
+
 const Register = ({navigation}) => {
   const [email, setEmail] = useState({email: '', valid: ''});
   const [password, setPassword] = useState({password: '', valid: ''});
   const [number, setNumber] = useState({number: ''});
   const [name, setName] = useState('');
+  const [show, setShow] = useState(false);
 
   const dispatch = useDispatch();
   const isLoading = useSelector(state => state.loginSlice.isLoading);
+  const handleClick = () => setShow(!show);
 
   const handleEmail = text => {
-    // validateEmail(text)
-    //   ? setEmail({email: '', valid: true})
-    //   : setEmail({email: text, valid: false});
-    setEmail({email: text, valid: false});
+    validateEmail(text)
+      ? setEmail({email: '', valid: true})
+      : setEmail({email: text, valid: false});
+   // setEmail({email: text, valid: false});
   };
   const handlePassword = text => {
-    // validatePassword(text)
-    //   ? setPassword({password: '', valid: true})
-    //   :
-    setPassword({password: text, valid: false});
+    validatePassword(text)
+      ? setPassword({password: '', valid: true})
+      : setPassword({password: text, valid: false});
   };
 
   const handleSignUp = () => {
     const isEmailValidate = email.email !== '';
     const isPasswordValidate = password.password !== '';
     const isValidPhoneNumber = number.number !== '';
-    if (isEmailValidate && isPasswordValidate) {
+    if (isEmailValidate && isPasswordValidate && isValidPhoneNumber) {
       const payload = {
         userName: name,
         PhoneNumber: number.number,
@@ -100,9 +124,9 @@ const Register = ({navigation}) => {
       };
       dispatch(register({payload}, navigation));
     } else {
-      let message = 'Please Enter Correct Data';
+      let message = 'Please Enter All Data';
       Toast.show({
-        title: 'Invalid Data',
+        title: 'Fill All Data',
         duration: 3000,
         placement: 'top',
         status: 'error',
@@ -157,7 +181,7 @@ const Register = ({navigation}) => {
               _focus={{borderColor: 'secondary.500'}}
               onChangeText={text => setNumber({number: text})}
             />
-            <FormControl
+            {/* <FormControl
               w={{
                 base: '100%',
                 md: '25%',
@@ -172,7 +196,33 @@ const Register = ({navigation}) => {
               <FormControl.ErrorMessage>
                 Invalid Password
               </FormControl.ErrorMessage>
+            </FormControl> */}
+            <FormControl
+              w={{
+                base: '100%',
+                md: '25%',
+              }}
+              isInvalid={password.valid}>
+                
+              <Input
+                type={show ? 'text' : 'password'}
+                _focus={{borderColor: password.valid ? 'red' : 'secondary.500'}}
+                placeholder="Password"
+                overflow="visible"
+                InputLeftElement={keyIcon}
+                InputRightElement={
+                  <Pressable mr={wp(4)} onPress={handleClick}>
+                    {show ? eyeIcon : eyeSlashIcon}
+                  </Pressable>
+                }
+                // value={password.password}
+                onChangeText={text => handlePassword(text)}
+              />
+              <FormControl.ErrorMessage>
+                Invalid Password
+              </FormControl.ErrorMessage>
             </FormControl>
+
           </Stack>
           <Text color="gray.500" mt={hp(5)}>
             {I18n.t('Register.accountCheck')}{' '}

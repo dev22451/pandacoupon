@@ -8,6 +8,9 @@ export default {
   getRedeem:'redeem-data',
   getCategoryCoupon:'getCouponbyCategoryId',
   userLogout:'logout',
-  getBanner:'bannerImageGet',
+  getBanner:'getBannerImage',
   updateLocation:'updateUserLocation',
+  redeemCouponbyUser:'redeemedCouponbyUser',
+  getNotification:'getNotificationByUser',
+  getCouponById:'getCouponByCouponId'
 };

@@ -27,7 +27,6 @@ const Home = ({navigation}) => {
   const userData = useSelector((state) => state.loginSlice.userData);
   const dispatch = useDispatch();
   const mapRef = useRef(null);
-  console.log(loc);
 
   useEffect(() => {
     if (!!loc && mapRef.current) {

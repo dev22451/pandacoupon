@@ -5,6 +5,8 @@ import {VStack, Stack, Box, Input, theme, Text, HStack} from 'native-base';
 import {NButton} from '../../components';
 import Icon from '../../assets/icons/Icon';
 import {wp, hp} from '../../helpers/respDimension';
+import {storeData,getData} from '../../helpers/localStorgae';
+import { useSelector } from 'react-redux';
 
 const locationIcon = (
   <Box ml={wp(3)}>
@@ -29,8 +31,20 @@ const curLocIcon = (
 );
 
 const Content = ({navigation}) => {
-  const handleCurrentLocation = () => navigation.navigate('BottomTab');
-  const handleContinue = () => navigation.navigate('BottomTab');
+  const { location } = useSelector(state => state.locationSlice);
+  const {fbDeviceToken}=useSelector(state=>state.loginSlice);
+
+  const handleCurrentLocation = async() => {
+    await storeData('locationData',{location});
+    navigation.navigate('BottomTab');
+  }
+
+  const handleContinue = async () => {
+    await storeData('locationData',{location});
+    //const data = await getData('locationData');
+    navigation.navigate('BottomTab');
+  }
+
   return (
     <VStack p={wp(5)}>
       <Text color="coolGray.500">FIND NEARBY DEALS</Text>

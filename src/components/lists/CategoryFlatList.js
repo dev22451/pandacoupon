@@ -1,7 +1,6 @@
 import React from 'react';
 import {TouchableOpacity,Image} from 'react-native';
 import FastImage from 'react-native-fast-image';
-
 import {
   Box,
   HStack,
@@ -10,6 +9,7 @@ import {
   Text,
   theme,
   VStack,
+  Avatar,
 } from 'native-base';
 
 import Icon from '../../assets/icons/Icon';
@@ -54,22 +54,23 @@ const CategoryFlatList = (props) => {
                   color={theme.colors.secondary[500]}
                 /> 
                 :
-                <FastImage
-                   
-                    source={{
-                      uri: item.categoryImageURL,
-                      priority: FastImage.priority.normal,
-                    }}
-                    style={{height:wp(10),width:wp(10)}}
-                    resizeMode={FastImage.resizeMode.contain}
+                <FastImage 
+                    // source={{
+                    //   uri: item.categoryImageURL,
+                    //   priority: FastImage.priority.normal,
+                    // }}
+                    // style={{height:wp(10),width:wp(10)}}
+                    // resizeMode={FastImage.resizeMode.contain}
                   > 
-                  {/* <Avatar style={{height:wp(10),width:wp(10)}}
+                  <Avatar style={{height:wp(10),width:wp(10)}}
                     resizeMode={FastImage.resizeMode.contain}
+                    size="md"
+                    bg="pink.500"
                     source={{
                         uri: item.categoryImageURL,
                         priority: FastImage.priority.normal,
                       }}
-                  /> */}
+                  />
                 </FastImage>
               }
               onPress={() => null}

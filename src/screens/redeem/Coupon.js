@@ -1,23 +1,41 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import {Stack} from 'native-base';
 import ReactNativeSwipeableViewStack from 'react-native-swipeable-view-stack';
+import { useSelector, useDispatch } from 'react-redux';
+import {getCoupon,getCouponRedeem,redeemCoupon} from '../../redux/slices/couponSlice'
 
-import {CouponCard} from '../../components';
+import {CouponCard,Loader} from '../../components';
 import {wp} from '../../helpers/respDimension';
 
 const Coupon = ({navigation}) => {
+  const dispatch = useDispatch()
+  const {couponList, isRedeemCoupon, couponItem, couponCategoryList} =
+    useSelector(state => state.couponSlice);
+  
+  const handleRedeem = itemID => {
+    dispatch(redeemCoupon(itemID));
+  };
+
+  useEffect(()=>{
+      dispatch(getCoupon());
+      dispatch(getCouponRedeem(id));
+  },[]);
   return (
     <>
+     {isRedeemCoupon ? (
+        <Loader />
+      ) : (
       <Stack bg="secondary.500" flex="1" zIndex={-100} justifyContent="center">
         <ReactNativeSwipeableViewStack
           onSwipe={swipedIndex => console.log(swipedIndex)}
           initialSelectedIndex={1}
-          data={[1, 2, 3]}
-          renderItem={() => <CouponCard />}
+          data={couponList}
+          renderItem={(item) => <CouponCard couponData={item} handleRedeem={handleRedeem} couponItem={couponItem} />}
           onItemClicked={element => console.log(element)}
           stackSpacing={wp(12)}
         />
       </Stack>
+      )}
     </>
   );
 };

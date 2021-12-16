@@ -73,10 +73,18 @@ export const ApiService = {
   },
 
   updateLocation: async (data,token) => {
-    console.log(data,token)
     return fireAjax({
       method: 'POST',
       URL: `${ApiUrl.updateLocation}`,
+      token,
+      data
+    });
+  },
+
+  redeemCouponbyUser: async (data,token) => {
+    return fireAjax({
+      method: 'POST',
+      URL: `${ApiUrl.redeemCouponbyUser}`,
       token,
       data
     });
@@ -86,6 +94,21 @@ export const ApiService = {
     return fireAjax({
       method: 'GET',
       URL: `${ApiUrl.getBanner}`,
+      token,
+    });
+  },
+  
+  getNotification: async (data,token) => {
+    return fireAjax({
+      method: 'GET',
+      URL: `${ApiUrl.getNotification}?userEmail=${data.userEmail}`,
+      token,
+    });
+  },
+  getCouponById: async (data,token) => {
+    return fireAjax({
+      method: 'GET',
+      URL: `${ApiUrl.getCouponById}?_id=${data._id}`,
       token,
     });
   },

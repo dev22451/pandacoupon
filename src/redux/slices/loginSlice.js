@@ -15,7 +15,6 @@ export const loginSlice = createSlice({
     isLoading: false,
     isLoggedIn: false,
     fbDeviceToken: '',
-    isLoggedIn: false,
     isLoggedOut:false,
   },
   reducers: {
@@ -39,7 +38,7 @@ export const loginSlice = createSlice({
       state.isLoading = false;
       state.token = action.payload.token;
       state.userData = action.payload.userData;
-      state.isLoggedOut = true;
+      state.isLoggedIn= false;
     },
     logoutFailed(state, action) {
       state.isLoading = false;
@@ -115,7 +114,6 @@ export const login = ({payload}) => {
     dispatch(loginRequested());
     try {
       const res = await ApiService.login(payload);
-      console.log(res);
       if (res.data.success) {
         Toast.show({
           title: 'Login Success',
@@ -131,8 +129,6 @@ export const login = ({payload}) => {
             token: res.data.data.accessToken,
           }),
         );
-        dispatch(getCategoryRequest());
-        dispatch(getCoupon());
       } else {
         dispatch(
           loginFailed({
@@ -163,11 +159,12 @@ export const login = ({payload}) => {
   };
 };
 
-export const logout = ({payload}) => {
+export const logout = (payload,token) => {
   return async (dispatch, getState) => {
     dispatch(logoutRequested());
     try {
-      const res = await ApiService.logout(id);
+      const res = await ApiService.logout(payload,token);
+      
       if (res.data.success) {
         Toast.show({
           title: 'Logout Success',
@@ -176,18 +173,16 @@ export const logout = ({payload}) => {
           duration: 3000,
           description: `You have logged out`,
         });
-        // await storeData(
-        //   'userData',
-        //   res.data.data
-        // );
+        
         dispatch(
           logoutSuccessful({
-            userData: res.data.data,
-            token: res.data.data.accessToken,
+            userData: '',
+            token: '',
+        
           }),
+          await clearAll()
         );
-        dispatch(getCategoryRequest());
-        dispatch(getCoupon());
+        
       } else {
         dispatch(
           logoutFailed({
@@ -261,10 +256,12 @@ export const register = ({payload}, navigation) => {
   };
 };
 
-export const updateUserLocation = (payload,token) => {
+export const updateUserLocation = (payload) => {
   return async (dispatch, getState) => {
     dispatch(updateUserLocationRequested());
     try {
+    const {token, userData} = getState().loginSlice;
+
       const res = await ApiService.updateLocation(payload,token);
       if (res.data.success) {
         Toast.show({
@@ -283,7 +280,7 @@ export const updateUserLocation = (payload,token) => {
           }),
         );
         Toast.show({
-          title: 'Something went wrong',
+          title: 'Location not update',
           duration: 3000,
           placement: 'top',
           status: 'error',
@@ -292,14 +289,7 @@ export const updateUserLocation = (payload,token) => {
     } catch (e) {
       dispatch(
         updateUserLocationFailed({
-          errorMessage: e.response.data.errors || 'something Went wrong',
-        }),
-        Toast.show({
-          title: 'Something went wrong',
-          duration: 3000,
-          placement: 'top',
-          status: 'error',
-          description: e.response.data.errors,
+          errorMessage: e?.response?.data?.errors || 'something Went wrong',
         }),
       );
     }

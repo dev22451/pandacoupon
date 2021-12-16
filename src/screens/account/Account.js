@@ -50,9 +50,14 @@ const userIcon = (
 const data = [
   
   {
-    id: '2',
+    id: '1',
     fullName: 'Categories',
     iconName: 'file-document-outline',
+  },
+  {
+    id: '2',
+    fullName: 'Histories',
+    iconName: 'history',
   },
   
 ];
@@ -83,7 +88,7 @@ const Account = ({navigation}) => {
   const handlePressSecond = item => {
     switch (item.fullName) {
       case 'Coupons':
-        navigation.navigate('Coupon');
+        navigation.navigate('CouponList',{});
         break;
       case 'Notifications':
         navigation.navigate('Notification');
@@ -114,8 +119,7 @@ const Account = ({navigation}) => {
         null;
     }
   };
-  console.log(login)
-
+  
   return (
     <>
       <Stack

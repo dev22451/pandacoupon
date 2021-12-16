@@ -4,6 +4,7 @@ import firebase from '@react-native-firebase/app';
 import RNBootSplash from 'react-native-bootsplash';
 import {useSelector, useDispatch} from 'react-redux';
 import {NavigationContainer} from '@react-navigation/native';
+import messaging from '@react-native-firebase/messaging';
 
 import NavDrawer from './drawer/NavDrawer';
 import StarterStack from './stack/StarterStack';
@@ -29,7 +30,6 @@ const RootNavigation = () => {
           userData,
         }),
       );
-      dispatch(getCategoryRequest());
     }
   };
 
