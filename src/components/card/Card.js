@@ -45,20 +45,19 @@ const giftIcon = (
 
 function CardComponent({item, navigateToDetail,navigation}) {
   const {
-    brandName,
-    brandLocation,
-    brandPhone,
-    brandWebsite,
-    brandcouponDescription,
-    couponCategoryImageId,
-    couponCode,
-    brandImage,
-    couponImage,
-    couponDescription,
-    couponTitle,
-    expiryDate,
-    noOfUser,
-    _id:id
+    brandName = '',
+    brandLocation = '',
+    brandPhone = '',
+    brandWebsite = '',
+    brandcouponDescription = '',
+    
+    brandImage = null,
+    couponImage = null,
+    couponDescription = '',
+    couponTitle = '',
+    expiryDate = moment(),
+    noOfUser = 0,
+    _id:id = ''
   } = item;
   
   const handleItemPressed = () => navigateToDetail(id)
@@ -96,7 +95,7 @@ function CardComponent({item, navigateToDetail,navigation}) {
               <Text fontSize={fp(1.8)} bold fontWeight="500">
               {brandName}
               </Text>
-              <Text fontSize={fp(1.6)} color="warmGray.500" fontWeight="500">
+              <Text fontSize={fp(1.6)} color="warmGray.500" fontWeight="500" numberOfLines={2}>
                 {brandcouponDescription}
               </Text>
             </VStack>
@@ -140,7 +139,7 @@ function CardComponent({item, navigateToDetail,navigation}) {
           <Heading size="md" ml="-1" fontWeight="semibold">
             {couponTitle}
           </Heading>
-          <Text fontWeight="400" color="warmGray.600">
+          <Text fontWeight="400" color="warmGray.600" numberOfLines={2} >
             {couponDescription}
           </Text>
         </Stack>

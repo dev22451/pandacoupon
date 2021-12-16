@@ -12,4 +12,5 @@ export default {
   updateLocation:'updateUserLocation',
   redeemCouponbyUser:'redeemedCouponbyUser',
   getNotification:'getNotificationByUser',
+  getCouponById:'getCouponByCouponId'
 };

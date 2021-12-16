@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Box, ScrollView} from 'native-base';
+import {Box, ScrollView, Text} from 'native-base';
 import ReactNativeSwipeableViewStack from 'react-native-swipeable-view-stack';
 import {wp} from '../../helpers/respDimension';
 import {useSelector, useDispatch} from 'react-redux';
@@ -8,6 +8,7 @@ import {
   redeemCoupon,
   getCouponRedeem,
   getCoupon,
+  getCouponWithId,
   getCategoryCoupon,
 } from '../../redux/slices/couponSlice';
 import {DBAppBar, Loader} from '../../components';
@@ -21,21 +22,25 @@ const CouponDetail = props => {
     },
     navigation,
   } = props;
-  const {couponList, isRedeemCoupon, couponItem, couponCategoryList, redeemUserCoupon} =
+  const {couponList, isRedeemCoupon, couponItem, couponCategoryList, redeemUserCoupon, couponData} =
     useSelector(state => state.couponSlice);
     
-    let couponData;
-    if(page === 'history'){
-      couponData = redeemUserCoupon?.find(instance => instance._id === id);
-    } else {
+    useEffect(()=>{
+      dispatch(getCouponWithId(id))
+    },[])
 
-      couponData = couponList?.find(instance => instance._id === id);
-      if (!couponData) {
-        couponData = couponCategoryList?.couponCategoryList?.find(
-          instance => instance._id === id,
-          );
-        }
-      }
+    // let couponData;
+    // if(page === 'history'){
+    //   couponData = redeemUserCoupon?.find(instance => instance._id === id);
+    // } else {
+
+    //   couponData = couponList?.find(instance => instance._id === id);
+    //   if (!couponData) {
+    //     couponData = couponCategoryList?.couponCategoryList?.find(
+    //       instance => instance._id === id,
+    //       );
+    //     }
+    //   }
   const handleRedeem = itemID => {
     dispatch(redeemCoupon(itemID));
   };
@@ -60,7 +65,12 @@ const CouponDetail = props => {
       ) : (
         <ScrollView>
           <Box alignItems="center" mt={wp(5)}>
-            <CouponCard {...{couponData, handleRedeem, couponItem, page}} />
+            {
+              couponData ? 
+              <CouponCard {...{couponData, handleRedeem, couponItem, page}} />
+              :
+              <Text > Coupon Data Not Found </Text>
+            }
           </Box>
         </ScrollView>
       )}

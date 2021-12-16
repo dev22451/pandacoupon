@@ -147,7 +147,7 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem, page }) 
               <Text fontSize={fp(1.8)} bold fontWeight="500">
                 {brandName}
               </Text>
-              <Text fontSize={fp(1.6)} color="warmGray.500" fontWeight="500">
+              <Text fontSize={fp(1.6)} color="warmGray.500" fontWeight="500" numberOfLines={2} >
                 {brandcouponDescription}
               </Text>
             </VStack>
@@ -168,7 +168,7 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem, page }) 
           <Text fontSize={fp(3)} fontWeight="500">
             {couponTitle}
           </Text>
-          <Text fontSize={fp(1.6)} color="warmGray.500" fontWeight="500">
+          <Text fontSize={fp(1.6)} color="warmGray.500" fontWeight="500" numberOfLines={2} >
             {couponDescription}
           </Text>
         </VStack>
