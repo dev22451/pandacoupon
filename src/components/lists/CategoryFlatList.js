@@ -1,6 +1,7 @@
 import React from 'react';
 import {TouchableOpacity,Image} from 'react-native';
 import FastImage from 'react-native-fast-image';
+
 import {
   Box,
   HStack,
@@ -54,18 +55,27 @@ const CategoryFlatList = (props) => {
                 /> 
                 :
                 <FastImage
+                   
                     source={{
                       uri: item.categoryImageURL,
                       priority: FastImage.priority.normal,
                     }}
                     style={{height:wp(10),width:wp(10)}}
                     resizeMode={FastImage.resizeMode.contain}
-                  />  
+                  > 
+                  {/* <Avatar style={{height:wp(10),width:wp(10)}}
+                    resizeMode={FastImage.resizeMode.contain}
+                    source={{
+                        uri: item.categoryImageURL,
+                        priority: FastImage.priority.normal,
+                      }}
+                  /> */}
+                </FastImage>
               }
               onPress={() => null}
             />
             <VStack>
-              <Text
+              <Text rukp be hum ko dekhne do 
                 _dark={{
                   color: 'warmGray.50',
                 }}
