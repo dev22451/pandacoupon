@@ -1,6 +1,6 @@
 import React,{useEffect} from 'react';
 import {VStack, Text, theme, HStack,Box,FlatList} from 'native-base';
-
+import {View} from 'react-native'
 import {DBAppBar} from '../../components';
 import { useSelector, useDispatch } from 'react-redux';
 import {TouchableOpacity} from 'react-native';
@@ -13,7 +13,8 @@ const Notification = ({navigation}) => {
   const {Notifications} = useSelector((state) => state.notificationSlice);
   //console.log(Notifications,"notifications");
   //const navigateToList = (item) => navigation.navigate('')
-  const renderCategory = ({item}) => <NotificatonCard {...{item}} />;
+  const navigateToDetail = (id) => navigation.navigate('CouponDetail',{id})
+  const renderCategory = ({item}) => <NotificatonCard {...{item, navigateToDetail}} />;
   useEffect(()=>{
     dispatch(getNotification());
   },[])
@@ -46,7 +47,7 @@ const Notification = ({navigation}) => {
             keyExtractor={item => item.id}
             showsHorizontalScrollIndicator={false}
             renderItem={renderCategory}
-            //ListEmptyComponent={<Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>The list is empty</Text>}
+            ListEmptyComponent={<View style={{justifyContent:'center', alignContent:'center',width:wp(100)}} ><Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>No data found</Text></View>}
           />
       </VStack>
     </>

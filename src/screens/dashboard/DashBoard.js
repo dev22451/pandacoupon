@@ -9,7 +9,7 @@ import {
 } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {StatusBar, TouchableOpacity} from 'react-native';
+import {ActivityIndicator, StatusBar, TouchableOpacity, View} from 'react-native';
 
 import I18n from '../../translations/i18n';
 import Icon from '../../assets/icons/Icon';
@@ -21,6 +21,7 @@ import { getCoupon, getBannerImage } from '../../redux/slices/couponSlice';
 import { updateCurrentLocation } from '../../redux/slices/locationSlice';
 import Geolocation from 'react-native-geolocation-service';
 import {getCategoryRequest} from '../../redux/slices/categorySlice';
+import { useFocusEffect } from '@react-navigation/core';
 
 
 const searchIcon = (
@@ -55,7 +56,7 @@ const DashBoard = ({navigation}) => {
   
   const dispatch = useDispatch()
   const { categoryList } = useSelector(state => state.categorySlice);
-  const { couponList, bannerImage } = useSelector(state => state.couponSlice);
+  const { couponList, bannerImage , isLoading:isCouponLoading } = useSelector(state => state.couponSlice);
   
   const  deviceToken =useSelector(state=>state.loginSlice);
   const {location} =useSelector (state=>state.locationSlice);
@@ -67,59 +68,66 @@ const DashBoard = ({navigation}) => {
   const renderCategory = ({item}) => <CategoryCard item={item} {...{navigateToList}} />;
   const renderCouponCard = ({item}) => <CardComponent {...{item,navigateToDetail}} />;
   const renderEmpty=()=>( <Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>The list is empty</Text>) 
-  
-  useEffect(()=>{
-    dispatch(getCategoryRequest());
 
-  },[])
-  
-  useEffect(()=>{
-    const geoLocation =async () => {
-      try{
+  const geoLocation =async () => {
+    try{
 
-        await Geolocation.getCurrentPosition(
-          position => {
-            dispatch(
-              updateCurrentLocation({
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude,
-              }),
-              );
-              dispatch(updateUserLocation({
-                _id:deviceToken.userData.user_id,
-                userLat:position.coords.latitude,
-                userLon:position.coords.longitude,
-                deviceToken:deviceToken.fbDeviceToken,
-              }));
-               dispatch(getCoupon());
-               dispatch(getBannerImage());
-            },
-            error => {
-            },
-            {
-              accuracy: {
-                android: 'high',
-                ios: 'best',
-              },
-              enableHighAccuracy: true,
-              timeout: 15000,
-              maximumAge: 10000,
-              distanceFilter: 0,
-              forceRequestLocation: true,
-              forceLocationManager: false,
-              showLocationDialog: true,
-            },
+      await Geolocation.getCurrentPosition(
+        async position => {
+          await dispatch(
+            updateCurrentLocation({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            }),
             );
-          } catch(e){
-            console.log('erro',e)
-          }
-    };
-     geoLocation();
-    // dispatch(getCoupon());
-    // dispatch(getBannerImage());
+            await dispatch(updateUserLocation({
+              _id:deviceToken.userData.user_id,
+              userLat:position.coords.latitude,
+              userLon:position.coords.longitude,
+              deviceToken:deviceToken.fbDeviceToken,
+            }));
+            dispatch(getCategoryRequest());
+            dispatch(getCoupon());
+            dispatch(getBannerImage());
+          },
+          error => {
+          },
+          {
+            accuracy: {
+              android: 'high',
+              ios: 'best',
+            },
+            enableHighAccuracy: true,
+            timeout: 15000,
+            maximumAge: 10000,
+            distanceFilter: 0,
+            forceRequestLocation: true,
+            forceLocationManager: false,
+            showLocationDialog: true,
+          },
+          );
+        } catch(e){
+          console.log('erro',e)
+        }
+  };
   
+  useEffect(()=>{
+     geoLocation();
   },[])
- 
+
+  // useFocusEffect(
+  //   React.useCallback(()=>{
+  //     const intervalId = setTimeout(()=>{
+  //       dispatch(getCategoryRequest());
+  //       dispatch(getCoupon());
+  //       dispatch(getBannerImage());
+  //     },1000)
+
+  //     return () => clearInterval(intervalId)
+  //   },[])
+  // )
+
+
   return (
     <>
       <StatusBar backgroundColor={theme.colors.secondary[500]} />
@@ -205,7 +213,7 @@ const DashBoard = ({navigation}) => {
             data={categoryList}
             extraData={categoryList}
             horizontal={true}
-            keyExtractor={item => item.id}
+            keyExtractor={item => item?._id}
             showsHorizontalScrollIndicator={false}
             renderItem={renderCategory}
             ListEmptyComponent={<Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>The list is empty</Text>}
@@ -231,8 +239,11 @@ const DashBoard = ({navigation}) => {
         <FlatList
           mx={wp(5)}
           data={couponList}
-          keyExtractor={item => item.id}
+          extraData={couponList}
+          keyExtractor={item => item?.couponCode}
           renderItem={renderCouponCard}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
           ListEmptyComponent={renderEmpty}
         />
       </ScrollView>

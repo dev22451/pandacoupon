@@ -129,8 +129,6 @@ export const login = ({payload}) => {
             token: res.data.data.accessToken,
           }),
         );
-        dispatch(getCategoryRequest());
-        dispatch(getCoupon());
       } else {
         dispatch(
           loginFailed({
@@ -282,7 +280,7 @@ export const updateUserLocation = (payload) => {
           }),
         );
         Toast.show({
-          title: 'Something went wrong',
+          title: 'Location not update',
           duration: 3000,
           placement: 'top',
           status: 'error',

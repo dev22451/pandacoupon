@@ -15,6 +15,7 @@ const couponSlice = createSlice({
     couponCategoryList: [],
     bannerImage:[],
     redeemUserCoupon:[],
+    couponData:{}
   },
   reducers: {
     getCouponRequested: (state, action) => {
@@ -27,6 +28,20 @@ const couponSlice = createSlice({
       state.couponList = action.payload.couponList;
     },
     getCouponFailed: (state, action) => {
+      state.isLoading = false;
+      state.errorMessage = action.payload.errorMessage;
+      state.isError = true;
+    },
+    getCouponDataRequested: (state, action) => {
+      state.isLoading = true;
+      state.errorMessage = '';
+      state.isError = false;
+    },
+    getCouponDataSuccessful: (state, action) => {
+      state.isLoading = false;
+      state.couponData = action.payload.couponData;
+    },
+    getCouponDataFailed: (state, action) => {
       state.isLoading = false;
       state.errorMessage = action.payload.errorMessage;
       state.isError = true;
@@ -116,6 +131,9 @@ const couponSlice = createSlice({
 });
 
 export const {
+  getCouponDataRequested,
+  getCouponDataSuccessful,
+  getCouponDataFailed,
   getCategoryCouponRequested,
   getCategoryCouponSuccessful,
   getCategoryCouponFailed,
@@ -141,6 +159,7 @@ export const {
 export default couponSlice.reducer;
 
 export const getCoupon = () => {
+  console.log('call')
   return async (dispatch, getState) => {
     dispatch(getCouponRequested());
     const {token} = getState().loginSlice;
@@ -260,11 +279,17 @@ export const getCouponRedeem = _id => {
             couponItem: res.data.data.isRedeem,
           }),
         );
+      } else {
+        dispatch(
+          getCouponredeemFailed({
+            errorMessage: res.data.message || 'Unable to get data',
+          }),
+        );  
       }
     } catch (e) {
       dispatch(
         getCouponredeemFailed({
-          errorMessage: e?.response?.data?.errors || 'Something went wrong',
+          errorMessage: e?.response?.data?.errors || 'unable to get data',
         }),
       );
     }
@@ -341,4 +366,33 @@ export const getredeemCouponbyUser = userEmail => {
   };
 };
 
-
+export const getCouponWithId = _id => {
+  return async (dispatch, getState) => {
+    dispatch(getCouponDataRequested());
+    const {token} = getState().loginSlice;
+    try {
+      
+      const res = await ApiService.getCouponById({_id},token);
+      console.log(res)
+      if (res.data.success) {
+        dispatch(
+          getCouponDataSuccessful({
+            couponData: res.data.data.coupon[0],
+          }),
+        );
+      } else {
+        dispatch(
+          getCouponDataFailed({
+            errorMessage: res?.data?.message || 'Unable to get data',
+          }),
+        );
+      }
+    } catch (e) {
+      dispatch(
+        getCouponDataFailed({
+          errorMessage: e?.response?.data?.errors || 'Unable to get data',
+        }),
+      );
+    }
+  };
+};

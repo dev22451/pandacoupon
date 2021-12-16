@@ -18,13 +18,12 @@ import {
   import moment from 'moment';
   import FastImage from 'react-native-fast-image';
 
- export function NotificatonCard({item}) {
-    console.log(item)
+ export function NotificatonCard({item, navigateToDetail}) {
     
-    // const handleItemPressed = () => navigateToDetail(id)
+    const handleItemPressed = () => navigateToDetail(item.couponID)
     
     return (
-      <TouchableOpacity activeOpacity={0.9}  onPress={null}>
+      <TouchableOpacity activeOpacity={0.9}  onPress={handleItemPressed}>
         <Box
         mb={wp(4)}
         mx={2}

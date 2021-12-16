@@ -100,10 +100,16 @@ export const ApiService = {
   
   getNotification: async (data,token) => {
     return fireAjax({
-      method: 'POST',
-      URL: `${ApiUrl.getNotification}`,
+      method: 'GET',
+      URL: `${ApiUrl.getNotification}?userEmail=${data.userEmail}`,
       token,
-      data
+    });
+  },
+  getCouponById: async (data,token) => {
+    return fireAjax({
+      method: 'GET',
+      URL: `${ApiUrl.getCouponById}?_id=${data._id}`,
+      token,
     });
   },
 };
