@@ -43,7 +43,7 @@ const Notification = ({navigation}) => {
             pr={wp(2)}
             data={Notifications}
             extraData={Notifications}
-            horizontal={true}
+            //horizontal={true}
             keyExtractor={item => item.id}
             showsHorizontalScrollIndicator={false}
             renderItem={renderCategory}

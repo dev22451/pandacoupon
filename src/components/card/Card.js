@@ -43,7 +43,8 @@ const giftIcon = (
   />
 );
 
-function CardComponent({item, navigateToDetail,navigation}) {
+function CardComponent({item = {}, navigateToDetail = ()=>{}}) {
+  console.log(item)
   const {
     brandName = '',
     brandLocation = '',
@@ -60,7 +61,7 @@ function CardComponent({item, navigateToDetail,navigation}) {
     _id:id = ''
   } = item;
   
-  const handleItemPressed = () => navigateToDetail(id)
+  const handleItemPressed = () => navigateToDetail(item)
   
   return (
     <TouchableOpacity activeOpacity={0.9} key={item.id} onPress={handleItemPressed}>

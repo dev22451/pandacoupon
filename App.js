@@ -4,6 +4,7 @@ import {Provider} from 'react-redux';
 import {NativeBaseProvider} from 'native-base';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {SafeAreaView, LogBox, StatusBar, useColorScheme} from 'react-native';
+import firebase from '@react-native-firebase/app';
 
 import {store} from './src/redux/store';
 import RootNavigation from './src/routes/routes';
@@ -24,7 +25,11 @@ const App = () => {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
-
+  useEffect(()=>{
+    if (firebase.apps.length === 0) {
+      firebase.initializeApp({});
+  }
+  },[])
   return (
     <NativeBaseProvider
       theme={theme}

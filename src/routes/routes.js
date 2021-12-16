@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import Geocoder from 'react-native-geocoding';
-import firebase from '@react-native-firebase/app';
 import RNBootSplash from 'react-native-bootsplash';
 import {useSelector, useDispatch} from 'react-redux';
 import {NavigationContainer} from '@react-navigation/native';
@@ -14,7 +13,6 @@ import {getDeviceToken, requestUserPermission} from '../helpers/firebase';
 import {hasLocationPermission} from '../helpers/locRequest';
 import {getCategoryRequest} from '../redux/slices/categorySlice';
 
-firebase.initializeApp({});
 Geocoder.init('AIzaSyAB720ENkbeEfGrROeMMCxNvEUFqeeuxJw');
 
 const RootNavigation = () => {
