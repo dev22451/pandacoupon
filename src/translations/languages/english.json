@@ -1,8 +1,8 @@
 {
   "Intro": {
     "appName": "Pinkz",
-    "headline": "Your Coupons for Scratch to Win !",
-    "description": "Stay home and enjoy a FREE Appetizer on us and included a link subscribers could click on to claim their coupon.",
+    "headline": "Claim your offers now",
+    "description":"Sign up for best offers and discounts",
     "login": "Login",
     "signUp": "Join us, its free",
     "footerLine": "By creating an account, you agree to our",
@@ -21,7 +21,7 @@
   "SignIn": {
     "title": "Sign in with",
     "acc": "account",
-    "loginHelp": "Welcome back. Use your account to start login Talento",
+    "loginHelp": "Welcome back. Use your account to start login",
     "forgotPass": "Forgot Password ?",
     "accountCheck": "You don't have Pinkz account ?",
     "signUpLink": "Create new account",

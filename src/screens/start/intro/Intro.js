@@ -16,7 +16,7 @@ const Intro = ({navigation}) => {
         color="secondary.500">
         {I18n.t('Intro.appName')}
       </Heading>
-      <Heading width={wp(45)} fontSize={fp(4)} lineHeight={hp(5)} color="black">
+      <Heading width={wp(32)} fontSize={fp(4)} lineHeight={hp(5)} color="black">
         {I18n.t('Intro.headline')}
       </Heading>
       <Text color="gray.500" fontSize={fp(2)}>{I18n.t('Intro.description')}</Text>
