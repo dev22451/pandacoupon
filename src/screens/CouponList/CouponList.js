@@ -15,7 +15,7 @@ const CouponList = (props) => {
 
   const categoryDataList = categoryId ? couponCategoryList.couponCategoryList : couponList
  
-  const navigateToDetail = (id) => navigation.navigate('CouponDetail',{id})
+  const navigateToDetail = (item) => navigation.navigate('CouponDetail',{id:item._id})
 
   useEffect(()=>{
       if(categoryId) {
