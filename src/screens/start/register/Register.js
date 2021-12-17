@@ -91,13 +91,22 @@ const eyeSlashIcon = (
 const Register = ({navigation}) => {
   const [email, setEmail] = useState({email: '', valid: ''});
   const [password, setPassword] = useState({password: '', valid: ''});
+  const [confirmPassword, setConfirmPassword] = useState({confirmPassword: '', valid: ''});
   const [number, setNumber] = useState({number: ''});
-  const [name, setName] = useState('');
+  const [name, setName] = useState({name:'',valid:''});
   const [show, setShow] = useState(false);
+  const [confirmPasswordShow, setConfirmPasswordShow]=useState(false);
 
   const dispatch = useDispatch();
   const isLoading = useSelector(state => state.loginSlice.isLoading);
   const handleClick = () => setShow(!show);
+  const handleConfirmPasswordClick = () => setConfirmPasswordShow(!confirmPasswordShow);
+
+  const handleName= text =>{
+    (text==='')?
+    setName({name:'',valid:true}):
+    setName({name:text,valid:false});
+  }
 
   const handleEmail = text => {
     validateEmail(text)
@@ -106,24 +115,33 @@ const Register = ({navigation}) => {
    // setEmail({email: text, valid: false});
   };
   const handlePassword = text => {
-    validatePassword(text)
+    (text.length<6)
       ? setPassword({password: '', valid: true})
       : setPassword({password: text, valid: false});
   };
+  const handleConfirmPassword = (text) => {
+    (password.password!==text)?
+    setConfirmPassword({confirmPassword:'',valid: true})
+    : setConfirmPassword({confirmPassword:text,valid: false});
+  };
 
   const handleSignUp = () => {
+    const isNameValidate=name.name!=='';
     const isEmailValidate = email.email !== '';
     const isPasswordValidate = password.password !== '';
+    const isConfirmPasswordValidate=confirmPassword.confirmPassword!=='';
     const isValidPhoneNumber = number.number !== '';
-    if (isEmailValidate && isPasswordValidate && isValidPhoneNumber) {
+    if (isNameValidate && isEmailValidate &&  isValidPhoneNumber && isPasswordValidate && isConfirmPasswordValidate) {
       const payload = {
-        userName: name,
+        userName: name.name,
         PhoneNumber: number.number,
         userEmail: email.email,
         Password: password.password,
       };
       dispatch(register({payload}, navigation));
-    } else {
+      
+
+    } else if(!isNameValidate && !isEmailValidate && !isPasswordValidate && !isValidPhoneNumber && !isConfirmPasswordValidate){
       let message = 'Please Enter All Data';
       Toast.show({
         title: 'Fill All Data',
@@ -133,6 +151,88 @@ const Register = ({navigation}) => {
         description: message,
       });
     }
+    else if(!isNameValidate){
+      let message = 'Please Enter Name';
+      Toast.show({
+        title: 'Fill All Data',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description: message,
+      });
+    }
+
+    else if(!isEmailValidate && !email.valid ){
+      let message = 'Please Enter Email';
+      Toast.show({
+        title: 'Fill All Data',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description: message,
+      });
+    }
+    else if(email.valid){
+      let message = 'Please Enter Valid Email';
+      Toast.show({
+        title: 'Fill All Data',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description: message,
+      });
+    }
+    else if(!isValidPhoneNumber){
+      let message = 'Please Enter Number';
+      Toast.show({
+        title: 'Fill All Data',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description: message,
+      });
+    }
+    else if(!isPasswordValidate && !password.valid){
+      let message = 'Please Enter Password';
+      Toast.show({
+        title: 'Fill All Data',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description: message,
+      });
+    }
+    else if(password.valid){
+      let message = 'Password length should be more than 6';
+      Toast.show({
+        title: 'Fill All Data',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description: message,
+      });
+    }
+    else if(!isConfirmPasswordValidate && !confirmPassword.valid){
+      let message = 'Please Enter Confirm Password ';
+      Toast.show({
+        title: 'Fill All Data',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description: message,
+      });
+    }
+    else {
+      let message = 'Password not match';
+      Toast.show({
+        title: 'Fill All Data',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description: message,
+      });
+    }
+    
   };
 
   return (
@@ -151,6 +251,12 @@ const Register = ({navigation}) => {
             </Text>
           </Text>
           <Stack space={4} mt={hp(5)} alignItems="center">
+          <FormControl
+              w={{
+                base: '100%',
+                md: '25%',
+              }}
+              isInvalid={name.valid}>
             <Input
               w={{
                 base: '100%',
@@ -159,8 +265,10 @@ const Register = ({navigation}) => {
               _focus={{borderColor: 'secondary.500'}}
               InputLeftElement={userIcon}
               placeholder="Name"
-              onChangeText={text => setName(text)}
+              onChangeText={text => handleName(text)}
             />
+            <FormControl.ErrorMessage>Enter Name</FormControl.ErrorMessage>
+            </FormControl>
             <FormControl
               w={{
                 base: '100%',
@@ -222,6 +330,32 @@ const Register = ({navigation}) => {
                 Invalid Password
               </FormControl.ErrorMessage>
             </FormControl>
+            <FormControl
+              w={{
+                base: '100%',
+                md: '25%',
+              }}
+              isInvalid={confirmPassword.valid}>
+                
+              <Input
+                type={confirmPasswordShow ? 'text' : 'password'}
+                _focus={{borderColor: confirmPassword.valid ? 'red' : 'secondary.500'}}
+                placeholder="Confirm Password"
+                overflow="visible"
+                InputLeftElement={keyIcon}
+                InputRightElement={
+                  <Pressable mr={wp(4)} onPress={handleConfirmPasswordClick}>
+                    {confirmPasswordShow ? eyeIcon : eyeSlashIcon}
+                  </Pressable>
+                }
+                // value={password.password}
+                onChangeText={text => handleConfirmPassword(text)}
+              />
+              <FormControl.ErrorMessage>
+               Password Not Match
+              </FormControl.ErrorMessage>
+            </FormControl>
+
 
           </Stack>
           <Text color="gray.500" mt={hp(5)}>

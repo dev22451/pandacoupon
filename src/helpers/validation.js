@@ -5,6 +5,7 @@ const validateEmail = text => {
 
 const validatePassword = text => {
   let reg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+  //let reg = /^(?=.*[A-Za-z]){6,}$/;
   return reg.test(text) === false;
 };
 
