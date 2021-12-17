@@ -61,12 +61,14 @@ const DashBoard = ({navigation}) => {
   const  deviceToken =useSelector(state=>state.loginSlice);
   const {location} =useSelector (state=>state.locationSlice);
   
-  const navigateToDetail = (id) => navigation.navigate('CouponDetail',{id})
+  // const navigateToDetail = (item) => )
   const navigateToList = (item) => navigation.navigate('CouponList',{item})
   
   const renderBanner = ({item}) => <BannerCard item={item} />;
   const renderCategory = ({item}) => <CategoryCard item={item} {...{navigateToList}} />;
-  const renderCouponCard = ({item}) => <CardComponent {...{item,navigateToDetail}} />;
+  const renderCouponCard = ({item}) => <CardComponent {...{item}}  navigateToDetail={(item)=>{
+    navigation.navigate('CouponDetail',{id:item._id})
+  }} />;
   const renderEmpty=()=>( <Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>The list is empty</Text>) 
 
   const geoLocation =async () => {
@@ -144,7 +146,7 @@ const DashBoard = ({navigation}) => {
           // bg="secondary.500"
           // borderBottomLeftRadius="200"
           // borderBottomRightRadius="200"
-          height={wp(50)}
+          height={ bannerImage.length ?  wp(50) : wp(0)}
           px={wp(5)}>
           {/* <Input
             w={{
@@ -175,27 +177,25 @@ const DashBoard = ({navigation}) => {
             {I18n.t('DashBoard.latestDeal')}
           </Text> */}
         </VStack>
-        <FlatList
-          // pl={wp(2)}
-
-          // py={hp(2)}
-          //contentContainerStyle={{px:6}}
-          //top={hp(3)}
-          marginTop={3}
-          data={bannerImage}
-          horizontal={true}
-          position="absolute"
-          keyExtractor={item => item.id}
-          showsHorizontalScrollIndicator={false}
-          renderItem={renderBanner}
-        />
+        {bannerImage.length ? 
+         <FlatList
+         marginTop={3}
+         data={bannerImage}
+         horizontal={true}
+         position="absolute"
+         keyExtractor={item => item._id}
+         showsHorizontalScrollIndicator={false}
+         renderItem={renderBanner}
+         />
+         : null
+        }
         <VStack my={hp(2)}>
           <HStack
             mx={wp(5)}
             mt={hp(3)}
             alignItems="center"
             justifyContent="space-between">
-            <Text fontSize={fp(2)} fontWeight="medium" color="warmGray.600">
+            <Text fontSize={fp(2)} fontWeight="medium" color="warmGray.600" bold >
               {I18n.t('DashBoard.browseCategory')}
             </Text>
             <TouchableOpacity onPress={() => navigation.navigate('Categories')}>
@@ -224,7 +224,7 @@ const DashBoard = ({navigation}) => {
           my={hp(1)}
           alignItems="center"
           justifyContent="space-between">
-          <Text fontSize={fp(2)} fontWeight="medium" color="warmGray.600">
+          <Text fontSize={fp(2)} fontWeight="medium" color="warmGray.600" bold >
             {I18n.t('DashBoard.featDetails')}
           </Text>
           <TouchableOpacity onPress={navigateToList}>
@@ -239,7 +239,6 @@ const DashBoard = ({navigation}) => {
         <FlatList
           mx={wp(5)}
           data={couponList}
-          extraData={couponList}
           keyExtractor={item => item?.couponCode}
           renderItem={renderCouponCard}
           horizontal={true}

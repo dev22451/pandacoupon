@@ -23,6 +23,7 @@ const Notification = ({navigation}) => {
   return (
     <>
       <DBAppBar
+        back={true}
         title="Notifications"
         navigation={navigation}
         titleColor={theme.colors.white}
@@ -43,7 +44,7 @@ const Notification = ({navigation}) => {
             pr={wp(2)}
             data={Notifications}
             extraData={Notifications}
-            horizontal={true}
+            //horizontal={true}
             keyExtractor={item => item.id}
             showsHorizontalScrollIndicator={false}
             renderItem={renderCategory}
