@@ -76,7 +76,7 @@ const CategoryFlatList = (props) => {
               onPress={() => null}
             />
             <VStack>
-              <Text rukp be hum ko dekhne do 
+              <Text
                 _dark={{
                   color: 'warmGray.50',
                 }}
