@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* pandacouponTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* pandacouponTests.m */; };
-		0FDEB0717E0FA4127D4B560E /* libPods-pandacoupon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D02C1B30911D56FB6F691B59 /* libPods-pandacoupon.a */; };
+		00E356F31AD99517003FC87E /* PinkzTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* PinkzTests.m */; };
+		0FDEB0717E0FA4127D4B560E /* libPods-Pinkz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D02C1B30911D56FB6F691B59 /* libPods-Pinkz.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		73273FEFAC84EEE65BA0F1C8 /* libPods-pandacoupon-pandacouponTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C88198F2B000F33C3252CFA /* libPods-pandacoupon-pandacouponTests.a */; };
+		73273FEFAC84EEE65BA0F1C8 /* libPods-Pinkz-PinkzTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C88198F2B000F33C3252CFA /* libPods-Pinkz-PinkzTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		402D161C237A4EE887830A06 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CFEB40D668A84316A58D7F34 /* AntDesign.ttf */; };
 		D982F384437A4AAD8193032B /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8EC9252410845558ED7F04E /* Entypo.ttf */; };
@@ -38,28 +38,28 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = pandacoupon;
+			remoteInfo = Pinkz;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* pandacouponTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pandacouponTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* PinkzTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PinkzTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* pandacouponTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = pandacouponTests.m; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* pandacoupon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pandacoupon.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = pandacoupon/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = pandacoupon/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = pandacoupon/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = pandacoupon/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = pandacoupon/main.m; sourceTree = "<group>"; };
-		5DC910E6BE4B4A8ACA0034A4 /* Pods-pandacoupon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pandacoupon.release.xcconfig"; path = "Target Support Files/Pods-pandacoupon/Pods-pandacoupon.release.xcconfig"; sourceTree = "<group>"; };
-		7C88198F2B000F33C3252CFA /* libPods-pandacoupon-pandacouponTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-pandacoupon-pandacouponTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = pandacoupon/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		A76B3D4D9EE928481F969B9A /* Pods-pandacoupon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pandacoupon.debug.xcconfig"; path = "Target Support Files/Pods-pandacoupon/Pods-pandacoupon.debug.xcconfig"; sourceTree = "<group>"; };
-		D02C1B30911D56FB6F691B59 /* libPods-pandacoupon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-pandacoupon.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D8D389DFD3225736E66DC6C5 /* Pods-pandacoupon-pandacouponTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pandacoupon-pandacouponTests.release.xcconfig"; path = "Target Support Files/Pods-pandacoupon-pandacouponTests/Pods-pandacoupon-pandacouponTests.release.xcconfig"; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* PinkzTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PinkzTests.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* Pinkz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pinkz.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Pinkz/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Pinkz/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Pinkz/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Pinkz/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Pinkz/main.m; sourceTree = "<group>"; };
+		5DC910E6BE4B4A8ACA0034A4 /* Pods-Pinkz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pinkz.release.xcconfig"; path = "Target Support Files/Pods-Pinkz/Pods-Pinkz.release.xcconfig"; sourceTree = "<group>"; };
+		7C88198F2B000F33C3252CFA /* libPods-Pinkz-PinkzTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Pinkz-PinkzTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Pinkz/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A76B3D4D9EE928481F969B9A /* Pods-Pinkz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pinkz.debug.xcconfig"; path = "Target Support Files/Pods-Pinkz/Pods-Pinkz.debug.xcconfig"; sourceTree = "<group>"; };
+		D02C1B30911D56FB6F691B59 /* libPods-Pinkz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Pinkz.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8D389DFD3225736E66DC6C5 /* Pods-Pinkz-PinkzTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pinkz-PinkzTests.release.xcconfig"; path = "Target Support Files/Pods-Pinkz-PinkzTests/Pods-Pinkz-PinkzTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		FBEECB4ED7B9DE1BED4AD340 /* Pods-pandacoupon-pandacouponTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pandacoupon-pandacouponTests.debug.xcconfig"; path = "Target Support Files/Pods-pandacoupon-pandacouponTests/Pods-pandacoupon-pandacouponTests.debug.xcconfig"; sourceTree = "<group>"; };
+		FBEECB4ED7B9DE1BED4AD340 /* Pods-Pinkz-PinkzTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pinkz-PinkzTests.debug.xcconfig"; path = "Target Support Files/Pods-Pinkz-PinkzTests/Pods-Pinkz-PinkzTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CFEB40D668A84316A58D7F34 /* AntDesign.ttf */ = {isa = PBXFileReference; name = "AntDesign.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		B8EC9252410845558ED7F04E /* Entypo.ttf */ = {isa = PBXFileReference; name = "Entypo.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		D9FFC0DD41DE491CAFD37E86 /* EvilIcons.ttf */ = {isa = PBXFileReference; name = "EvilIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
@@ -83,7 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73273FEFAC84EEE65BA0F1C8 /* libPods-pandacoupon-pandacouponTests.a in Frameworks */,
+				73273FEFAC84EEE65BA0F1C8 /* libPods-Pinkz-PinkzTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,20 +91,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0FDEB0717E0FA4127D4B560E /* libPods-pandacoupon.a in Frameworks */,
+				0FDEB0717E0FA4127D4B560E /* libPods-Pinkz.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* pandacouponTests */ = {
+		00E356EF1AD99517003FC87E /* PinkzTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* pandacouponTests.m */,
+				00E356F21AD99517003FC87E /* PinkzTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = pandacouponTests;
+			path = PinkzTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -115,7 +115,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* pandacoupon */ = {
+		13B07FAE1A68108700A75B9A /* Pinkz */ = {
 			isa = PBXGroup;
 			children = (
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -125,16 +125,16 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = pandacoupon;
+			name = Pinkz;
 			sourceTree = "<group>";
 		};
 		29BCA8A65C5B50AF9B8F50CD /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A76B3D4D9EE928481F969B9A /* Pods-pandacoupon.debug.xcconfig */,
-				5DC910E6BE4B4A8ACA0034A4 /* Pods-pandacoupon.release.xcconfig */,
-				FBEECB4ED7B9DE1BED4AD340 /* Pods-pandacoupon-pandacouponTests.debug.xcconfig */,
-				D8D389DFD3225736E66DC6C5 /* Pods-pandacoupon-pandacouponTests.release.xcconfig */,
+				A76B3D4D9EE928481F969B9A /* Pods-Pinkz.debug.xcconfig */,
+				5DC910E6BE4B4A8ACA0034A4 /* Pods-Pinkz.release.xcconfig */,
+				FBEECB4ED7B9DE1BED4AD340 /* Pods-Pinkz-PinkzTests.debug.xcconfig */,
+				D8D389DFD3225736E66DC6C5 /* Pods-Pinkz-PinkzTests.release.xcconfig */,
 			);
 			name = Pods;
 			path = Pods;
@@ -144,8 +144,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				D02C1B30911D56FB6F691B59 /* libPods-pandacoupon.a */,
-				7C88198F2B000F33C3252CFA /* libPods-pandacoupon-pandacouponTests.a */,
+				D02C1B30911D56FB6F691B59 /* libPods-Pinkz.a */,
+				7C88198F2B000F33C3252CFA /* libPods-Pinkz-PinkzTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -160,9 +160,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* pandacoupon */,
+				13B07FAE1A68108700A75B9A /* Pinkz */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* pandacouponTests */,
+				00E356EF1AD99517003FC87E /* PinkzTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				29BCA8A65C5B50AF9B8F50CD /* Pods */,
@@ -176,8 +176,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* pandacoupon.app */,
-				00E356EE1AD99517003FC87E /* pandacouponTests.xctest */,
+				13B07F961A680F5B00A75B9A /* Pinkz.app */,
+				00E356EE1AD99517003FC87E /* PinkzTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -209,9 +209,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* pandacouponTests */ = {
+		00E356ED1AD99517003FC87E /* PinkzTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "pandacouponTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "PinkzTests" */;
 			buildPhases = (
 				844166B04F163A5EC83B182B /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -225,14 +225,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = pandacouponTests;
-			productName = pandacouponTests;
-			productReference = 00E356EE1AD99517003FC87E /* pandacouponTests.xctest */;
+			name = PinkzTests;
+			productName = PinkzTests;
+			productReference = 00E356EE1AD99517003FC87E /* PinkzTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* pandacoupon */ = {
+		13B07F861A680F5B00A75B9A /* Pinkz */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "pandacoupon" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Pinkz" */;
 			buildPhases = (
 				9D408AF7D4B82B81DCC4305D /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -247,9 +247,9 @@
 			);
 			dependencies = (
 			);
-			name = pandacoupon;
-			productName = pandacoupon;
-			productReference = 13B07F961A680F5B00A75B9A /* pandacoupon.app */;
+			name = Pinkz;
+			productName = Pinkz;
+			productReference = 13B07F961A680F5B00A75B9A /* Pinkz.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -269,7 +269,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "pandacoupon" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Pinkz" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -282,8 +282,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* pandacoupon */,
-				00E356ED1AD99517003FC87E /* pandacouponTests */,
+				13B07F861A680F5B00A75B9A /* Pinkz */,
+				00E356ED1AD99517003FC87E /* PinkzTests */,
 			);
 		};
 /* End PBXProject section */
@@ -344,15 +344,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-pandacoupon/Pods-pandacoupon-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Pinkz/Pods-Pinkz-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-pandacoupon/Pods-pandacoupon-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Pinkz/Pods-Pinkz-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-pandacoupon/Pods-pandacoupon-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pinkz/Pods-Pinkz-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		844166B04F163A5EC83B182B /* [CP] Check Pods Manifest.lock */ = {
@@ -370,7 +370,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-pandacoupon-pandacouponTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Pinkz-PinkzTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -383,15 +383,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-pandacoupon-pandacouponTests/Pods-pandacoupon-pandacouponTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Pinkz-PinkzTests/Pods-Pinkz-PinkzTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-pandacoupon-pandacouponTests/Pods-pandacoupon-pandacouponTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Pinkz-PinkzTests/Pods-Pinkz-PinkzTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-pandacoupon-pandacouponTests/Pods-pandacoupon-pandacouponTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pinkz-PinkzTests/Pods-Pinkz-PinkzTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9D408AF7D4B82B81DCC4305D /* [CP] Check Pods Manifest.lock */ = {
@@ -409,7 +409,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-pandacoupon-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Pinkz-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -422,15 +422,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-pandacoupon-pandacouponTests/Pods-pandacoupon-pandacouponTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Pinkz-PinkzTests/Pods-Pinkz-PinkzTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-pandacoupon-pandacouponTests/Pods-pandacoupon-pandacouponTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Pinkz-PinkzTests/Pods-Pinkz-PinkzTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-pandacoupon-pandacouponTests/Pods-pandacoupon-pandacouponTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pinkz-PinkzTests/Pods-Pinkz-PinkzTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D87AFF9BE7FE09C97652BCB6 /* [CP] Copy Pods Resources */ = {
@@ -439,15 +439,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-pandacoupon/Pods-pandacoupon-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Pinkz/Pods-Pinkz-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-pandacoupon/Pods-pandacoupon-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Pinkz/Pods-Pinkz-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-pandacoupon/Pods-pandacoupon-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pinkz/Pods-Pinkz-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -476,7 +476,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* pandacouponTests.m in Sources */,
+				00E356F31AD99517003FC87E /* PinkzTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,7 +494,7 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* pandacoupon */;
+			target = 13B07F861A680F5B00A75B9A /* Pinkz */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -502,14 +502,14 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FBEECB4ED7B9DE1BED4AD340 /* Pods-pandacoupon-pandacouponTests.debug.xcconfig */;
+			baseConfigurationReference = FBEECB4ED7B9DE1BED4AD340 /* Pods-Pinkz-PinkzTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = pandacouponTests/Info.plist;
+				INFOPLIST_FILE = PinkzTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -523,17 +523,17 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/pandacoupon.app/pandacoupon";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pinkz.app/Pinkz";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D8D389DFD3225736E66DC6C5 /* Pods-pandacoupon-pandacouponTests.release.xcconfig */;
+			baseConfigurationReference = D8D389DFD3225736E66DC6C5 /* Pods-Pinkz-PinkzTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = pandacouponTests/Info.plist;
+				INFOPLIST_FILE = PinkzTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -547,19 +547,19 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/pandacoupon.app/pandacoupon";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pinkz.app/Pinkz";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A76B3D4D9EE928481F969B9A /* Pods-pandacoupon.debug.xcconfig */;
+			baseConfigurationReference = A76B3D4D9EE928481F969B9A /* Pods-Pinkz.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = pandacoupon/Info.plist;
+				INFOPLIST_FILE = Pinkz/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -570,7 +570,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = pandacoupon;
+				PRODUCT_NAME = Pinkz;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -579,12 +579,12 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5DC910E6BE4B4A8ACA0034A4 /* Pods-pandacoupon.release.xcconfig */;
+			baseConfigurationReference = 5DC910E6BE4B4A8ACA0034A4 /* Pods-Pinkz.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = pandacoupon/Info.plist;
+				INFOPLIST_FILE = Pinkz/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -595,7 +595,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = pandacoupon;
+				PRODUCT_NAME = Pinkz;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -729,7 +729,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "pandacouponTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "PinkzTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -738,7 +738,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "pandacoupon" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Pinkz" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -747,7 +747,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "pandacoupon" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Pinkz" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

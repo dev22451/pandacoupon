@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "pandacoupon.app"
-               BlueprintName = "pandacoupon"
-               ReferencedContainer = "container:pandacoupon.xcodeproj">
+               BuildableName = "Pinkz.app"
+               BlueprintName = "Pinkz"
+               ReferencedContainer = "container:Pinkz.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "pandacouponTests.xctest"
-               BlueprintName = "pandacouponTests"
-               ReferencedContainer = "container:pandacoupon.xcodeproj">
+               BuildableName = "PinkzTests.xctest"
+               BlueprintName = "PinkzTests"
+               ReferencedContainer = "container:Pinkz.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "pandacoupon.app"
-            BlueprintName = "pandacoupon"
-            ReferencedContainer = "container:pandacoupon.xcodeproj">
+            BuildableName = "Pinkz.app"
+            BlueprintName = "Pinkz"
+            ReferencedContainer = "container:Pinkz.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "pandacoupon.app"
-            BlueprintName = "pandacoupon"
-            ReferencedContainer = "container:pandacoupon.xcodeproj">
+            BuildableName = "Pinkz.app"
+            BlueprintName = "Pinkz"
+            ReferencedContainer = "container:Pinkz.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

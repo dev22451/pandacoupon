@@ -92,36 +92,41 @@ const Register = ({navigation}) => {
   const [email, setEmail] = useState({email: '', valid: ''});
   const [password, setPassword] = useState({password: '', valid: ''});
   const [confirmPassword, setConfirmPassword] = useState({confirmPassword: '', valid: ''});
-  const [number, setNumber] = useState({number: ''});
+  const [number, setNumber] = useState({number: '',valid:''});
   const [name, setName] = useState({name:'',valid:''});
   const [show, setShow] = useState(false);
   const [confirmPasswordShow, setConfirmPasswordShow]=useState(false);
 
   const dispatch = useDispatch();
-  const isLoading = useSelector(state => state.loginSlice.isLoading);
+  const {isLoading,reset} = useSelector(state => state.loginSlice);
   const handleClick = () => setShow(!show);
   const handleConfirmPasswordClick = () => setConfirmPasswordShow(!confirmPasswordShow);
 
   const handleName= text =>{
     (text==='')?
-    setName({name:'',valid:true}):
+    setName({name:text,valid:true}):
     setName({name:text,valid:false});
   }
 
   const handleEmail = text => {
     validateEmail(text)
-      ? setEmail({email: '', valid: true})
+      ? setEmail({email: text, valid: true})
       : setEmail({email: text, valid: false});
    // setEmail({email: text, valid: false});
   };
   const handlePassword = text => {
     (text.length<6)
-      ? setPassword({password: '', valid: true})
+      ? setPassword({password: text, valid: true})
       : setPassword({password: text, valid: false});
+  };
+  const handleNumber = text => {
+    (text==='')
+      ? setNumber({number: text, valid: true})
+      : setNumber({number: text, valid: false});
   };
   const handleConfirmPassword = (text) => {
     (password.password!==text)?
-    setConfirmPassword({confirmPassword:'',valid: true})
+    setConfirmPassword({confirmPassword:text,valid: true})
     : setConfirmPassword({confirmPassword:text,valid: false});
   };
 
@@ -138,10 +143,25 @@ const Register = ({navigation}) => {
         userEmail: email.email,
         Password: password.password,
       };
-      dispatch(register({payload}, navigation));
-      
-
-    } else if(!isNameValidate && !isEmailValidate && !isPasswordValidate && !isValidPhoneNumber && !isConfirmPasswordValidate){
+      const request = {
+        payload,
+        onSuccess: () => {
+          setName({name:'',valid:''})
+          setEmail({email:'',valid:''})
+          setNumber({number:'',valid:''})
+          setPassword({password:'',valid:''})
+          setConfirmPassword({confirmPassword:'',valid:''})
+          navigation.navigate('SignIn');
+  
+        },
+        onFail: (err) => {
+          // apiErrorHandle(err)
+        },
+      };
+      dispatch(register(request));
+     
+    } 
+    else if(!isNameValidate && !isEmailValidate && !isPasswordValidate && !isValidPhoneNumber && !isConfirmPasswordValidate){
       let message = 'Please Enter All Data';
       Toast.show({
         title: 'Fill All Data',
@@ -265,6 +285,7 @@ const Register = ({navigation}) => {
               _focus={{borderColor: 'secondary.500'}}
               InputLeftElement={userIcon}
               placeholder="Name"
+              value={name.name}
               onChangeText={text => handleName(text)}
             />
             <FormControl.ErrorMessage>Enter Name</FormControl.ErrorMessage>
@@ -277,18 +298,27 @@ const Register = ({navigation}) => {
               isInvalid={email.valid}>
               <Input
                 placeholder="Email"
+                value={email.email}
                 InputLeftElement={emailIcon}
                 _focus={{borderColor: 'secondary.500'}}
                 onChangeText={text => handleEmail(text)}
               />
               <FormControl.ErrorMessage>Invalid Mail</FormControl.ErrorMessage>
             </FormControl>
+            <FormControl
+              w={{
+                base: '100%',
+                md: '25%',
+              }}
+              isInvalid={number.valid}>
             <Input
               placeholder="Number"
               InputLeftElement={phoneIcon}
+              value={number.number}
               _focus={{borderColor: 'secondary.500'}}
-              onChangeText={text => setNumber({number: text})}
-            />
+              onChangeText={text => handleNumber(text)}/>
+            <FormControl.ErrorMessage>Enter Number</FormControl.ErrorMessage>
+            </FormControl>
             {/* <FormControl
               w={{
                 base: '100%',
@@ -317,6 +347,7 @@ const Register = ({navigation}) => {
                 _focus={{borderColor: password.valid ? 'red' : 'secondary.500'}}
                 placeholder="Password"
                 overflow="visible"
+                value={password.password}
                 InputLeftElement={keyIcon}
                 InputRightElement={
                   <Pressable mr={wp(4)} onPress={handleClick}>
@@ -342,6 +373,7 @@ const Register = ({navigation}) => {
                 _focus={{borderColor: confirmPassword.valid ? 'red' : 'secondary.500'}}
                 placeholder="Confirm Password"
                 overflow="visible"
+                value={confirmPassword.confirmPassword}
                 InputLeftElement={keyIcon}
                 InputRightElement={
                   <Pressable mr={wp(4)} onPress={handleConfirmPasswordClick}>
