@@ -1,12 +1,12 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {ApiService} from '../../api';
-import {Toast, useToast} from 'native-base';
+import {Toast} from 'native-base';
 
 const couponSlice = createSlice({
   name: 'coupon',
   initialState: {
     couponList: [],
-    isLoading: false,
+    isLoading: true,
     isError: false,
     errorMessage: '',
     isRedeem: false,
@@ -197,11 +197,9 @@ export const getBannerImage = () => {
   return async (dispatch, getState) => {
     dispatch(getBannerImageRequested());
     const {token} = getState().loginSlice;
-    //const {location} = getState().locationSlice;
     try {
       const payload = {
         token,
-        //additionalUrl: `uLat=${112.45675}&uLon=${77.17591}`,
       };
       const res = await ApiService.getBanner();
       if (res.data.success) {
@@ -342,7 +340,6 @@ export const getredeemCouponbyUser = userEmail => {
   return async (dispatch, getState) => {
     dispatch(getRedeemCouponbyUserRequested());
     const {token} = getState().loginSlice;
-    //const {location} = getState().locationSlice;
     try {
       const payload = {
         token,
@@ -373,7 +370,6 @@ export const getCouponWithId = _id => {
     try {
       
       const res = await ApiService.getCouponById({_id},token);
-      console.log(res)
       if (res.data.success) {
         dispatch(
           getCouponDataSuccessful({

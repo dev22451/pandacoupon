@@ -3,7 +3,7 @@ import {Box, FlatList,Text} from 'native-base';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {hp, wp,fp} from '../../helpers/respDimension';
-import {CardComponent,  DBAppBar} from '../../components';
+import {CardComponent,  DBAppBar, Loader} from '../../components';
 import {getCoupon, getCategoryCoupon} from '../../redux/slices/couponSlice'
 
 const CouponList = (props) => {
@@ -11,7 +11,7 @@ const CouponList = (props) => {
   const categoryId = (props?.route?.params && props?.route?.params?.item) ? props?.route?.params?.item?._id : ''
  
   const dispatch = useDispatch()
-  const { couponList, couponCategoryList } = useSelector(state => state.couponSlice);
+  const { couponList, couponCategoryList,isLoading } = useSelector(state => state.couponSlice);
 
   const categoryDataList = categoryId ? couponCategoryList.couponCategoryList : couponList
  
@@ -40,6 +40,9 @@ const CouponList = (props) => {
         bgColor="secondary.500"
         navigation={navigation}
       />
+        {isLoading ? (
+        <Loader />
+      ) : (
       <Box  >
       <FlatList
           mx={wp(5)}
@@ -53,6 +56,7 @@ const CouponList = (props) => {
           contentContainerStyle={{paddingTop:5}}
         />
       </Box>
+      )}
       </>
     );
   };

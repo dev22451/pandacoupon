@@ -1,8 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {Toast, useToast} from 'native-base';
+import {Toast} from 'native-base';
 import {ApiService} from '../../api';
-import {getCategoryRequest} from './categorySlice';
-import {getCoupon} from './couponSlice';
 import {storeData, clearAll} from '../../helpers/localStorgae';
 
 export const loginSlice = createSlice({
@@ -66,7 +64,6 @@ export const loginSlice = createSlice({
     updateUserLocationSuccessful(state, action) {
       state.isLoading = false;
       state.token = action.payload.token;
-      //state.userData = action.payload.userData;
       state.isLoggedOut = true;
     },
     updateUserLocationFailed(state, action) {
@@ -74,9 +71,6 @@ export const loginSlice = createSlice({
       state.isError = true;
       state.errorMessage = action.payload.errorMessage;
     },
-    // apiSuccessful(state,action){
-    //   state.isLoading = false
-    // },
     loginFailed(state, action) {
       state.isLoading = false;
       state.isError = true;
@@ -148,11 +142,11 @@ export const login = ({payload}) => {
       } else {
         dispatch(
           loginFailed({
-            errorMessage: res.data.message || 'something Went wrong',
+            errorMessage: res?.data?.message || 'something Went wrong',
           }),
         );
         Toast.show({
-          title: res.data.message || 'Something went wrong',
+          title: res?.data?.message || 'Something went wrong',
           duration: 3000,
           placement: 'top',
           status: 'error',
@@ -204,6 +198,7 @@ export const logout = (payload,token) => {
           logoutFailed({
             errorMessage: res.data.message || 'something Went wrong',
           }))
+     
         Toast.show({
           title: res.data.message || 'Something went wrong',
           duration: 3000,
@@ -216,6 +211,7 @@ export const logout = (payload,token) => {
         logoutFailed({
           errorMessage: e?.response?.data?.errors || 'something Went wrong',
         }))
+      console.log(e?.response?.data,"trtfdtrd");
       Toast.show({
         title: 'Something went wrong',
         duration: 3000,

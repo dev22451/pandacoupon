@@ -52,9 +52,10 @@ const backIcon = (
 
 const Categories = ({navigation}) => {
   const dispatch = useDispatch();
+  useEffect(()=>{dispatch(getCategoryRequest())},[])
   const {categoryList,isLoading} = useSelector(state => state.categorySlice);
 
-  useEffect(()=>{dispatch(getCategoryRequest())},[])
+  
 
   return (
     <>

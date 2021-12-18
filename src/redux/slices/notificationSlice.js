@@ -22,8 +22,9 @@ const notificationSlice = createSlice({
         },
         getNotificationFailed: (state, action) => {
           state.isLoading = false;
-          state.errorMessage = action.payload.errorMessage;
           state.isError = true;
+          state.errorMessage = action.payload.errorMessage;
+          
         },
     }
 });
@@ -41,6 +42,7 @@ export const getNotification = () => {
     return async (dispatch, getState) => {
       dispatch(getNotificationRequested());
       const {token, userData:{email}} = getState().loginSlice;
+     // console.log({userData},"raj");
       try {
         const payload = {
           userEmail:'Test@gmail.com'
@@ -56,9 +58,16 @@ export const getNotification = () => {
         } else {
           dispatch(
             getNotificationFailed({
-              errorMessage: e?.response?.data?.errors || 'Something went wrong',
+              errorMessage: res?.data?.message || 'Something went wrong',
             }),
           );
+          Toast.show({
+            title: 'Something went wrong',
+            duration: 3000,
+            placement: 'top',
+            status: 'error',
+            description: e?.response?.data?.errors || 'something Went wrong',
+          });
         }
       } catch (e) {
         dispatch(

@@ -61,7 +61,7 @@ import {
              
               </HStack>
               <HStack px={3} style={{flexWrap:'wrap',width:wp(40)}} >
-              <Text fontSize={fp(1.8)} color="warmGray.500" fontWeight="500" numberOfLines={5} >
+              <Text fontSize={fp(1.8)} color="warmGray.500" fontWeight="500" numberOfLines={2} >
                 {item.notificationMsg.body}
               </Text>
               </HStack>
