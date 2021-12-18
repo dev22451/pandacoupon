@@ -238,10 +238,10 @@ const DashBoard = ({navigation}) => {
         </HStack>
         <FlatList
           mx={wp(5)}
-          data={couponList}
+          data={couponList.slice(0,2)}
           keyExtractor={item => item?.couponCode}
           renderItem={renderCouponCard}
-          horizontal={true}
+         // horizontal={true}
           showsHorizontalScrollIndicator={false}
           ListEmptyComponent={renderEmpty}
         />

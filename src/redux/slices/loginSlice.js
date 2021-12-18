@@ -49,7 +49,7 @@ export const loginSlice = createSlice({
     },
     logoutSuccessful(state, action) {
       state.isLoading = false;
-      state.token = action.payload.token;
+      //state.token = action.payload.token;
       //state.userData = action.payload.userData;
       state.isLoggedIn= false;
     },
@@ -213,7 +213,7 @@ export const logout = (payload,token) => {
       }
     } catch (e) {
       dispatch(
-        loginFailed({
+        logoutFailed({
           errorMessage: e?.response?.data?.errors || 'something Went wrong',
         }))
       Toast.show({
@@ -244,7 +244,7 @@ export const register = (request) => {
         dispatch(registerSuccessful());
         onSuccess()
       } else {
-        onFail()
+        //onFail()
         dispatch(
           registerFailed({
             errorMessage: res.data.message || 'something Went wrong',
@@ -258,17 +258,17 @@ export const register = (request) => {
         });
       }
     } catch (e) {
-      onFail()
+      //onFail()
       dispatch(
         registerFailed({
-          errorMessage: e.response.data.errors || 'something Went wrong',
+          errorMessage: e?.response?.data?.errors || 'something Went wrong',
         }),
         Toast.show({
           title: 'Something went wrong',
           duration: 3000,
           placement: 'top',
           status: 'error',
-          description: e.response.data.errors,
+          description: e?.response?.data?.errors,
         }),
       );
     }

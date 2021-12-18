@@ -91,7 +91,7 @@ const SignIn = ({navigation}) => {
     const isEmailValidate = email.email !== ''
     //const isEmailValidate = email.email !== validateEmail
     const isPasswordValidate = password.password !== ''
-    console.log(isEmailValidate , isPasswordValidate, email, password)
+   // console.log(isEmailValidate , isPasswordValidate, email, password)
     
     
      if (!isEmailValidate && !isPasswordValidate){
