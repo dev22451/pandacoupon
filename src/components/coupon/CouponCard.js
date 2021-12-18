@@ -96,7 +96,7 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem, page }) 
     couponTitle,
     couponImage,
     expiryDate,
-    
+    brandVerify,
     noOfUser = 0,
     _id: id
   } = couponData;
@@ -147,12 +147,12 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem, page }) 
               <Text fontSize={fp(1.8)} bold fontWeight="500">
                 {brandName}
               </Text>
-              <Text fontSize={fp(1.6)} color="warmGray.500" fontWeight="500" numberOfLines={2} >
+              <Text fontSize={fp(1.6)} color="warmGray.500" fontWeight="500" width={wp(30)} numberOfLines={1} >
                 {brandcouponDescription}
               </Text>
             </VStack>
           </HStack>
-          <HStack px={wp(2)}>
+          {brandVerify === "true" ? <HStack px={wp(2)}>
             {rightArrowIcon}
             <Text
               fontSize="xs"
@@ -162,7 +162,7 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem, page }) 
               mx="1">
               Verified Seller
             </Text>
-          </HStack>
+          </HStack> : null}
         </HStack>
         <VStack my={wp(5)} px={wp(5)}>
           <Text fontSize={fp(3)} fontWeight="500">
