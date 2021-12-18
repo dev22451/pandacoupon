@@ -23,6 +23,7 @@ const Redeem = ({navigation}) => {
   return (
     <>
       <DBAppBar
+        back={true}
         title="Redeem history"
         iconColor="white"
         titleColor="white"

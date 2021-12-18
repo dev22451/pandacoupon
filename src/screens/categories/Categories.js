@@ -60,6 +60,7 @@ const Categories = ({navigation}) => {
     <>
       <DBAppBar
         //account
+        back={true}
         title="Categories"
         iconColor="white"
         titleColor="white"
