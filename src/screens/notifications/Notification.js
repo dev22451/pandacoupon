@@ -23,6 +23,7 @@ const Notification = ({navigation}) => {
   return (
     <>
       <DBAppBar
+        back={true}
         title="Notifications"
         navigation={navigation}
         titleColor={theme.colors.white}

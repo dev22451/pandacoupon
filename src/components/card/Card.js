@@ -57,6 +57,7 @@ function CardComponent({item = {}, navigateToDetail = ()=>{}}) {
     couponDescription = '',
     couponTitle = '',
     expiryDate = moment(),
+    brandVerify,
     noOfUser = 0,
     _id:id = ''
   } = item;
@@ -101,17 +102,17 @@ function CardComponent({item = {}, navigateToDetail = ()=>{}}) {
               </Text>
             </VStack>
           </HStack>
-          <HStack px={wp(2)}>
+          {brandVerify ? <HStack px={wp(2)}>
             {rightArrowIcon}
             <Text
               fontSize="xs"
-              _light={{color: 'success.500'}}
-              _dark={{color: 'success.300'}}
+              _light={{ color: 'success.500' }}
+              _dark={{ color: 'success.300' }}
               fontWeight="500"
               mx="1">
               Verified Seller
             </Text>
-          </HStack>
+          </HStack> : null }
         </HStack>
         <Box mt={5} px={wp(2)}  >
           <AspectRatio ratio={20 / 10}>
@@ -148,8 +149,8 @@ function CardComponent({item = {}, navigateToDetail = ()=>{}}) {
           <HStack>
             <HStack>{calendarIcon}</HStack>
             <VStack mx="3">
-              <Text fontWeight="600" color="warmGray.500">
-                Expires
+              <Text fontWeight="600" color="warmGray.500" bold>
+                Expiring on
               </Text>
               <Text fontSize="xs" fontWeight="600" color="black">
                {moment(expiryDate).format('DD MMM YYYY')}
@@ -159,10 +160,10 @@ function CardComponent({item = {}, navigateToDetail = ()=>{}}) {
           <HStack>
             <HStack>{giftIcon}</HStack>
             <VStack mx="3">
-              <Text fontWeight="600" color="warmGray.500">
-                Used
+              <Text fontWeight="600" color="warmGray.500" bold>
+                To be redeemed
               </Text>
-              <Text fontSize="xs" fontWeight="600" color="black">
+              <Text fontSize="xs" fontWeight="600" color="black" marginLeft={10}>
                 {noOfUser}
               </Text>
             </VStack>

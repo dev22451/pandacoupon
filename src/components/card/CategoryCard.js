@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Pressable, Text, theme} from 'native-base';
+import {Box, Pressable, Text, theme,Avatar} from 'native-base';
 import { Image } from 'react-native'
 
 import Icon from '../../assets/icons/Icon';
@@ -45,14 +45,25 @@ const CategoryCard = ({item,navigateToList}) => {
         /> 
         :
         <FastImage
+            // source={{
+            //   uri: image,
+            //   priority: FastImage.priority.normal,
+            // }}
+            // style={{height:wp(10),width:wp(15), borderRadius:wp(30)}}
+            // resizeMode={'center'}
+          >
+           <Avatar style={{height:wp(10),width:wp(15), borderRadius:wp(30)}}
+            resizeMode={'center'}
+            size="md"
+            mt={wp(4)}
+            bg="pink.500"
             source={{
               uri: image,
               priority: FastImage.priority.normal,
             }}
-            style={{height:wp(10),width:wp(15), borderRadius:wp(30)}}
-            resizeMode={'center'}
-          />
-        }  
+            />
+          </FastImage>
+          }  
 
         </Box>
         <Text fontSize={wp(3.5)} mt={wp(4)} bold>

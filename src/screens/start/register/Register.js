@@ -23,7 +23,7 @@ import {register} from '../../../redux/slices/loginSlice';
 import {validateEmail, validatePassword} from '../../../helpers/validation';
 
 const userIcon = (
-  <Box ml={wp(5)}>
+  <Box ml={wp(10)}>
     <Icon
       type="MaterialCommunityIcons"
       name="account"
@@ -91,39 +91,77 @@ const eyeSlashIcon = (
 const Register = ({navigation}) => {
   const [email, setEmail] = useState({email: '', valid: ''});
   const [password, setPassword] = useState({password: '', valid: ''});
-  const [number, setNumber] = useState({number: ''});
-  const [name, setName] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState({confirmPassword: '', valid: ''});
+  const [number, setNumber] = useState({number: '',valid:''});
+  const [name, setName] = useState({name:'',valid:''});
   const [show, setShow] = useState(false);
+  const [confirmPasswordShow, setConfirmPasswordShow]=useState(false);
 
   const dispatch = useDispatch();
-  const isLoading = useSelector(state => state.loginSlice.isLoading);
+  const {isLoading,reset} = useSelector(state => state.loginSlice);
   const handleClick = () => setShow(!show);
+  const handleConfirmPasswordClick = () => setConfirmPasswordShow(!confirmPasswordShow);
+
+  const handleName= text =>{
+    (text==='')?
+    setName({name:text,valid:true}):
+    setName({name:text,valid:false});
+  }
 
   const handleEmail = text => {
     validateEmail(text)
-      ? setEmail({email: '', valid: true})
+      ? setEmail({email: text, valid: true})
       : setEmail({email: text, valid: false});
    // setEmail({email: text, valid: false});
   };
   const handlePassword = text => {
-    validatePassword(text)
-      ? setPassword({password: '', valid: true})
+    (text.length<6)
+      ? setPassword({password: text, valid: true})
       : setPassword({password: text, valid: false});
+  };
+  const handleNumber = text => {
+    (text==='')
+      ? setNumber({number: text, valid: true})
+      : setNumber({number: text, valid: false});
+  };
+  const handleConfirmPassword = (text) => {
+    (password.password!==text)?
+    setConfirmPassword({confirmPassword:text,valid: true})
+    : setConfirmPassword({confirmPassword:text,valid: false});
   };
 
   const handleSignUp = () => {
+    const isNameValidate=name.name!=='';
     const isEmailValidate = email.email !== '';
     const isPasswordValidate = password.password !== '';
+    const isConfirmPasswordValidate=confirmPassword.confirmPassword!=='';
     const isValidPhoneNumber = number.number !== '';
-    if (isEmailValidate && isPasswordValidate && isValidPhoneNumber) {
+    if (isNameValidate && isEmailValidate &&  isValidPhoneNumber && isPasswordValidate && isConfirmPasswordValidate) {
       const payload = {
-        userName: name,
+        userName: name.name,
         PhoneNumber: number.number,
         userEmail: email.email,
         Password: password.password,
       };
-      dispatch(register({payload}, navigation));
-    } else {
+      const request = {
+        payload,
+        onSuccess: () => {
+          setName({name:'',valid:''})
+          setEmail({email:'',valid:''})
+          setNumber({number:'',valid:''})
+          setPassword({password:'',valid:''})
+          setConfirmPassword({confirmPassword:'',valid:''})
+          navigation.navigate('SignIn');
+  
+        },
+        onFail: (err) => {
+          // apiErrorHandle(err)
+        },
+      };
+      dispatch(register(request));
+     
+    } 
+    else if(!isNameValidate && !isEmailValidate && !isPasswordValidate && !isValidPhoneNumber && !isConfirmPasswordValidate){
       let message = 'Please Enter All Data';
       Toast.show({
         title: 'Fill All Data',
@@ -133,13 +171,95 @@ const Register = ({navigation}) => {
         description: message,
       });
     }
+    else if(!isNameValidate){
+      let message = 'Please Enter Name';
+      Toast.show({
+        title: 'Fill All Data',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description: message,
+      });
+    }
+
+    else if(!isEmailValidate && !email.valid ){
+      let message = 'Please Enter Email';
+      Toast.show({
+        title: 'Fill All Data',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description: message,
+      });
+    }
+    else if(email.valid){
+      let message = 'Please Enter Valid Email';
+      Toast.show({
+        title: 'Fill All Data',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description: message,
+      });
+    }
+    else if(!isValidPhoneNumber){
+      let message = 'Please Enter Number';
+      Toast.show({
+        title: 'Fill All Data',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description: message,
+      });
+    }
+    else if(!isPasswordValidate && !password.valid){
+      let message = 'Please Enter Password';
+      Toast.show({
+        title: 'Fill All Data',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description: message,
+      });
+    }
+    else if(password.valid){
+      let message = 'Password length should be more than 6';
+      Toast.show({
+        title: 'Fill All Data',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description: message,
+      });
+    }
+    else if(!isConfirmPasswordValidate && !confirmPassword.valid){
+      let message = 'Please Enter Confirm Password ';
+      Toast.show({
+        title: 'Fill All Data',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description: message,
+      });
+    }
+    else {
+      let message = 'Password not match';
+      Toast.show({
+        title: 'Fill All Data',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description: message,
+      });
+    }
+    
   };
 
   return (
     <>
       <AppBar navigation={navigation} />
       {isLoading ? <Loader /> : null}
-      <ScrollView>
+    <ScrollView> 
         <VStack paddingX={wp(10)} my={hp(3)}>
           <Heading fontSize={fp(4)} lineHeight={hp(5)} color="black">
             {I18n.t('Register.title')}
@@ -151,6 +271,12 @@ const Register = ({navigation}) => {
             </Text>
           </Text>
           <Stack space={4} mt={hp(5)} alignItems="center">
+          <FormControl
+              w={{
+                base: '100%',
+                md: '25%',
+              }}
+              isInvalid={name.valid}>
             <Input
               w={{
                 base: '100%',
@@ -159,8 +285,11 @@ const Register = ({navigation}) => {
               _focus={{borderColor: 'secondary.500'}}
               InputLeftElement={userIcon}
               placeholder="Name"
-              onChangeText={text => setName(text)}
+              value={name.name}
+              onChangeText={text => handleName(text)}
             />
+            <FormControl.ErrorMessage>Enter Name</FormControl.ErrorMessage>
+            </FormControl>
             <FormControl
               w={{
                 base: '100%',
@@ -169,18 +298,27 @@ const Register = ({navigation}) => {
               isInvalid={email.valid}>
               <Input
                 placeholder="Email"
+                value={email.email}
                 InputLeftElement={emailIcon}
                 _focus={{borderColor: 'secondary.500'}}
                 onChangeText={text => handleEmail(text)}
               />
               <FormControl.ErrorMessage>Invalid Mail</FormControl.ErrorMessage>
             </FormControl>
+            <FormControl
+              w={{
+                base: '100%',
+                md: '25%',
+              }}
+              isInvalid={number.valid}>
             <Input
               placeholder="Number"
               InputLeftElement={phoneIcon}
+              value={number.number}
               _focus={{borderColor: 'secondary.500'}}
-              onChangeText={text => setNumber({number: text})}
-            />
+              onChangeText={text => handleNumber(text)}/>
+            <FormControl.ErrorMessage>Enter Number</FormControl.ErrorMessage>
+            </FormControl>
             {/* <FormControl
               w={{
                 base: '100%',
@@ -209,6 +347,7 @@ const Register = ({navigation}) => {
                 _focus={{borderColor: password.valid ? 'red' : 'secondary.500'}}
                 placeholder="Password"
                 overflow="visible"
+                value={password.password}
                 InputLeftElement={keyIcon}
                 InputRightElement={
                   <Pressable mr={wp(4)} onPress={handleClick}>
@@ -222,6 +361,33 @@ const Register = ({navigation}) => {
                 Invalid Password
               </FormControl.ErrorMessage>
             </FormControl>
+            <FormControl
+              w={{
+                base: '100%',
+                md: '25%',
+              }}
+              isInvalid={confirmPassword.valid}>
+                
+              <Input
+                type={confirmPasswordShow ? 'text' : 'password'}
+                _focus={{borderColor: confirmPassword.valid ? 'red' : 'secondary.500'}}
+                placeholder="Confirm Password"
+                overflow="visible"
+                value={confirmPassword.confirmPassword}
+                InputLeftElement={keyIcon}
+                InputRightElement={
+                  <Pressable mr={wp(4)} onPress={handleConfirmPasswordClick}>
+                    {confirmPasswordShow ? eyeIcon : eyeSlashIcon}
+                  </Pressable>
+                }
+                // value={password.password}
+                onChangeText={text => handleConfirmPassword(text)}
+              />
+              <FormControl.ErrorMessage>
+               Password Not Match
+              </FormControl.ErrorMessage>
+            </FormControl>
+
 
           </Stack>
           <Text color="gray.500" mt={hp(5)}>
