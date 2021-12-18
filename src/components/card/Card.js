@@ -67,7 +67,7 @@ function CardComponent({item = {}, navigateToDetail = ()=>{}}) {
   return (
     <TouchableOpacity activeOpacity={0.9} key={item.id} onPress={handleItemPressed}>
       <Box
-        mb={wp(4)}
+        mb={hp(3)}
         rounded="lg"
         key={item.id}
         overflow="hidden"

@@ -179,7 +179,7 @@ export const getCoupon = () => {
       } else {
         dispatch(
           getCouponFailed({
-            errorMessage: res.data.message || 'Something went wrong',
+            errorMessage: res?.data?.message || 'Something went wrong',
           }),
         );
       }
@@ -282,7 +282,7 @@ export const getCouponRedeem = _id => {
       } else {
         dispatch(
           getCouponredeemFailed({
-            errorMessage: res.data.message || 'Unable to get data',
+            errorMessage: res?.data?.message || 'Unable to get data',
           }),
         );  
       }
@@ -318,11 +318,11 @@ export const redeemCoupon = _id => {
       } else {
         dispatch(
           redeemCouponFailed({
-            errorMessage: res.data.message || 'Something went wrong',
+            errorMessage: res?.data?.message || 'Something went wrong',
           }),
         );
         Toast.show({
-          title: res.data.message || 'Something went wrong',
+          title: res?.data?.message || 'Something went wrong',
           duration: 3000,
           placement: 'top',
           status: 'error',

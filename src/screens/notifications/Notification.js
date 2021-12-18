@@ -1,7 +1,7 @@
 import React,{useEffect} from 'react';
 import {VStack, Text, theme, HStack,Box,FlatList} from 'native-base';
 import {View} from 'react-native'
-import {DBAppBar} from '../../components';
+import {DBAppBar,Loader} from '../../components';
 import { useSelector, useDispatch } from 'react-redux';
 import {TouchableOpacity} from 'react-native';
 import { getNotification } from '../../redux/slices/notificationSlice';
@@ -10,7 +10,7 @@ import {NotificatonCard} from '../../components/card/notificationCard';
 
 const Notification = ({navigation}) => {
   const dispatch = useDispatch()
-  const {Notifications} = useSelector((state) => state.notificationSlice);
+  const {Notifications, isLoading} = useSelector((state) => state.notificationSlice);
   //console.log(Notifications,"notifications");
   //const navigateToList = (item) => navigation.navigate('')
   const navigateToDetail = (id) => navigation.navigate('CouponDetail',{id})
@@ -38,6 +38,9 @@ const Notification = ({navigation}) => {
           This screen is in under Developement.
         </Text>
       </VStack> */}
+       {isLoading ? (
+        <Loader />
+      ) : (
       <VStack flex="1" marginTop={hp(2)}>
       <FlatList
             pl={wp(2)}
@@ -45,13 +48,15 @@ const Notification = ({navigation}) => {
             data={Notifications}
             extraData={Notifications}
             //horizontal={true}
-            keyExtractor={item => item.id}
+            keyExtractor={item => item._id}
             showsHorizontalScrollIndicator={false}
             renderItem={renderCategory}
             ListEmptyComponent={<View style={{justifyContent:'center', alignContent:'center',width:wp(100)}} ><Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>No data found</Text></View>}
           />
       </VStack>
+       )}
     </>
+  
   );
 };
 

@@ -100,7 +100,7 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem, page }) 
     noOfUser = 0,
     _id: id
   } = couponData;
-  //console.log(couponData,"rajneesh")
+  console.log(brandVerify,"rajneesh")
   const handlePressRedeem = () => {
     handleRedeem(id)
   }
@@ -152,7 +152,7 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem, page }) 
               </Text>
             </VStack>
           </HStack>
-          {brandVerify === "true" ? <HStack px={wp(2)}>
+          {brandVerify ? <HStack px={wp(2)}>
             {rightArrowIcon}
             <Text
               fontSize="xs"

@@ -34,7 +34,7 @@ const Redeem = ({navigation}) => {
         <FlatList
           data={redeemCouponbyUser}
           extraData={redeemCouponbyUser}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item._id}
           showsVerticalScrollIndicator={false}
           renderItem={renderCouponCard}
           contentContainerStyle={{marginTop: hp(2)}}
