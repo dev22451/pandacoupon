@@ -29,6 +29,19 @@ export const loginSlice = createSlice({
       state.userData = action.payload.userData;
       state.isLoggedIn = true;
     },
+    registerRequested(state, action) {
+      state.isLoading = true;
+      state.isError = false;
+      state.errorMessage = '';
+    },
+    registerSuccessful(state, action) {
+      state.isLoading = false;
+    },
+    registerFailed(state, action) {
+      state.isLoading = false;
+      state.isError = true;
+      state.errorMessage = action.payload.errorMessage;
+    },
     logoutRequested(state, action) {
       state.isLoading = true;
       state.isError = false;
@@ -37,7 +50,7 @@ export const loginSlice = createSlice({
     logoutSuccessful(state, action) {
       state.isLoading = false;
       state.token = action.payload.token;
-      state.userData = action.payload.userData;
+      //state.userData = action.payload.userData;
       state.isLoggedIn= false;
     },
     logoutFailed(state, action) {
@@ -53,7 +66,7 @@ export const loginSlice = createSlice({
     updateUserLocationSuccessful(state, action) {
       state.isLoading = false;
       state.token = action.payload.token;
-      state.userData = action.payload.userData;
+      //state.userData = action.payload.userData;
       state.isLoggedOut = true;
     },
     updateUserLocationFailed(state, action) {
@@ -61,9 +74,9 @@ export const loginSlice = createSlice({
       state.isError = true;
       state.errorMessage = action.payload.errorMessage;
     },
-    apiSuccessful(state,action){
-      state.isLoading = false
-    },
+    // apiSuccessful(state,action){
+    //   state.isLoading = false
+    // },
     loginFailed(state, action) {
       state.isLoading = false;
       state.isError = true;
@@ -97,6 +110,9 @@ export const {
   loginRequested,
   loginSuccessful,
   loginFailed,
+  registerRequested,
+  registerSuccessful,
+  registerFailed,
   restoreUser,
   userLogout,
   apiSuccessful,
@@ -211,9 +227,10 @@ export const logout = (payload,token) => {
   };
 };
 
-export const register = ({payload}, navigation) => {
-  return async (dispatch, getState) => {
-    dispatch(loginRequested());
+export const register = (request) => {
+  return async (dispatch, state) => {
+    const {payload, onSuccess, onFail} = request
+    dispatch(registerRequested());
     try {
       const res = await ApiService.register(payload);
       if (res.data.success) {
@@ -224,11 +241,12 @@ export const register = ({payload}, navigation) => {
           duration: 3000,
           description: 'Thanks for signing up with us.',
         });
-        dispatch(apiSuccessful());
-        navigation.navigate('SignIn');
+        dispatch(registerSuccessful());
+        onSuccess()
       } else {
+        onFail()
         dispatch(
-          loginFailed({
+          registerFailed({
             errorMessage: res.data.message || 'something Went wrong',
           }),
         );
@@ -240,8 +258,9 @@ export const register = ({payload}, navigation) => {
         });
       }
     } catch (e) {
+      onFail()
       dispatch(
-        loginFailed({
+        registerFailed({
           errorMessage: e.response.data.errors || 'something Went wrong',
         }),
         Toast.show({

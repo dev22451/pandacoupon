@@ -78,12 +78,12 @@ const SignIn = ({navigation}) => {
 
   const handleEmail = text => {
     validateEmail(text)
-      ? setEmail({email: '', valid: true})
+      ? setEmail({email: text, valid: true})
       : setEmail({email: text, valid: false});
   };
   const handlePassword = text => {
-    validatePassword(text)
-      ? setPassword({password: '', valid: true})
+    (text.length<6)
+      ? setPassword({password: text, valid: true})
       : setPassword({password: text, valid: false});
   };
 
@@ -91,13 +91,10 @@ const SignIn = ({navigation}) => {
     const isEmailValidate = email.email !== ''
     //const isEmailValidate = email.email !== validateEmail
     const isPasswordValidate = password.password !== ''
-    if(isEmailValidate && isPasswordValidate){
-      const payload = {
-        userEmail: email.email,
-        Password: password.password,
-      };
-      dispatch(login({payload}));
-    } else {
+    console.log(isEmailValidate , isPasswordValidate, email, password)
+    
+    
+     if (!isEmailValidate && !isPasswordValidate){
       Toast.show({
         title: 'Invalid Data',
         duration: 3000,
@@ -105,6 +102,48 @@ const SignIn = ({navigation}) => {
         status: 'error',
         description:'Please Enter Email and Password'
       });
+
+    }
+     else if(!isEmailValidate){
+      Toast.show({
+        title: 'Invalid Data',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description:'Please Enter Email'
+      });
+
+    }else if(email.valid){
+      Toast.show({
+        title: 'Invalid Data',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description:'Please Enter Valid Email'
+      });
+
+    }else if(!isPasswordValidate) {
+      Toast.show({
+        title: 'Invalid Data',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description:'Please Enter Password'
+      }); 
+    }else if(password.valid) {
+      Toast.show({
+        title: 'Invalid Data',
+        duration: 3000,
+        placement: 'top',
+        status: 'error',
+        description:'Please Enter Valid Password'
+      });
+    } else {
+      const payload = {
+        userEmail: email.email,
+        Password: password.password,
+      };
+      dispatch(login({payload}));
     }
   };
 
@@ -134,6 +173,7 @@ const SignIn = ({navigation}) => {
               <Input
                 placeholder="Email"
                 InputLeftElement={emailIcon}
+                value={email.email}
                 _focus={{borderColor: 'secondary.500'}}
                 onChangeText={text => handleEmail(text)}
               />
@@ -157,7 +197,7 @@ const SignIn = ({navigation}) => {
                     {show ? eyeIcon : eyeSlashIcon}
                   </Pressable>
                 }
-                // value={password.password}
+                value={password.password}
                 onChangeText={text => handlePassword(text)}
               />
               <FormControl.ErrorMessage>

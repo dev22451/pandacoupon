@@ -6,7 +6,7 @@ platform :ios, '11.0'
 rn_maps_path = '../node_modules/react-native-maps'
 pod 'react-native-google-maps', :path => rn_maps_path
 
-target 'pandacoupon' do
+target 'Pinkz' do
   config = use_native_modules!
 
   use_react_native!(
@@ -15,7 +15,7 @@ target 'pandacoupon' do
     :hermes_enabled => false
   )
 
-  target 'pandacouponTests' do
+  target 'PinkzTests' do
     inherit! :complete
     # Pods for testing
   end
