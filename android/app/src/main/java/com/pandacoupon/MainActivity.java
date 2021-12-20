@@ -1,4 +1,4 @@
-package com.pandacoupon;
+package com.pinkzcoupon;
 
 import com.facebook.react.ReactActivity;
 import android.os.Bundle;

@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "1006098806039",
-    "project_id": "couponapp-3ac19",
-    "storage_bucket": "couponapp-3ac19.appspot.com"
+    "project_number": "922912763801",
+    "project_id": "pinkz-d21ae",
+    "storage_bucket": "pinkz-d21ae.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1006098806039:android:cd3da11765ed5d0ba8b352",
+        "mobilesdk_app_id": "1:922912763801:android:b1a38aa7f7e707d3222d08",
         "android_client_info": {
-          "package_name": "com.pandacoupon"
+          "package_name": "com.pinkzcoupon"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1006098806039-gatfttpupdl77e3t0qo8toaeii1qqln2.apps.googleusercontent.com",
+          "client_id": "922912763801-qau6fgg9uqnfg9jht0d5hl5k9i49eqab.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAQ4PHZ9YjpAXxdCbhcWvF6sHYmAjfA0P8"
+          "current_key": "AIzaSyD6Ti5n-CePJHn08w74nut_zyJkVZx_LuM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1006098806039-gatfttpupdl77e3t0qo8toaeii1qqln2.apps.googleusercontent.com",
+              "client_id": "922912763801-qau6fgg9uqnfg9jht0d5hl5k9i49eqab.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
