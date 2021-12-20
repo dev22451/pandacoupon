@@ -42,7 +42,7 @@ export const getNotification = () => {
     return async (dispatch, getState) => {
       dispatch(getNotificationRequested());
       const {token, userData:{email}} = getState().loginSlice;
-     // console.log({userData},"raj");
+   
       try {
         const payload = {
           userEmail:'Test@gmail.com'

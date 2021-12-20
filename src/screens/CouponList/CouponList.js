@@ -13,7 +13,7 @@ const CouponList = (props) => {
   const dispatch = useDispatch()
   const { couponList, couponCategoryList,isLoading } = useSelector(state => state.couponSlice);
 
-  const categoryDataList = categoryId ? couponCategoryList.couponCategoryList : couponList
+  const categoryDataList = categoryId ? couponCategoryList: couponList
  
   const navigateToDetail = (item) => navigation.navigate('CouponDetail',{id:item._id})
 
@@ -40,7 +40,7 @@ const CouponList = (props) => {
         bgColor="secondary.500"
         navigation={navigation}
       />
-        {isLoading ? (
+        {(categoryDataList && isLoading) ? (
         <Loader />
       ) : (
       <Box  >
@@ -49,7 +49,7 @@ const CouponList = (props) => {
           mb={hp(9)}
           data={categoryDataList}
           extraData={categoryDataList}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item._id}
           renderItem={renderCouponCard}
           ListEmptyComponent={renderEmpty}
           showsVerticalScrollIndicator={false}

@@ -5,7 +5,7 @@ const categorySlice = createSlice({
   name: "categories",
   initialState: {
     categoryList: [],
-    isLoading: false,
+    isLoading: true,
     isError: false,
     errorMessage: "",
   },
@@ -14,6 +14,7 @@ const categorySlice = createSlice({
       state.isLoading = true;
       state.errorMessage = "";
       state.isError = false;
+      state.categoryList=[];
     },
     getCategorySuccessful: (state, action) => {
       state.isLoading = false;
@@ -29,8 +30,8 @@ const categorySlice = createSlice({
     },
     resetSlice: (state, action) => {
       state = {
+        isLoading: true,
         categoryList: [],
-        isLoading: false,
         isError: false,
         errorMessage: "",
       }

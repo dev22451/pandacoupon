@@ -155,7 +155,7 @@ export const login = ({payload}) => {
     } catch (e) {
       dispatch(
         loginFailed({
-          errorMessage: e?.response?.data?.errors || 'something Went wrong',
+          errorMessage:  e?.response?.data?.errors || 'something Went wrong',
         }),
       );
       Toast.show({
@@ -209,9 +209,8 @@ export const logout = (payload,token) => {
     } catch (e) {
       dispatch(
         logoutFailed({
-          errorMessage: e?.response?.data?.errors || 'something Went wrong',
+          errorMessage:  e?.response?.data?.errors || 'something Went wrong',
         }))
-      console.log(e?.response?.data,"trtfdtrd");
       Toast.show({
         title: 'Something went wrong',
         duration: 3000,

@@ -11,8 +11,6 @@ import {NotificatonCard} from '../../components/card/notificationCard';
 const Notification = ({navigation}) => {
   const dispatch = useDispatch()
   const {Notifications, isLoading} = useSelector((state) => state.notificationSlice);
-  //console.log(Notifications,"notifications");
-  //const navigateToList = (item) => navigation.navigate('')
   const navigateToDetail = (id) => navigation.navigate('CouponDetail',{id})
   const renderCategory = ({item}) => <NotificatonCard {...{item, navigateToDetail}} />;
   useEffect(()=>{

@@ -61,7 +61,8 @@ const Categories = ({navigation}) => {
     <>
       <DBAppBar
         //account
-        back={true}
+        back
+        onBackPress={()=>{console.log('call')}}
         title="Categories"
         iconColor="white"
         titleColor="white"

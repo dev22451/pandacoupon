@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Box, Image, AspectRatio } from 'native-base';
 
@@ -7,14 +7,15 @@ import { hp, wp } from '../../helpers/respDimension';
 
 import FastImage from 'react-native-fast-image'
 
-function BannerCard(item) {
+function BannerCard({item, bannerImage}) {
+    console.log(item,'dtfytf');
     
     return (
         <>
-           
-                    <TouchableOpacity onPress={() => null} key={item.id} activeOpacity={0.8}>
+
+            <TouchableOpacity onPress={() => null} key={item.id} activeOpacity={0.8}>
                 <Box
-                    mx={wp(2)}
+                    mx={ bannerImage.length === 1 ? wp(5.5) :wp(2)}
                     mb={wp(5)}
                     rounded="lg"
                     key={item.id}
@@ -30,9 +31,10 @@ function BannerCard(item) {
                                 width='100%'
                                 alt="image"
                                 height="90%"
-                                source={{ 
-                                    uri: item.item.images,
-                                    priority: FastImage.priority.normal,}}
+                                source={{
+                                    uri: item.images,
+                                    priority: FastImage.priority.normal,
+                                }}
                                 //source={mcDonald}
                                 borderRadius="lg"
                                 resizeMode={FastImage.resizeMode.stretch}
@@ -42,7 +44,7 @@ function BannerCard(item) {
 
                 </Box>
             </TouchableOpacity>
-            
+
         </>
     );
 }

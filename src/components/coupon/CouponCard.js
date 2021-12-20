@@ -11,6 +11,8 @@ import {
   View,
   Center,
   ScrollView,
+  Alert,
+  Toast,
 } from 'native-base';
 import { Linking } from 'react-native'
 import moment from 'moment';
@@ -19,6 +21,8 @@ import Icon from '../../assets/icons/Icon';
 import { SvgExample } from '../../assets/images';
 import { hp, wp, fp } from '../../helpers/respDimension';
 import FastImage from 'react-native-fast-image';
+import Clipboard from '@react-native-clipboard/clipboard';
+
 
 const rightArrowIcon = (
   <Icon
@@ -100,19 +104,28 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem, page }) 
     noOfUser = 0,
     _id: id
   } = couponData;
-  console.log(brandVerify,"rajneesh")
+
+  const [copiedText, setCopiedText] = useState('');
+  
+ 
   const handlePressRedeem = () => {
     handleRedeem(id)
   }
+  const hanldePressNumber=()=>{
+    Linking.openURL(`tel:${brandPhone}`);
+  }
+  const hanldeCopyCode= ()=>{
+    Clipboard.setString(couponCode);
+    Toast.show({
+      title: 'Code Copied',
+      duration: 3000,
+      placement: 'top',
+      status: 'success',
+    });
+  }
 
   const hanldePressWebSite = () => {
-    Linking.canOpenURL(brandWebsite).then(supported => {
-      if (supported) {
-        Linking.openURL(brandWebsite);
-      } else {
-        console.log("Don't know how to open URI: " + brandWebsite);
-      }
-    });
+     Linking.openURL('https://'+brandWebsite);
   }
 
   return (
@@ -179,7 +192,7 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem, page }) 
               Phone
             </Text>
             <Spacer />
-            <Text fontSize={fp(2)} fontWeight="500">
+            <Text fontSize={fp(2)} fontWeight="500" onPress={hanldePressNumber}>
               {brandPhone}
             </Text>
             <Box
@@ -194,13 +207,13 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem, page }) 
             </Box>
           </HStack>
           <HStack my={wp(1)} alignItems="center" 
-              onPress={hanldePressWebSite}
+              
               >
             <Text fontSize={fp(2)} color="warmGray.400" fontWeight="500">
               Website
             </Text>
             <Spacer />
-            <Text fontSize={fp(2)} fontWeight="500">
+            <Text fontSize={fp(2)} fontWeight="500" onPress={hanldePressWebSite}>
               {brandWebsite}
             </Text>
             <Box
@@ -260,7 +273,7 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem, page }) 
                 <Text
                   fontSize={fp(2)}
                   color="secondary.500"
-                  fontWeight="light">
+                  fontWeight="light" onPress={hanldeCopyCode}>
                   code : {(!isRedeem ? "*******" : couponCode)}
                 </Text>
               </Stack>

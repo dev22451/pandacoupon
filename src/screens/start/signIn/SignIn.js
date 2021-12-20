@@ -90,9 +90,7 @@ const SignIn = ({navigation}) => {
   const handleSignIn = () => {
     const isEmailValidate = email.email !== ''
     //const isEmailValidate = email.email !== validateEmail
-    const isPasswordValidate = password.password !== ''
-   // console.log(isEmailValidate , isPasswordValidate, email, password)
-    
+    const isPasswordValidate = password.password !== ''  
     
      if (!isEmailValidate && !isPasswordValidate){
       Toast.show({

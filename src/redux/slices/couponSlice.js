@@ -6,11 +6,10 @@ const couponSlice = createSlice({
   name: 'coupon',
   initialState: {
     couponList: [],
-    isLoading: true,
+    isLoading: false,
     isError: false,
     errorMessage: '',
     isRedeem: false,
-    isRedeemCoupon: false,
     couponItem: {},
     couponCategoryList: [],
     bannerImage:[],
@@ -22,6 +21,7 @@ const couponSlice = createSlice({
       state.isLoading = true;
       state.errorMessage = '';
       state.isError = false;
+      state.couponList =[];
     },
     getCouponSuccessful: (state, action) => {
       state.isLoading = false;
@@ -36,6 +36,7 @@ const couponSlice = createSlice({
       state.isLoading = true;
       state.errorMessage = '';
       state.isError = false;
+      state.couponData = {}
     },
     getCouponDataSuccessful: (state, action) => {
       state.isLoading = false;
@@ -89,16 +90,16 @@ const couponSlice = createSlice({
       state.isError = true;
     },
     getCouponRedeemRequested: (state, action) => {
-      state.isRedeemCoupon = true;
+      state.isLoading = true;
       state.errorMessage = '';
       state.isError = false;
     },
     getCouponRedeemSuccessful: (state, action) => {
-      state.isRedeemCoupon = false;
+      state.isLoading = false;
       state.couponItem = action.payload.couponItem;
     },
     getCouponredeemFailed: (state, action) => {
-      state.isRedeemCoupon = false;
+      state.isLoading = false;
       state.errorMessage = action.payload.errorMessage;
       state.isError = true;
     },
@@ -117,13 +118,14 @@ const couponSlice = createSlice({
       state.isLoading = true;
       state.errorMessage = '';
       state.isError = false;
+      couponCategoryList=[]
     },
     getCategoryCouponSuccessful: (state, action) => {
       state.isLoading = false;
-      state.couponCategoryList = action.payload;
+      state.couponCategoryList = action.payload.couponCategoryList;
     },
     getCategoryCouponFailed: (state, action) => {
-      state.isLoading = false;
+      state.isLoading = true;
       state.errorMessage = action.payload.errorMessage;
       state.isError = true;
     },
@@ -159,7 +161,7 @@ export const {
 export default couponSlice.reducer;
 
 export const getCoupon = () => {
-  console.log('call')
+  //console.log('call')
   return async (dispatch, getState) => {
     dispatch(getCouponRequested());
     const {token} = getState().loginSlice;

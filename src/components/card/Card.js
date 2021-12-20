@@ -44,7 +44,6 @@ const giftIcon = (
 );
 
 function CardComponent({item = {}, navigateToDetail = ()=>{}}) {
-  console.log(item)
   const {
     brandName = '',
     brandLocation = '',
