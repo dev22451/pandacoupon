@@ -16,19 +16,23 @@ export const ApiService = {
       data: payload,
     });
   },
-  getCategory: async token => {
+  getCategory: async (token,page) => {
+    console.log(page,'raj');
+    const limit = 4
     return fireAjax({
       method: 'GET',
-      URL: `${ApiUrl.getCategory}`,
+      URL: `${ApiUrl.getCategory}?page=${page}&limit=${limit}`,
       token,
     });
   },
-  getCoupon: async ({token, additionalUrl}) => {
+  getCoupon: async ({token, additionalUrl,page=1}) => {
+    const url = additionalUrl
+    ? `${ApiUrl.getCoupon}?${additionalUrl}`
+    : `${ApiUrl.getCoupon}`
+    const limit = 5
     return fireAjax({
       method: 'GET',
-      URL: additionalUrl
-        ? `${ApiUrl.getCoupon}?${additionalUrl}`
-        : `${ApiUrl.getCoupon}`,
+      URL: `${url}?page=${page}&limit=${limit}`,
       token,
     });
   },

@@ -160,7 +160,7 @@ export const {
 
 export default couponSlice.reducer;
 
-export const getCoupon = () => {
+export const getCoupon = (page) => {
   //console.log('call')
   return async (dispatch, getState) => {
     dispatch(getCouponRequested());
@@ -171,7 +171,7 @@ export const getCoupon = () => {
         token,
         additionalUrl: `uLat=${location.latitude}&uLon=${location.longitude}`,
       };
-      const res = await ApiService.getCoupon(payload);
+      const res = await ApiService.getCoupon(payload,page);
       if (res?.data?.success) {
         dispatch(
           getCouponSuccessful({
@@ -228,7 +228,7 @@ export const getBannerImage = () => {
 };
 
 
-export const getCategoryCoupon = _id => {
+export const getCategoryCoupon = (_id) => {
   return async (dispatch, getState) => {
     dispatch(getCategoryCouponRequested());
     const {token} = getState().loginSlice;

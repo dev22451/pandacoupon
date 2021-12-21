@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   VStack,
   Box,
@@ -14,11 +14,11 @@ import {
 
 import I18n from '../../translations/i18n';
 import Icon from '../../assets/icons/Icon';
-import {wp} from '../../helpers/respDimension';
-import {TouchableOpacity} from 'react-native';
-import {DBAppBar, CategoryFlatList,Loader} from '../../components';
-import {useDispatch, useSelector} from 'react-redux';
-import { getCategoryRequest } from '../../redux/slices/categorySlice';
+import { wp } from '../../helpers/respDimension';
+import { TouchableOpacity, View, ActivityIndicator} from 'react-native';
+import { DBAppBar, CategoryFlatList, Loader } from '../../components';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCategoryRequest,updateCategoryRequest } from '../../redux/slices/categorySlice';
 //import {Loader} from '../../../components';
 
 const searchIcon = (
@@ -47,22 +47,49 @@ const backIcon = (
 //     fullName: 'Saloon & Spa',
 //     iconName: 'spa',
 //   },
-  
+
 // ];
 
-const Categories = ({navigation}) => {
-  const dispatch = useDispatch();
-  useEffect(()=>{dispatch(getCategoryRequest())},[])
-  const {categoryList,isLoading} = useSelector(state => state.categorySlice);
 
+const Categories = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const [page, setPage] = useState(1);
+  //const [fetchingStatus,setfetchingStatus] = useState(false)
+  // console.log(page);
+
+//  const BottomView = () => {
+//     return (
+//       <View>
+//         {
+//           (fetchingStatus)
+//             ?
+//             <ActivityIndicator size="large" color="#F44336" style={{ marginLeft: 6 }} />
+//             :
+//             null
+//         }
+//       </View>
+//     )
+//   }
+
+  const { categoryList, isLoading } = useSelector(state => state.categorySlice);
+  //  console.log(categoryList,'fgeufg');
+  const handleLoadMore = useCallback(
+    () => {
+      if(!isLoading){
+         setPage(page + 1)
+        dispatch(updateCategoryRequest(page))
+      }
+    }
+    ,[dispatch,setPage])
   
+  useEffect(() => { dispatch(getCategoryRequest()) }, [])
 
   return (
     <>
       <DBAppBar
         //account
         back
-        onBackPress={()=>{console.log('call')}}
+        onBackPress={() => { console.log('call') }}
         title="Categories"
         iconColor="white"
         titleColor="white"
@@ -83,13 +110,15 @@ const Categories = ({navigation}) => {
       {isLoading ? (
         <Loader />
       ) : (
-      <ScrollView>
-        <FlatList
-          data={categoryList}
-          renderItem={({item}) => <CategoryFlatList item={item} navigation={navigation}/>}
-          keyExtractor={item => item._id}
-        />
-      </ScrollView>
+          <FlatList
+            data={categoryList}
+            renderItem={({ item }) => <CategoryFlatList item={item} navigation={navigation} />}
+            keyExtractor={item => item._id}
+            onEndReached={() => handleLoadMore()}
+            refreshing={isLoading}
+            onEndReachedThreshold={0.5}
+            //ListFooterComponent={BottomView}
+          />
       )}
     </>
   );

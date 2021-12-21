@@ -2,6 +2,7 @@ export default {
   userLogin: 'user/login',
   userRegister: 'user/registration',
   getCategory: 'category-data',
+  //getCategory: 'categoryPaginate',
   getCoupon: 'coupon-data',
   getUser: 'user-data',
   redeem: 'redeem',

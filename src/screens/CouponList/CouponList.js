@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import {Box, FlatList,Text} from 'native-base';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -11,11 +11,27 @@ const CouponList = (props) => {
   const categoryId = (props?.route?.params && props?.route?.params?.item) ? props?.route?.params?.item?._id : ''
  
   const dispatch = useDispatch()
+  const [page, setPage] = useState(1);
+
   const { couponList, couponCategoryList,isLoading } = useSelector(state => state.couponSlice);
 
   const categoryDataList = categoryId ? couponCategoryList: couponList
  
   const navigateToDetail = (item) => navigation.navigate('CouponDetail',{id:item._id})
+
+  const handleLoadMore = useCallback(
+    () => {
+      if(!isLoading){
+         setPage(page + 1)
+        //  if(categoryId) {
+        //   dispatch(getCategoryCoupon(categoryId))
+        // }
+        // else{
+          dispatch(getCoupon(page));
+       // }
+      }
+    }
+    ,[dispatch,setPage])
 
   useEffect(()=>{
       if(categoryId) {
@@ -51,6 +67,9 @@ const CouponList = (props) => {
           extraData={categoryDataList}
           keyExtractor={item => item._id}
           renderItem={renderCouponCard}
+          onEndReached={() => handleLoadMore()}
+          refreshing={isLoading}
+          onEndReachedThreshold={0.5}
           ListEmptyComponent={renderEmpty}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{paddingTop:5}}
