@@ -7,6 +7,7 @@ import {fp, wp} from '../../helpers/respDimension';
 
 const DBAppBar = ({
   back,
+  onBackPress,
   search,
   account,
   title,
@@ -72,7 +73,7 @@ const DBAppBar = ({
               backgroundColor: theme.colors.secondary[200],
             }}
             icon={backIcon}
-            onPress={() => navigation.goBack()}
+            onPress={() => onBackPress ? onBackPress() : navigation.goBack()}
           />
         )}
       </HStack>

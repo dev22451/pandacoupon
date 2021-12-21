@@ -16,7 +16,7 @@ import I18n from '../../translations/i18n';
 import Icon from '../../assets/icons/Icon';
 import {wp} from '../../helpers/respDimension';
 import {TouchableOpacity} from 'react-native';
-import {DBAppBar, CategoryFlatList} from '../../components';
+import {DBAppBar, CategoryFlatList,Loader} from '../../components';
 import {useDispatch, useSelector} from 'react-redux';
 import { getCategoryRequest } from '../../redux/slices/categorySlice';
 //import {Loader} from '../../../components';
@@ -52,15 +52,17 @@ const backIcon = (
 
 const Categories = ({navigation}) => {
   const dispatch = useDispatch();
-  const categoryData = useSelector(state => state.categorySlice.categoryList);
-
   useEffect(()=>{dispatch(getCategoryRequest())},[])
+  const {categoryList,isLoading} = useSelector(state => state.categorySlice);
+
+  
 
   return (
     <>
       <DBAppBar
         //account
-        back={true}
+        back
+        onBackPress={()=>{console.log('call')}}
         title="Categories"
         iconColor="white"
         titleColor="white"
@@ -78,13 +80,17 @@ const Categories = ({navigation}) => {
         _focus={{borderColor: 'secondary.500'}}
         placeholder={I18n.t('Categories.search')}
       /> */}
+      {isLoading ? (
+        <Loader />
+      ) : (
       <ScrollView>
         <FlatList
-          data={categoryData}
+          data={categoryList}
           renderItem={({item}) => <CategoryFlatList item={item} navigation={navigation}/>}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item._id}
         />
       </ScrollView>
+      )}
     </>
   );
 };

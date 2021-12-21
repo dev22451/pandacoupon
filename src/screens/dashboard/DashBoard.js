@@ -64,7 +64,7 @@ const DashBoard = ({navigation}) => {
   // const navigateToDetail = (item) => )
   const navigateToList = (item) => navigation.navigate('CouponList',{item})
   
-  const renderBanner = ({item}) => <BannerCard item={item} />;
+  const renderBanner = ({item}) => <BannerCard {...{item, bannerImage}} />;
   const renderCategory = ({item}) => <CategoryCard item={item} {...{navigateToList}} />;
   const renderCouponCard = ({item}) => <CardComponent {...{item}}  navigateToDetail={(item)=>{
     navigation.navigate('CouponDetail',{id:item._id})
@@ -213,7 +213,7 @@ const DashBoard = ({navigation}) => {
             data={categoryList}
             extraData={categoryList}
             horizontal={true}
-            keyExtractor={item => item?._id}
+            keyExtractor={item => item._id}
             showsHorizontalScrollIndicator={false}
             renderItem={renderCategory}
             ListEmptyComponent={<Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>The list is empty</Text>}
@@ -238,10 +238,10 @@ const DashBoard = ({navigation}) => {
         </HStack>
         <FlatList
           mx={wp(5)}
-          data={couponList}
+          data={couponList.slice(0,2)}
           keyExtractor={item => item?.couponCode}
           renderItem={renderCouponCard}
-          horizontal={true}
+         // horizontal={true}
           showsHorizontalScrollIndicator={false}
           ListEmptyComponent={renderEmpty}
         />

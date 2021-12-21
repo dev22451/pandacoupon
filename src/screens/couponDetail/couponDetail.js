@@ -22,12 +22,9 @@ const CouponDetail = props => {
     },
     navigation,
   } = props;
-  const {couponList, isLoading:isRedeemCoupon, couponItem, couponCategoryList, redeemUserCoupon, couponData} =
+  const {couponList, isLoading, couponItem, couponCategoryList, redeemUserCoupon, couponData} =
     useSelector(state => state.couponSlice);
     
-    useEffect(()=>{
-      dispatch(getCouponWithId(id))
-    },[])
 
     // let couponData;
     // if(page === 'history'){
@@ -45,6 +42,8 @@ const CouponDetail = props => {
     dispatch(redeemCoupon(itemID));
   };
   useEffect(() => {
+    dispatch(getCouponWithId(id))
+
     getCoupon();
     if(page !== 'history'){
       dispatch(getCouponRedeem(id));
@@ -54,13 +53,14 @@ const CouponDetail = props => {
     <>
       <DBAppBar
         back
+        onBackPress={()=>{console.log('call')}}
         title="Coupon Details"
         iconColor="white"
         titleColor="white"
         bgColor="secondary.500"
         navigation={navigation}
       />
-      {isRedeemCoupon ? (
+      {isLoading ? (
         <Loader />
       ) : (
         <ScrollView>

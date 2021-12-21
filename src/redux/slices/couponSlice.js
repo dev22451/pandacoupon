@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {ApiService} from '../../api';
-import {Toast, useToast} from 'native-base';
+import {Toast} from 'native-base';
 
 const couponSlice = createSlice({
   name: 'coupon',
@@ -10,7 +10,6 @@ const couponSlice = createSlice({
     isError: false,
     errorMessage: '',
     isRedeem: false,
-    isRedeemCoupon: false,
     couponItem: {},
     couponCategoryList: [],
     bannerImage:[],
@@ -22,6 +21,7 @@ const couponSlice = createSlice({
       state.isLoading = true;
       state.errorMessage = '';
       state.isError = false;
+      state.couponList =[];
     },
     getCouponSuccessful: (state, action) => {
       state.isLoading = false;
@@ -36,6 +36,7 @@ const couponSlice = createSlice({
       state.isLoading = true;
       state.errorMessage = '';
       state.isError = false;
+      state.couponData = {}
     },
     getCouponDataSuccessful: (state, action) => {
       state.isLoading = false;
@@ -89,16 +90,16 @@ const couponSlice = createSlice({
       state.isError = true;
     },
     getCouponRedeemRequested: (state, action) => {
-      state.isRedeemCoupon = true;
+      state.isLoading = true;
       state.errorMessage = '';
       state.isError = false;
     },
     getCouponRedeemSuccessful: (state, action) => {
-      state.isRedeemCoupon = false;
+      state.isLoading = false;
       state.couponItem = action.payload.couponItem;
     },
     getCouponredeemFailed: (state, action) => {
-      state.isRedeemCoupon = false;
+      state.isLoading = false;
       state.errorMessage = action.payload.errorMessage;
       state.isError = true;
     },
@@ -117,13 +118,14 @@ const couponSlice = createSlice({
       state.isLoading = true;
       state.errorMessage = '';
       state.isError = false;
+      couponCategoryList=[]
     },
     getCategoryCouponSuccessful: (state, action) => {
       state.isLoading = false;
-      state.couponCategoryList = action.payload;
+      state.couponCategoryList = action.payload.couponCategoryList;
     },
     getCategoryCouponFailed: (state, action) => {
-      state.isLoading = false;
+      state.isLoading = true;
       state.errorMessage = action.payload.errorMessage;
       state.isError = true;
     },
@@ -159,7 +161,7 @@ export const {
 export default couponSlice.reducer;
 
 export const getCoupon = () => {
-  console.log('call')
+  //console.log('call')
   return async (dispatch, getState) => {
     dispatch(getCouponRequested());
     const {token} = getState().loginSlice;
@@ -179,7 +181,7 @@ export const getCoupon = () => {
       } else {
         dispatch(
           getCouponFailed({
-            errorMessage: res.data.message || 'Something went wrong',
+            errorMessage: res?.data?.message || 'Something went wrong',
           }),
         );
       }
@@ -197,11 +199,9 @@ export const getBannerImage = () => {
   return async (dispatch, getState) => {
     dispatch(getBannerImageRequested());
     const {token} = getState().loginSlice;
-    //const {location} = getState().locationSlice;
     try {
       const payload = {
         token,
-        //additionalUrl: `uLat=${112.45675}&uLon=${77.17591}`,
       };
       const res = await ApiService.getBanner();
       if (res.data.success) {
@@ -282,7 +282,7 @@ export const getCouponRedeem = _id => {
       } else {
         dispatch(
           getCouponredeemFailed({
-            errorMessage: res.data.message || 'Unable to get data',
+            errorMessage: res?.data?.message || 'Unable to get data',
           }),
         );  
       }
@@ -318,11 +318,11 @@ export const redeemCoupon = _id => {
       } else {
         dispatch(
           redeemCouponFailed({
-            errorMessage: res.data.message || 'Something went wrong',
+            errorMessage: res?.data?.message || 'Something went wrong',
           }),
         );
         Toast.show({
-          title: res.data.message || 'Something went wrong',
+          title: res?.data?.message || 'Something went wrong',
           duration: 3000,
           placement: 'top',
           status: 'error',
@@ -342,7 +342,6 @@ export const getredeemCouponbyUser = userEmail => {
   return async (dispatch, getState) => {
     dispatch(getRedeemCouponbyUserRequested());
     const {token} = getState().loginSlice;
-    //const {location} = getState().locationSlice;
     try {
       const payload = {
         token,
@@ -373,7 +372,6 @@ export const getCouponWithId = _id => {
     try {
       
       const res = await ApiService.getCouponById({_id},token);
-      console.log(res)
       if (res.data.success) {
         dispatch(
           getCouponDataSuccessful({

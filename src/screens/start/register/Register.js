@@ -23,7 +23,7 @@ import {register} from '../../../redux/slices/loginSlice';
 import {validateEmail, validatePassword} from '../../../helpers/validation';
 
 const userIcon = (
-  <Box ml={wp(10)}>
+  <Box ml={wp(5)}>
     <Icon
       type="MaterialCommunityIcons"
       name="account"
