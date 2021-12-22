@@ -1,12 +1,12 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {ApiService} from '../../api';
+import {ApiService} from '../../api';false
 import {Toast} from 'native-base';
 
 const couponSlice = createSlice({
   name: 'coupon',
   initialState: {
     couponList: [],
-    isLoading: false,
+    isLoading: true,
     isError: false,
     errorMessage: '',
     isRedeem: false,
@@ -14,7 +14,8 @@ const couponSlice = createSlice({
     couponCategoryList: [],
     bannerImage:[],
     redeemUserCoupon:[],
-    couponData:{}
+    couponData:{},
+    page:1,
   },
   reducers: {
     getCouponRequested: (state, action) => {
@@ -25,7 +26,8 @@ const couponSlice = createSlice({
     },
     getCouponSuccessful: (state, action) => {
       state.isLoading = false;
-      state.couponList = action.payload.couponList;
+      state.couponList= state.couponList.concat(action.payload.couponList);
+      state.page =state.page+1;
     },
     getCouponFailed: (state, action) => {
       state.isLoading = false;
@@ -161,7 +163,7 @@ export const {
 export default couponSlice.reducer;
 
 export const getCoupon = (page) => {
-  //console.log('call')
+  console.log({page},'call')
   return async (dispatch, getState) => {
     dispatch(getCouponRequested());
     const {token} = getState().loginSlice;

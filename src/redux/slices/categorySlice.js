@@ -9,18 +9,18 @@ const categorySlice = createSlice({
     isError: false,
     errorMessage: "",
     page:1,
-    //totalpage:1,
+    totalpages:1,
   },
   reducers: {
     getCategoryRequested: (state, action) => {
       state.isLoading = true;
       state.errorMessage = "";
       state.isError = false;
-      state.categoryList=[];
     },
     getCategorySuccessful: (state, action) => {
       state.isLoading = false;
       state.categoryList = action.payload.categoryList;
+      state.totalpages = action.payload.totalpages;
     },
     getCategoryFailed: (state, action) => {
       state.isLoading = false;
@@ -34,7 +34,8 @@ const categorySlice = createSlice({
     },
     updateCategorySuccessful: (state, action) => {
       state.isLoading = false;
-      state.page = action.payload.page;
+      state.categoryList= state.categoryList.concat(action.payload);
+      state.page = state.page+1;
     },
     updateCategoryFailed: (state, action) => {
       state.isLoading = false;
@@ -68,15 +69,20 @@ export const {
 export default categorySlice.reducer;
 
 export const getCategoryRequest = () => {
+  //console.log(page,'gyefuyg');
   return async (dispatch, getState) => {
     dispatch(getCategoryRequested());
     const {token} = getState().loginSlice;
     try {
       const res = await ApiService.getCategory(token,1);
+      console.log(res.data.totalPages,'hfgsduy');
+
       if (res?.data?.success) {
         dispatch(
           getCategorySuccessful({
+            totalpages: res.data.totalPages,
             categoryList: res.data.data,
+            
           })
         );
       }
@@ -90,19 +96,18 @@ export const getCategoryRequest = () => {
   };
 };
 
-export const updateCategoryRequest=(page)=>{
+export const updateCategoryData=(page)=>{
   return async (dispatch, getState) => {
     console.log(page,"gfyug");
     dispatch(updateCategoryRequested());
     const {token} = getState().loginSlice;
     try {
       const res = await ApiService.getCategory(token,page);
-      //console.log(res.data,'gfuygds');
+      //console.log(res.data.totalPages,'hfgsduy');
       if (res?.data?.success) {
         dispatch(
-          updateCategorySuccessful({
-            categoryList: res.data.data,
-          })
+          updateCategorySuccessful(res.data.data),
+          //{totalpages: res.data.totalPages},
         );
       }
     } catch (e) {

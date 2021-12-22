@@ -17,22 +17,26 @@ export const ApiService = {
     });
   },
   getCategory: async (token,page) => {
-    console.log(page,'raj');
-    const limit = 4
+    //console.log(page,'raj');
+    const limit = 10
     return fireAjax({
       method: 'GET',
       URL: `${ApiUrl.getCategory}?page=${page}&limit=${limit}`,
       token,
     });
   },
-  getCoupon: async ({token, additionalUrl,page=1}) => {
+  getCoupon: async ({token, additionalUrl,page}) => {
+    console.log(page,'apicall');
     const url = additionalUrl
     ? `${ApiUrl.getCoupon}?${additionalUrl}`
     : `${ApiUrl.getCoupon}`
     const limit = 5
     return fireAjax({
       method: 'GET',
-      URL: `${url}?page=${page}&limit=${limit}`,
+      URL: additionalUrl
+      ? `${ApiUrl.getCoupon}?${additionalUrl}`
+      : `${ApiUrl.getCoupon}`,
+      // ?page=${page}&limit=${limit},
       token,
     });
   },

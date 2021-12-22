@@ -1,6 +1,7 @@
-import React,{useEffect,useState} from 'react';
+import React,{useEffect,useState,useCallback} from 'react';
 import {Box, FlatList,Text} from 'native-base';
 import { useSelector, useDispatch } from 'react-redux';
+import { TouchableOpacity, View, ActivityIndicator} from 'react-native';
 
 import {hp, wp,fp} from '../../helpers/respDimension';
 import {CardComponent,  DBAppBar, Loader} from '../../components';
@@ -11,27 +12,41 @@ const CouponList = (props) => {
   const categoryId = (props?.route?.params && props?.route?.params?.item) ? props?.route?.params?.item?._id : ''
  
   const dispatch = useDispatch()
-  const [page, setPage] = useState(1);
+  const [loading,setLoading]=useState(false);
 
-  const { couponList, couponCategoryList,isLoading } = useSelector(state => state.couponSlice);
+  const { couponList, couponCategoryList,isLoading,page } = useSelector(state => state.couponSlice);
 
-  const categoryDataList = categoryId ? couponCategoryList: couponList
+  const categoryDataList = categoryId ? couponCategoryList : couponList
  
   const navigateToDetail = (item) => navigation.navigate('CouponDetail',{id:item._id})
 
+  const BottomView = () => {
+    return (
+      <View>
+        {
+          (!loading)
+            ?
+            <ActivityIndicator size="large" color="#F44336" style={{ marginLeft: 6 }} />
+            :
+            null
+        }
+      </View>
+    )
+  }
+
   const handleLoadMore = useCallback(
     () => {
-      if(!isLoading){
-         setPage(page + 1)
+      // if(!isLoading){
+        //  setPage(page + 1)
         //  if(categoryId) {
         //   dispatch(getCategoryCoupon(categoryId))
         // }
         // else{
-          dispatch(getCoupon(page));
+          dispatch(getCoupon(page+1));
        // }
-      }
+      // }
     }
-    ,[dispatch,setPage])
+    ,[dispatch,page])
 
   useEffect(()=>{
       if(categoryId) {
@@ -56,7 +71,7 @@ const CouponList = (props) => {
         bgColor="secondary.500"
         navigation={navigation}
       />
-        {(categoryDataList && isLoading) ? (
+      {(isLoading) ? (
         <Loader />
       ) : (
       <Box  >
@@ -67,15 +82,16 @@ const CouponList = (props) => {
           extraData={categoryDataList}
           keyExtractor={item => item._id}
           renderItem={renderCouponCard}
-          onEndReached={() => handleLoadMore()}
-          refreshing={isLoading}
-          onEndReachedThreshold={0.5}
+          // onEndReached={() => handleLoadMore()}
+          // refreshing={isLoading}
+          // onEndReachedThreshold={0.5}
           ListEmptyComponent={renderEmpty}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{paddingTop:5}}
+          //ListFooterComponent={BottomView}
         />
       </Box>
-      )}
+       )}
       </>
     );
   };

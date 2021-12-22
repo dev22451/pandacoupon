@@ -18,7 +18,7 @@ import { wp } from '../../helpers/respDimension';
 import { TouchableOpacity, View, ActivityIndicator} from 'react-native';
 import { DBAppBar, CategoryFlatList, Loader } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCategoryRequest,updateCategoryRequest } from '../../redux/slices/categorySlice';
+import { getCategoryRequest,updateCategoryData } from '../../redux/slices/categorySlice';
 //import {Loader} from '../../../components';
 
 const searchIcon = (
@@ -53,36 +53,32 @@ const backIcon = (
 
 const Categories = ({ navigation }) => {
   const dispatch = useDispatch();
-  const [page, setPage] = useState(1);
-  //const [fetchingStatus,setfetchingStatus] = useState(false)
-  // console.log(page);
+  const [loading,setLoading]=useState(false);
 
-//  const BottomView = () => {
-//     return (
-//       <View>
-//         {
-//           (fetchingStatus)
-//             ?
-//             <ActivityIndicator size="large" color="#F44336" style={{ marginLeft: 6 }} />
-//             :
-//             null
-//         }
-//       </View>
-//     )
-//   }
+ const BottomView = () => {
+    return (
+      <View>
+        {
+          (!loading&& page<totalpages)
+            ?
+            <ActivityIndicator size="large" color="#F44336" style={{ marginLeft: 6 }} />
+            :
+            null
+        }
+      </View>
+    )
+  }
 
-  const { categoryList, isLoading } = useSelector(state => state.categorySlice);
-  //  console.log(categoryList,'fgeufg');
+  const { categoryList, isLoading,categoryListData,page,totalpages } = useSelector(state => state.categorySlice);
+
   const handleLoadMore = useCallback(
     () => {
-      if(!isLoading){
-         setPage(page + 1)
-        dispatch(updateCategoryRequest(page))
-      }
+       if(page < totalpages){
+        dispatch(updateCategoryData(page<=totalpages?page+1:page))
+       }
+       else return;
     }
-    ,[dispatch,setPage])
-  
-  useEffect(() => { dispatch(getCategoryRequest()) }, [])
+    ,[page])
 
   return (
     <>
@@ -107,19 +103,16 @@ const Categories = ({ navigation }) => {
         _focus={{borderColor: 'secondary.500'}}
         placeholder={I18n.t('Categories.search')}
       /> */}
-      {isLoading ? (
-        <Loader />
-      ) : (
+      
           <FlatList
             data={categoryList}
             renderItem={({ item }) => <CategoryFlatList item={item} navigation={navigation} />}
             keyExtractor={item => item._id}
-            onEndReached={() => handleLoadMore()}
-            refreshing={isLoading}
-            onEndReachedThreshold={0.5}
-            //ListFooterComponent={BottomView}
+            onEndReached={handleLoadMore}
+            refreshing={loading}
+            onEndReachedThreshold={0.1}
+            ListFooterComponent={BottomView}
           />
-      )}
     </>
   );
 };
