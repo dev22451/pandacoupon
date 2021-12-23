@@ -74,13 +74,19 @@ const data = [
   //   ],
   // },
   {
-    title: 'Privacy Policy',
+    title: 'About Us',
     data: [
       {
-        id: '2',
+        id: '1',
         fullName: 'Privacy Policy',
         iconName: 'file-document-outline',
         recentText: 'Read Privacy Policy',
+      },
+      {
+        id: '2',
+        fullName: 'Terms and Conditions',
+        iconName: 'file-document',
+        recentText: 'Read Terms and Conditions',
       },
     ],
   },
@@ -113,6 +119,10 @@ const Setting = () => {
         break;
       case 'Privacy Policy':
         Linking.openURL('https://www.privacypolicytemplate.net/live.php?token=15DAogfxiUv02luwfVRDjcDaD02xAGVe');
+        break;
+
+      case 'Terms and Conditions':
+        Linking.openURL('https://www.termsandconditionsgenerator.com/live.php?token=NdaMR4jiB7cAGCCCESKMKYXoBSLsJ9aK');
         break;
 
       case 'Logout':

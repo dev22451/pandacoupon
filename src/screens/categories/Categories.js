@@ -103,7 +103,10 @@ const Categories = ({ navigation }) => {
         _focus={{borderColor: 'secondary.500'}}
         placeholder={I18n.t('Categories.search')}
       /> */}
-      
+      {/* {(isLoading) ? (
+        <Loader />
+      ) : (
+       */}
           <FlatList
             data={categoryList}
             renderItem={({ item }) => <CategoryFlatList item={item} navigation={navigation} />}
@@ -113,6 +116,7 @@ const Categories = ({ navigation }) => {
             onEndReachedThreshold={0.1}
             ListFooterComponent={BottomView}
           />
+          {/* )} */}
     </>
   );
 };

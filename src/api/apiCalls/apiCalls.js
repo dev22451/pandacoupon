@@ -90,6 +90,7 @@ export const ApiService = {
   },
 
   redeemCouponbyUser: async (data,token) => {
+    //console.log(page,'page');
     return fireAjax({
       method: 'POST',
       URL: `${ApiUrl.redeemCouponbyUser}`,

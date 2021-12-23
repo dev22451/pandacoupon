@@ -108,7 +108,7 @@ const Register = ({navigation}) => {
   }
 
   const hanldeTerms =()=>{
-    Linking.openURL('https://www.privacypolicytemplate.net/live.php?token=15DAogfxiUv02luwfVRDjcDaD02xAGVe');
+    Linking.openURL('https://www.termsandconditionsgenerator.com/live.php?token=NdaMR4jiB7cAGCCCESKMKYXoBSLsJ9aK');
   }
 
   const handleName= text =>{
@@ -410,7 +410,7 @@ const Register = ({navigation}) => {
           />
           <Text color="gray.500" mt={hp(5)} textAlign="center">
             {I18n.t('Intro.footerLine')}{' '}
-            <Text color="black" bold>
+            <Text color="black" bold onPress={hanldeTerms}>
               {I18n.t('Intro.terms')}
             </Text>{' '}
             {I18n.t('Intro.and')}{' '}

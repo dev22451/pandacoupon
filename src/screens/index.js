@@ -16,6 +16,7 @@ import PasswordChange from './password/PasswordChange';
 import Notification from './notifications/Notification';
 import CouponDetail from './couponDetail/couponDetail';
 import CouponList from './CouponList/CouponList';
+import CategoriesCouponList from './CouponList/CategoriesCouponList';
 export {
   Home,
   Intro,
@@ -35,4 +36,5 @@ export {
   PasswordChange,
   CouponDetail,
   CouponList,
+  CategoriesCouponList,
 };
