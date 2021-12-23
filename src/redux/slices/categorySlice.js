@@ -69,14 +69,11 @@ export const {
 export default categorySlice.reducer;
 
 export const getCategoryRequest = () => {
-  //console.log(page,'gyefuyg');
   return async (dispatch, getState) => {
     dispatch(getCategoryRequested());
     const {token} = getState().loginSlice;
     try {
       const res = await ApiService.getCategory(token,1);
-      console.log(res.data.totalPages,'hfgsduy');
-
       if (res?.data?.success) {
         dispatch(
           getCategorySuccessful({
@@ -98,16 +95,13 @@ export const getCategoryRequest = () => {
 
 export const updateCategoryData=(page)=>{
   return async (dispatch, getState) => {
-    console.log(page,"gfyug");
     dispatch(updateCategoryRequested());
     const {token} = getState().loginSlice;
     try {
       const res = await ApiService.getCategory(token,page);
-      //console.log(res.data.totalPages,'hfgsduy');
       if (res?.data?.success) {
         dispatch(
           updateCategorySuccessful(res.data.data),
-          //{totalpages: res.data.totalPages},
         );
       }
     } catch (e) {

@@ -16,6 +16,7 @@ const couponSlice = createSlice({
     redeemUserCoupon:[],
     couponData:{},
     page:1,
+    totalpages:1,
   },
   reducers: {
     getCouponRequested: (state, action) => {
@@ -26,14 +27,31 @@ const couponSlice = createSlice({
     },
     getCouponSuccessful: (state, action) => {
       state.isLoading = false;
-      state.couponList= state.couponList.concat(action.payload.couponList);
-      state.page =state.page+1;
+      state.couponList= action.payload.couponList;
+      state.totalpages = action.payload.totalpages;
     },
     getCouponFailed: (state, action) => {
       state.isLoading = false;
       state.errorMessage = action.payload.errorMessage;
       state.isError = true;
     },
+    updateCouponRequested: (state, action) => {
+      state.isLoading = true;
+      state.errorMessage = '';
+      state.isError = false;
+      state.couponList =[];
+    },
+    updateCouponSuccessful: (state, action) => {
+      state.isLoading = false;
+      state.couponList= state.couponList.concat(action.payload.couponList);
+      state.page =state.page+1;
+    },
+    updateCouponFailed: (state, action) => {
+      state.isLoading = false;
+      state.errorMessage = action.payload.errorMessage;
+      state.isError = true;
+    },
+
     getCouponDataRequested: (state, action) => {
       state.isLoading = true;
       state.errorMessage = '';
@@ -138,6 +156,9 @@ export const {
   getCouponDataRequested,
   getCouponDataSuccessful,
   getCouponDataFailed,
+  updateCouponRequested,
+  updateCouponDataSuccessful,
+  updateCouponDataFailed,
   getCategoryCouponRequested,
   getCategoryCouponSuccessful,
   getCategoryCouponFailed,
@@ -162,8 +183,7 @@ export const {
 
 export default couponSlice.reducer;
 
-export const getCoupon = (page) => {
-  console.log({page},'call')
+export const getCoupon = () => {
   return async (dispatch, getState) => {
     dispatch(getCouponRequested());
     const {token} = getState().loginSlice;
@@ -173,10 +193,11 @@ export const getCoupon = (page) => {
         token,
         additionalUrl: `uLat=${location.latitude}&uLon=${location.longitude}`,
       };
-      const res = await ApiService.getCoupon(payload,page);
+      const res = await ApiService.getCoupon(payload,1);
       if (res?.data?.success) {
         dispatch(
           getCouponSuccessful({
+            totalpages: res.data.data.totalPages,
             couponList: res.data.data.coupons,
           }),
         );
@@ -190,6 +211,42 @@ export const getCoupon = (page) => {
     } catch (e) {
       dispatch(
         getCouponFailed({
+          errorMessage: e?.response?.data?.errors || 'Something went wrong',
+        }),
+      );
+    }
+  };
+};
+
+
+export const updateCoupon = (page) => {
+  console.log({page},'call')
+  return async (dispatch, getState) => {
+    dispatch(updateCouponRequested());
+    const {token} = getState().loginSlice;
+    const {location} = getState().locationSlice;
+    try {
+      const payload = {
+        token,
+        additionalUrl: `uLat=${location.latitude}&uLon=${location.longitude}`,
+      };
+      const res = await ApiService.getCoupon(payload,page);
+      if (res?.data?.success) {
+        dispatch(
+          updateCouponSuccessful({
+            couponList: res.data.data.coupons,
+          }),
+        );
+      } else {
+        dispatch(
+          updateCouponFailed({
+            errorMessage: res?.data?.message || 'Something went wrong',
+          }),
+        );
+      }
+    } catch (e) {
+      dispatch(
+        updateCouponFailed({
           errorMessage: e?.response?.data?.errors || 'Something went wrong',
         }),
       );

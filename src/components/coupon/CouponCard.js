@@ -14,7 +14,7 @@ import {
   Alert,
   Toast,
 } from 'native-base';
-import { Linking } from 'react-native'
+import { Linking } from 'react-native';
 import moment from 'moment';
 import NButton from '../button/NButton';
 import Icon from '../../assets/icons/Icon';

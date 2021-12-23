@@ -5,7 +5,7 @@ import { TouchableOpacity, View, ActivityIndicator} from 'react-native';
 
 import {hp, wp,fp} from '../../helpers/respDimension';
 import {CardComponent,  DBAppBar, Loader} from '../../components';
-import {getCoupon, getCategoryCoupon} from '../../redux/slices/couponSlice'
+import {getCoupon,updateCoupon, getCategoryCoupon} from '../../redux/slices/couponSlice'
 
 const CouponList = (props) => {
   const {navigation} = props;
@@ -13,8 +13,9 @@ const CouponList = (props) => {
  
   const dispatch = useDispatch()
   const [loading,setLoading]=useState(false);
+  //console.log(categoryId,'id');
 
-  const { couponList, couponCategoryList,isLoading,page } = useSelector(state => state.couponSlice);
+  const { couponList, couponCategoryList,isLoading,page,totalpages  } = useSelector(state => state.couponSlice);
 
   const categoryDataList = categoryId ? couponCategoryList : couponList
  
@@ -36,17 +37,12 @@ const CouponList = (props) => {
 
   const handleLoadMore = useCallback(
     () => {
-      // if(!isLoading){
-        //  setPage(page + 1)
-        //  if(categoryId) {
-        //   dispatch(getCategoryCoupon(categoryId))
-        // }
-        // else{
-          dispatch(getCoupon(page+1));
-       // }
-      // }
-    }
-    ,[dispatch,page])
+          if(page < totalpages){
+            dispatch(updateCoupon(page<=totalpages?page+1:page))
+           }
+           else return;
+        }
+        ,[page])
 
   useEffect(()=>{
       if(categoryId) {
@@ -83,7 +79,7 @@ const CouponList = (props) => {
           keyExtractor={item => item._id}
           renderItem={renderCouponCard}
           // onEndReached={() => handleLoadMore()}
-          // refreshing={isLoading}
+          // refreshing={loading}
           // onEndReachedThreshold={0.5}
           ListEmptyComponent={renderEmpty}
           showsVerticalScrollIndicator={false}
