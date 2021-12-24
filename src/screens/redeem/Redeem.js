@@ -1,29 +1,41 @@
-import React,{useEffect,useState,useCallback} from 'react';
-import {FlatList, VStack, Text} from 'native-base';
-import {View, ActivityIndicator} from 'react-native';
-import { useSelector,useDispatch } from 'react-redux';
-import {hp, wp, fp} from '../../helpers/respDimension';
-import {CardComponent, DBAppBar, Loader} from '../../components';
-import {getredeemCouponbyUser,updateredeemCouponbyUser} from '../../redux/slices/historieSlice'
+import React, { useEffect, useState, useCallback } from 'react';
+import { FlatList, VStack, Text } from 'native-base';
+import { View, ActivityIndicator } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { hp, wp, fp } from '../../helpers/respDimension';
+import { CardComponent, DBAppBar, Loader } from '../../components';
+import { getredeemCouponbyUser, updateredeemCouponbyUser } from '../../redux/slices/historieSlice'
 
-const Redeem = ({navigation}) => {
+const Redeem = ({ navigation }) => {
   const dispatch = useDispatch()
   const userData = useSelector((state) => state.loginSlice.userData);
-  const {redeemUserCoupon, isLoading, page,totalpages}=useSelector((state)=>state.historieSlice);
-  //console.log(page,'redeem');
-  
-  const navigateToDetail = (item) => navigation.navigate('CouponDetail',{id:item.couponId, page:'history'});
-  const renderCouponCard = ({item}) => <CardComponent {...{item,navigateToDetail}} />;
+  const {
+    redeemUserCoupon,
+    isLoading,
+    page,
+    totalpages,
+    totalDocs
+  } = useSelector((state) => state.historieSlice);
+  console.log(redeemUserCoupon.length, 'totalpage');
 
-  const renderEmpty=()=>( <Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>The list is empty</Text>) 
-  
-  const [loading,setLoading]=useState(false);
+  const navigateToDetail = (item) => navigation.navigate
+    ('CouponDetail', { id: item.couponId, page: 'history' });
+  const renderCouponCard = ({ item }) => <CardComponent {...{ item, navigateToDetail }} />;
+
+  const renderEmpty = () => (
+    <Text py={hp(4)}
+      alignSelf='center' bold fontSize={fp(2)}>
+      The list is empty
+    </Text>)
+
+  const [loading, setLoading] = useState(false);
+  // const docLength = redeemUserCoupon>
 
   const BottomView = () => {
     return (
       <View>
         {
-          (!loading&& page<totalpages)
+          (!loading && totalpages > page || page <= totalpages && redeemUserCoupon.length)
             ?
             <ActivityIndicator size="large" color="#F44336" style={{ marginLeft: 6 }} />
             :
@@ -35,24 +47,25 @@ const Redeem = ({navigation}) => {
 
   const handleLoadMore = useCallback(
     () => {
-      //  if(page < totalpages){
-        //dispatch(updateredeemCouponbyUser(pagepage<=totalpages?page+1:page))
-        dispatch(updateredeemCouponbyUser({userEmail:userData.email,page:page+1,limit:2}))
-    //    }
-    //    else return;
-    // }
+      if (page <= totalpages) {
+        dispatch(updateredeemCouponbyUser({
+          userEmail: userData.email,
+          page: totalpages >= page ? page + 1 : page,
+          limit: 2
+        }));
+      }
+      else return;
     }
-    ,[page])
+    , [page])
 
-
-
-  useEffect(()=>{
+  useEffect(() => {
+    if (page === 1)
       dispatch(getredeemCouponbyUser({
-        userEmail:userData.email,
-        page:page,
-        limit:2,
+        userEmail: userData.email,
+        page: page,
+        limit: 2,
       }));
-  },[]);
+  }, []);
   return (
     <>
       <DBAppBar
@@ -73,11 +86,11 @@ const Redeem = ({navigation}) => {
           keyExtractor={item => item._id}
           showsVerticalScrollIndicator={false}
           renderItem={renderCouponCard}
-          contentContainerStyle={{marginTop: hp(2)}}
-          ListEmptyComponent={renderEmpty}
+          contentContainerStyle={{ marginTop: hp(2) }}
+          ListEmptyComponent={totalDocs == 0 ? renderEmpty : null}
           onEndReached={handleLoadMore}
           refreshing={loading}
-          onEndReachedThreshold={0.9}
+          onEndReachedThreshold={0.1}
           ListFooterComponent={BottomView}
         />
       </VStack>

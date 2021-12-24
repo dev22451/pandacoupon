@@ -1,36 +1,46 @@
-import React,{useEffect,useState,useCallback} from 'react';
-import {Box, FlatList,Text} from 'native-base';
+import React, { useEffect, useState, useCallback } from 'react';
+import { Box, FlatList, Text } from 'native-base';
 import { useSelector, useDispatch } from 'react-redux';
-import { TouchableOpacity, View, ActivityIndicator} from 'react-native';
+import { TouchableOpacity, View, ActivityIndicator } from 'react-native';
 
-import {hp, wp,fp} from '../../helpers/respDimension';
-import {CardComponent,  DBAppBar, Loader} from '../../components';
-import {getCoupon,updateCoupon, } from '../../redux/slices/couponSlice';
-import {getCategoryCoupon,updateCategoryCoupon} from '../../redux/slices/categoryCouponSlice';
+import { hp, wp, fp } from '../../helpers/respDimension';
+import { CardComponent, DBAppBar, Loader } from '../../components';
+import { getCoupon, updateCoupon, } from '../../redux/slices/couponSlice';
+import { getCategoryCoupon, updateCategoryCoupon } from '../../redux/slices/categoryCouponSlice';
 
 const CouponList = (props) => {
-  const {navigation} = props;
+  const { navigation } = props;
   const categoryId = (props?.route?.params && props?.route?.params?.item) ? props?.route?.params?.item?._id : ''
- 
-  const dispatch = useDispatch()
-  const [loading,setLoading]=useState(false);
-  //console.log(categoryId,'id');
 
-  const { couponList,isLoading,page,totalpages  } = useSelector(state => state.couponSlice);
-  const { couponCategoryList,totalDocs } = useSelector(state => state.categoryCouponSlice);
-  const  {page:pageForCouponCategoryData, isLoading:isLoadingForCouponCategoryData,totalpages:totalPagesCouponCategoryData} = useSelector(state => state.categoryCouponSlice);
-  
-  console.log(totalDocs,'hfdsgh');
+  const dispatch = useDispatch()
+  const [loading, setLoading] = useState(false);
+
+  const { couponList, isLoading, page, totalpages, totalDoc } = useSelector(state => state.couponSlice);
+  const { couponCategoryList,
+    totalDocs,
+    page: pageForCouponCategoryData,
+    isLoading: isLoadingForCouponCategoryData,
+    totalPage
+  } = useSelector(state => state.categoryCouponSlice);
 
   const categoryDataList = categoryId ? couponCategoryList : couponList
- 
-  const navigateToDetail = (item) => navigation.navigate('CouponDetail',{id:item._id})
+
+  const navigateToDetail = (item) => navigation.navigate('CouponDetail', { id: item._id })
 
   const BottomView = () => {
     return (
       <View>
         {
-          (!loading)
+          // (!loading && totalPage > pageForCouponCategoryData || pageForCouponCategoryData <= totalPage && couponCategoryList.length)
+          (
+            (!loading && totalpages > page
+              || page <= totalpages && couponList.length
+            )
+            ||
+            (!loading && totalPage > pageForCouponCategoryData
+              || pageForCouponCategoryData <= totalPage && couponCategoryList.length
+            )
+          )
             ?
             <ActivityIndicator size="large" color="#F44336" style={{ marginLeft: 6 }} />
             :
@@ -42,36 +52,52 @@ const CouponList = (props) => {
 
   const handleLoadMore = useCallback(
     () => {
-      if(categoryId){
-        if(pageForCouponCategoryData<totalPagesCouponCategoryData)
-        dispatch(updateCategoryCoupon(categoryId,pageForCouponCategoryData))
+      if (categoryId) {
+        if (pageForCouponCategoryData <= totalPage) {
+          dispatch(updateCategoryCoupon({
+            categoryID: categoryId,
+            limit: 2,
+            page:
+             pageForCouponCategoryData <= totalPage 
+                ? pageForCouponCategoryData + 1
+                : pageForCouponCategoryData
+          }))
+        } else return;
+      }
+      else {
 
-      } else {
-
-        if(page < totalpages){
-          dispatch(updateCoupon(page<=totalpages?{page:page+1}:page))
+        if (page <= totalpages) {
+          dispatch(updateCoupon(page <= totalpages ? page + 1 : page))
         }
         else return;
       }
     }
-        ,[page])
+    , [page, { page: pageForCouponCategoryData }])
 
-  useEffect(()=>{
-      if(categoryId) {
-        dispatch(getCategoryCoupon(categoryId))
+  useEffect(() => {
+    if (categoryId) {
+       if (pageForCouponCategoryData == 1) {
+        dispatch(getCategoryCoupon({
+          categoryID: categoryId,
+          limit: 2,
+          page: 1,
+        }))
+       }
+    }
+    else {
+      if (page == 1) {
+        dispatch(getCoupon(page + 1));
       }
-      else{
-        dispatch(getCoupon());
-      }
-    },[]);
+    }
+  }, []);
 
-  const renderCouponCard = ({item}) => <CardComponent {...{item,navigateToDetail}} />;
+  const renderCouponCard = ({ item }) => <CardComponent {...{ item, navigateToDetail }} />;
 
-  const renderEmpty=()=>( <Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>The list is empty</Text>) 
+  const renderEmpty = () => (<Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>The list is empty</Text>)
 
-    return (
-      <>
-       <DBAppBar
+  return (
+    <>
+      <DBAppBar
         back
         title="Coupon List"
         iconColor="white"
@@ -79,11 +105,11 @@ const CouponList = (props) => {
         bgColor="secondary.500"
         navigation={navigation}
       />
-      {(isLoading || isLoadingForCouponCategoryData) ? (
+      {/* {(isLoading) ? (
         <Loader />
-      ) : (
+      ) : ( */}
       <Box  >
-      <FlatList
+        <FlatList
           mx={wp(5)}
           mb={hp(9)}
           data={categoryDataList}
@@ -93,16 +119,15 @@ const CouponList = (props) => {
           onEndReached={() => handleLoadMore()}
           refreshing={loading}
           onEndReachedThreshold={0.2}
-          ListEmptyComponent={renderEmpty}
+          ListEmptyComponent={totalDoc == 0 ? renderEmpty: null}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{paddingTop:5}}
+          contentContainerStyle={{ paddingTop: 5 }}
           ListFooterComponent={BottomView}
         />
       </Box>
-       )}
-      </>
-    );
-  };
-  
+      {/* )} */}
+    </>
+  );
+};
+
 export default CouponList;
-  

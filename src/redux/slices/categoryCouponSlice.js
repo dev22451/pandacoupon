@@ -6,10 +6,11 @@ const categoryCouponSlice = createSlice({
     name: 'categoryCoupon',
     initialState: {
         couponCategoryList:[],
-        isLoading: false,
+        isLoading: true,
         isError: false,
         errorMessage: '',
         page:1,
+        totalPage:1,
         totalDocs:0,
     },
     reducers: {
@@ -25,7 +26,7 @@ const categoryCouponSlice = createSlice({
             state.totalDocs = action.payload.totalDocs;
           },
         getCategoryCouponFailed: (state, action) => {
-            state.isLoading = true;
+            state.isLoading = false;
             state.errorMessage = action.payload.errorMessage;
             state.isError = true;
           },
@@ -38,11 +39,23 @@ const categoryCouponSlice = createSlice({
             state.isLoading = false;
             state.couponCategoryList = state.couponCategoryList.concat(action.payload.couponCategoryList);
             state.page =state.page+1;
+            
         },
         updateCategoryCouponFailed: (state, action) => {
             state.isLoading = false;
             state.errorMessage = action.payload.errorMessage;
             state.isError = true;
+        },
+        resetError: (state, action) => {
+          state.isError = false;
+        },
+        resetSlice: (state, action) => {
+          state = {
+            couponCategoryList: [],
+            isLoading: true,
+            isError: false,
+            errorMessage: '',
+          };
         },
     }
 });
@@ -54,30 +67,26 @@ export const {
     updateCategoryCouponRequested,
     updateCategoryCouponSuccessful,
     updateCategoryCouponFailed,
+    resetError,
+    resetSlice,
 } = categoryCouponSlice.actions;
 
 export default categoryCouponSlice.reducer;
 
-export const getCategoryCoupon = (_id) => {
+export const getCategoryCoupon = (payload) => {
     return async (dispatch, getState) => {
       dispatch(getCategoryCouponRequested());
       const {token} = getState().loginSlice;
       try {
-        const payload = {
-          token,
-          payload: {
-            categoryID: _id,
-            // page:1,
-            // limit:3,
-          },
-        };
-        const res = await ApiService.getCategoryCoupon(payload);
+        
+        const res = await ApiService.getCategoryCoupon({payload,token});
+        //console.log(res.data.resData.totalDocs,'guygdu');
   
         if (res.data.success) {
           dispatch(
             getCategoryCouponSuccessful({
-              totalDocs: res.data.resData.totalDocs,
-              couponCategoryList: res.data.data,
+              couponCategoryList: res.data.data.data,
+              totalDocs: res.data.resData.totalDocs
             }),
           );
         }
@@ -91,26 +100,22 @@ export const getCategoryCoupon = (_id) => {
     };
   };
 
-  export const updateCategoryCoupon = (_id) => {
+  export const updateCategoryCoupon = (payload) => {
     return async (dispatch, getState) => {
       dispatch(updateCategoryCouponRequested());
       const {token} = getState().loginSlice;
       try {
-        const payload = {
-          token,
-          payload: {
-            categoryID: _id,
-            // page:2,
-            // limit:3,
-          },
-        };
-        const res = await ApiService.getCategoryCoupon(payload);
-        console.log(res.data);
+        const res = await ApiService.getCategoryCoupon({payload,token});
+        
+        const limit = res.data.resData.limit;
+        const totalDoc=res.data.resData.totalDocs
+        const total = Math.ceil(totalDoc/limit);
   
         if (res.data.success) {
           dispatch(
             updateCategoryCouponSuccessful({
-              couponCategoryList: res.data.data,
+              totalPage:total,
+              couponCategoryList: res.data.data.data,
             }),
           );
         }

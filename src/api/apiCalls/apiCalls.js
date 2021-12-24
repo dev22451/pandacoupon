@@ -25,22 +25,24 @@ export const ApiService = {
       token,
     });
   },
-  getCoupon: async ({token, additionalUrl,page}) => {
-    console.log(page,'apicall');
+  getCoupon: async ({token, additionalUrl},page) => {
+    //console.log(page,'apicall');
     const url = additionalUrl
     ? `${ApiUrl.getCoupon}?${additionalUrl}`
     : `${ApiUrl.getCoupon}`
-    const limit = 5
+    const limit = 2
     return fireAjax({
       method: 'GET',
-      URL: additionalUrl
-      ? `${ApiUrl.getCoupon}?${additionalUrl}`
-      : `${ApiUrl.getCoupon}`,
+      // URL: additionalUrl
+      // ? `${ApiUrl.getCoupon}?${additionalUrl}`
+      // : `${ApiUrl.getCoupon}`,
       // ?page=${page}&limit=${limit},
+      URL:`${url}&page=${page}&limit=${limit}`,
       token,
     });
   },
   getCategoryCoupon: async ({token, payload}) => {
+    //console.log(payload,'owowowo')
     return fireAjax({
       method: 'POST',
       URL: `${ApiUrl.getCategoryCoupon}`,

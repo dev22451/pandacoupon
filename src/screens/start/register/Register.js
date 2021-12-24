@@ -123,6 +123,12 @@ const Register = ({navigation}) => {
       : setEmail({email: text, valid: false});
    // setEmail({email: text, valid: false});import { Linking } from 'react-native';
   };
+  const handlePassword = text => {
+    (text.length<6)
+      ? setPassword({password: text, valid: true})
+      : setPassword({password: text, valid: false});
+  };
+  
   const handleNumber = text => {
     (text==='')
       ? setNumber({number: text, valid: true})

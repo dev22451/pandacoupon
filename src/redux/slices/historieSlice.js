@@ -11,6 +11,7 @@ const historieSlice = createSlice({
         errorMessage: '',
         page:1,
         totalpages:1,
+        totalDocs:0,
     },
     reducers: {
         getRedeemCouponbyUserRequested: (state, action) => {
@@ -21,7 +22,8 @@ const historieSlice = createSlice({
         getRedeemCouponbyUserSuccessful: (state, action) => {
             state.isLoading = false;
             state.redeemUserCoupon = action.payload.redeemUserCoupon;
-            state.totalpages = action.payload.totalpages;
+            state.totalDocs = action.payload.totalDocs;
+
         },
         getRedeemCouponbyUserFailed: (state, action) => {
             state.isLoading = false;
@@ -35,8 +37,12 @@ const historieSlice = createSlice({
         },
         updateRedeemCouponbyUserSuccessful: (state, action) => {
             state.isLoading = false;
-            state.redeemUserCoupon = state.redeemUserCoupon.concat(action.payload.redeemUserCoupon);
-            state.page =state.page+1;
+            state.redeemUserCoupon = [
+                ...state.redeemUserCoupon,
+                ...action.payload.redeemUserCoupon
+            ];
+            state.page = state.page+1;
+            state.totalpages=action.payload.totalpages;
         },
         updateRedeemCouponbyUserFailed: (state, action) => {
             state.isLoading = false;
@@ -61,19 +67,17 @@ export const getredeemCouponbyUser = (userEmail,page,limit) => {
     return async (dispatch, getState) => {
         dispatch(getRedeemCouponbyUserRequested());
         const { token } = getState().loginSlice;
-        //const { page } =getState().historieSlice;
-        //console.log(page);
         try {
             const payload = {
                 token,
             };
             const res = await ApiService.redeemCouponbyUser(userEmail,page,limit);
-
             if (res.data.success) {
                 dispatch(
                     getRedeemCouponbyUserSuccessful({
-                        totalpages: res.data.totalPages,
+                        totalDocs: res.data.resData.totalDocs,
                         redeemUserCoupon: res.data.data,
+                       
                     }),
                 );
             }
@@ -89,7 +93,6 @@ export const getredeemCouponbyUser = (userEmail,page,limit) => {
 
 export const updateredeemCouponbyUser = (userEmail,page) => {
     return async (dispatch, getState) => {
-        console.log(page,'hdfuh');
         dispatch(updateRedeemCouponbyUserRequested());
         const { token } = getState().loginSlice;
         try {
@@ -97,10 +100,14 @@ export const updateredeemCouponbyUser = (userEmail,page) => {
                 token,
             };
             const res = await ApiService.redeemCouponbyUser(userEmail, page, token);
-
+            const limit = res.data.resData.limit;
+            const totalDoc=res.data.resData.totalDocs
+            const total = Math.ceil(totalDoc/limit);
+            
             if (res.data.success) {
                 dispatch(
                     updateRedeemCouponbyUserSuccessful({
+                        totalpages:total,
                         redeemUserCoupon: res.data.data,
                     }),
                 );

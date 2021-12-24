@@ -11,11 +11,11 @@ const couponSlice = createSlice({
     errorMessage: '',
     isRedeem: false,
     couponItem: {},
-    couponCategoryList: [],
     bannerImage:[],
     couponData:{},
     page:1,
     totalpages:1,
+    totalDoc:0,
   },
   reducers: {
     getCouponRequested: (state, action) => {
@@ -27,7 +27,7 @@ const couponSlice = createSlice({
     getCouponSuccessful: (state, action) => {
       state.isLoading = false;
       state.couponList= action.payload.couponList;
-      state.totalpages = action.payload.totalpages;
+      state.totalDoc = action.payload.totalDoc;
     },
     getCouponFailed: (state, action) => {
       state.isLoading = false;
@@ -38,12 +38,13 @@ const couponSlice = createSlice({
       state.isLoading = true;
       state.errorMessage = '';
       state.isError = false;
-      state.couponList =[];
+      //state.couponList =[];
     },
     updateCouponSuccessful: (state, action) => {
       state.isLoading = false;
       state.couponList= state.couponList.concat(action.payload.couponList);
       state.page =state.page+1;
+      state.totalpages=action.payload.totalpages;
     },
     updateCouponFailed: (state, action) => {
       state.isLoading = false;
@@ -128,6 +129,8 @@ export const {
   getCouponDataSuccessful,
   getCouponDataFailed,
   updateCouponRequested,
+  updateCouponSuccessful,
+  updateCouponFailed,
   updateCouponDataSuccessful,
   updateCouponDataFailed,
   getCategoryCouponRequested,
@@ -151,7 +154,7 @@ export const {
 
 export default couponSlice.reducer;
 
-export const getCoupon = () => {
+export const getCoupon = (page) => {
   return async (dispatch, getState) => {
     dispatch(getCouponRequested());
     const {token} = getState().loginSlice;
@@ -165,7 +168,7 @@ export const getCoupon = () => {
       if (res?.data?.success) {
         dispatch(
           getCouponSuccessful({
-            totalpages: res.data.data.totalPages,
+            totalDoc: res.data.resData.totalDocs,
             couponList: res.data.data.coupons,
           }),
         );
@@ -188,8 +191,9 @@ export const getCoupon = () => {
 
 
 export const updateCoupon = (page) => {
-  console.log({page},'call')
+  
   return async (dispatch, getState) => {
+    console.log(page,'call')
     dispatch(updateCouponRequested());
     const {token} = getState().loginSlice;
     const {location} = getState().locationSlice;
@@ -199,9 +203,14 @@ export const updateCoupon = (page) => {
         additionalUrl: `uLat=${location.latitude}&uLon=${location.longitude}`,
       };
       const res = await ApiService.getCoupon(payload,page);
+      const limit = res.data.resData.limit;
+      const totalDoc=res.data.resData.totalDocs
+      const total = Math.ceil(totalDoc/limit);
+      console.log(total,'dyugug');
       if (res?.data?.success) {
         dispatch(
           updateCouponSuccessful({
+            totalpages:total,
             couponList: res.data.data.coupons,
           }),
         );
