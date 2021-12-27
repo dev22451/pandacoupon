@@ -208,7 +208,7 @@ const DashBoard = ({navigation}) => {
             </TouchableOpacity>
           </HStack>
           <FlatList
-            pl={wp(2)}
+            pl={wp(3)}
             pr={wp(2)}
             data={categoryList}
             extraData={categoryList}

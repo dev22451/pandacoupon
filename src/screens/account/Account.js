@@ -52,7 +52,7 @@ const data = [
   {
     id: '1',
     fullName: 'Categories',
-    iconName: 'file-document-outline',
+    iconName: 'format-list-bulleted-square',
   },
   {
     id: '2',

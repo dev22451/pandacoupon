@@ -1,20 +1,21 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {ApiService} from '../../api';
+import {ApiService} from '../../api';false
 import {Toast} from 'native-base';
 
 const couponSlice = createSlice({
   name: 'coupon',
   initialState: {
     couponList: [],
-    isLoading: false,
+    isLoading: true,
     isError: false,
     errorMessage: '',
     isRedeem: false,
     couponItem: {},
-    couponCategoryList: [],
     bannerImage:[],
-    redeemUserCoupon:[],
-    couponData:{}
+    couponData:{},
+    page:1,
+    totalpages:1,
+    totalDoc:0,
   },
   reducers: {
     getCouponRequested: (state, action) => {
@@ -25,13 +26,32 @@ const couponSlice = createSlice({
     },
     getCouponSuccessful: (state, action) => {
       state.isLoading = false;
-      state.couponList = action.payload.couponList;
+      state.couponList= action.payload.couponList;
+      state.totalDoc = action.payload.totalDoc;
     },
     getCouponFailed: (state, action) => {
       state.isLoading = false;
       state.errorMessage = action.payload.errorMessage;
       state.isError = true;
     },
+    updateCouponRequested: (state, action) => {
+      state.isLoading = true;
+      state.errorMessage = '';
+      state.isError = false;
+      //state.couponList =[];
+    },
+    updateCouponSuccessful: (state, action) => {
+      state.isLoading = false;
+      state.couponList= state.couponList.concat(action.payload.couponList);
+      state.page =state.page+1;
+      state.totalpages=action.payload.totalpages;
+    },
+    updateCouponFailed: (state, action) => {
+      state.isLoading = false;
+      state.errorMessage = action.payload.errorMessage;
+      state.isError = true;
+    },
+
     getCouponDataRequested: (state, action) => {
       state.isLoading = true;
       state.errorMessage = '';
@@ -75,20 +95,6 @@ const couponSlice = createSlice({
       state.errorMessage = action.payload.errorMessage;
       state.isError = true;
     },
-    getRedeemCouponbyUserRequested: (state, action) => {
-      state.isLoading = true;
-      state.errorMessage = '';
-      state.isError = false;
-    },
-    getRedeemCouponbyUserSuccessful: (state, action) => {
-      state.isLoading = false;
-      state.redeemUserCoupon = action.payload.redeemUserCoupon;
-    },
-    getRedeemCouponbyUserFailed: (state, action) => {
-      state.isLoading = false;
-      state.errorMessage = action.payload.errorMessage;
-      state.isError = true;
-    },
     getCouponRedeemRequested: (state, action) => {
       state.isLoading = true;
       state.errorMessage = '';
@@ -114,21 +120,7 @@ const couponSlice = createSlice({
         errorMessage: '',
       };
     },
-    getCategoryCouponRequested: (state, action) => {
-      state.isLoading = true;
-      state.errorMessage = '';
-      state.isError = false;
-      couponCategoryList=[]
-    },
-    getCategoryCouponSuccessful: (state, action) => {
-      state.isLoading = false;
-      state.couponCategoryList = action.payload.couponCategoryList;
-    },
-    getCategoryCouponFailed: (state, action) => {
-      state.isLoading = true;
-      state.errorMessage = action.payload.errorMessage;
-      state.isError = true;
-    },
+    
   },
 });
 
@@ -136,6 +128,11 @@ export const {
   getCouponDataRequested,
   getCouponDataSuccessful,
   getCouponDataFailed,
+  updateCouponRequested,
+  updateCouponSuccessful,
+  updateCouponFailed,
+  updateCouponDataSuccessful,
+  updateCouponDataFailed,
   getCategoryCouponRequested,
   getCategoryCouponSuccessful,
   getCategoryCouponFailed,
@@ -153,15 +150,11 @@ export const {
   getBannerImageRequested,
   getBannerImageSuccessful,
   getBannerImageFailed,
-  getRedeemCouponbyUserRequested,
-  getRedeemCouponbyUserSuccessful,
-  getRedeemCouponbyUserFailed,
 } = couponSlice.actions;
 
 export default couponSlice.reducer;
 
-export const getCoupon = () => {
-  //console.log('call')
+export const getCoupon = (page) => {
   return async (dispatch, getState) => {
     dispatch(getCouponRequested());
     const {token} = getState().loginSlice;
@@ -171,10 +164,11 @@ export const getCoupon = () => {
         token,
         additionalUrl: `uLat=${location.latitude}&uLon=${location.longitude}`,
       };
-      const res = await ApiService.getCoupon(payload);
+      const res = await ApiService.getCoupon(payload,1);
       if (res?.data?.success) {
         dispatch(
           getCouponSuccessful({
+            totalDoc: res.data.resData.totalDocs,
             couponList: res.data.data.coupons,
           }),
         );
@@ -188,6 +182,48 @@ export const getCoupon = () => {
     } catch (e) {
       dispatch(
         getCouponFailed({
+          errorMessage: e?.response?.data?.errors || 'Something went wrong',
+        }),
+      );
+    }
+  };
+};
+
+
+export const updateCoupon = (page) => {
+  
+  return async (dispatch, getState) => {
+    console.log(page,'call')
+    dispatch(updateCouponRequested());
+    const {token} = getState().loginSlice;
+    const {location} = getState().locationSlice;
+    try {
+      const payload = {
+        token,
+        additionalUrl: `uLat=${location.latitude}&uLon=${location.longitude}`,
+      };
+      const res = await ApiService.getCoupon(payload,page);
+      const limit = res.data.resData.limit;
+      const totalDoc=res.data.resData.totalDocs
+      const total = Math.ceil(totalDoc/limit);
+      console.log(total,'dyugug');
+      if (res?.data?.success) {
+        dispatch(
+          updateCouponSuccessful({
+            totalpages:total,
+            couponList: res.data.data.coupons,
+          }),
+        );
+      } else {
+        dispatch(
+          updateCouponFailed({
+            errorMessage: res?.data?.message || 'Something went wrong',
+          }),
+        );
+      }
+    } catch (e) {
+      dispatch(
+        updateCouponFailed({
           errorMessage: e?.response?.data?.errors || 'Something went wrong',
         }),
       );
@@ -228,36 +264,6 @@ export const getBannerImage = () => {
 };
 
 
-export const getCategoryCoupon = _id => {
-  return async (dispatch, getState) => {
-    dispatch(getCategoryCouponRequested());
-    const {token} = getState().loginSlice;
-    const {location} = getState().locationSlice;
-    try {
-      const payload = {
-        token,
-        payload: {
-          categoryID: _id,
-        },
-      };
-      const res = await ApiService.getCategoryCoupon(payload);
-
-      if (res.data.success) {
-        dispatch(
-          getCategoryCouponSuccessful({
-            couponCategoryList: res.data.data,
-          }),
-        );
-      }
-    } catch (e) {
-      dispatch(
-        getCategoryCouponFailed({
-          errorMessage: e?.response?.data?.errors || 'Something went wrong',
-        }),
-      );
-    }
-  };
-};
 
 export const getCouponRedeem = _id => {
   return async (dispatch, getState) => {
@@ -338,32 +344,6 @@ export const redeemCoupon = _id => {
   };
 };
 
-export const getredeemCouponbyUser = userEmail => {
-  return async (dispatch, getState) => {
-    dispatch(getRedeemCouponbyUserRequested());
-    const {token} = getState().loginSlice;
-    try {
-      const payload = {
-        token,
-      };
-      const res = await ApiService.redeemCouponbyUser(userEmail,token);
-
-      if (res.data.success) {
-        dispatch(
-          getRedeemCouponbyUserSuccessful({
-            redeemUserCoupon: res.data.data,
-          }),
-        );
-      }
-    } catch (e) {
-      dispatch(
-        getRedeemCouponbyUserFailed({
-          errorMessage: e?.response?.data?.errors || 'Something went wrong',
-        }),
-      );
-    }
-  };
-};
 
 export const getCouponWithId = _id => {
   return async (dispatch, getState) => {

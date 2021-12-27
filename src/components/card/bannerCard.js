@@ -8,8 +8,6 @@ import { hp, wp } from '../../helpers/respDimension';
 import FastImage from 'react-native-fast-image'
 
 function BannerCard({item, bannerImage}) {
-    console.log(item,'dtfytf');
-    
     return (
         <>
 

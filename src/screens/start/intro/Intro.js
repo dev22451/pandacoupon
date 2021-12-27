@@ -4,8 +4,17 @@ import {Flex, VStack, Heading, Text} from 'native-base';
 import I18n from '../../../translations/i18n';
 import {fp, hp, wp} from '../../../helpers/respDimension';
 import NButton from '../../../components/button/NButton';
+import { Linking } from 'react-native';
 
 const Intro = ({navigation}) => {
+  const hanldePolicy =()=>{
+    Linking.openURL('https://www.privacypolicytemplate.net/live.php?token=15DAogfxiUv02luwfVRDjcDaD02xAGVe');
+  }
+
+  const hanldeTerms =()=>{
+    Linking.openURL('https://www.termsandconditionsgenerator.com/live.php?token=NdaMR4jiB7cAGCCCESKMKYXoBSLsJ9aK');
+  }
+
   return (
     <VStack space={hp(2)}  paddingX={wp(10)} height={hp(100)} width={wp(100)} >
       <Heading
@@ -34,11 +43,11 @@ const Intro = ({navigation}) => {
       </VStack>
       <Text color="gray.500" mt={hp(2)} textAlign="center">
         {I18n.t('Intro.footerLine')}{' '}
-        <Text color="black" bold>
+        <Text color="black" bold onPress={hanldeTerms}>
           {I18n.t('Intro.terms')}
         </Text>{' '}
         {I18n.t('Intro.and')}{' '}
-        <Text color="black" bold>
+        <Text color="black" bold onPress={hanldePolicy}>
           {I18n.t('Intro.policy')}
         </Text>
       </Text>

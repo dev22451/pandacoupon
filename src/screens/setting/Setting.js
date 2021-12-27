@@ -10,7 +10,7 @@ import {
   SectionList,
 } from 'native-base';
 import {useDispatch,useSelector} from 'react-redux';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity,Linking} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {DBAppBar} from '../../components';
 import Icon from '../../assets/icons/Icon';
@@ -55,6 +55,7 @@ const data = [
       },
     ],
   },
+
   // {
   //   title: 'MORE',
   //   data: [
@@ -72,6 +73,24 @@ const data = [
   //     },
   //   ],
   // },
+  {
+    title: 'About Us',
+    data: [
+      {
+        id: '1',
+        fullName: 'Privacy Policy',
+        iconName: 'file-document-outline',
+        recentText: 'Read Privacy Policy',
+      },
+      {
+        id: '2',
+        fullName: 'Terms and Conditions',
+        iconName: 'file-document',
+        recentText: 'Read Terms and Conditions',
+      },
+    ],
+  },
+  
   {
     title: 'ACCOUNT',
     data: [
@@ -97,6 +116,13 @@ const Setting = () => {
 
       case 'Push Notifications':
         navigation.navigate('Notification');
+        break;
+      case 'Privacy Policy':
+        Linking.openURL('https://www.privacypolicytemplate.net/live.php?token=15DAogfxiUv02luwfVRDjcDaD02xAGVe');
+        break;
+
+      case 'Terms and Conditions':
+        Linking.openURL('https://www.termsandconditionsgenerator.com/live.php?token=NdaMR4jiB7cAGCCCESKMKYXoBSLsJ9aK');
         break;
 
       case 'Logout':

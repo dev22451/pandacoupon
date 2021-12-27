@@ -1,5 +1,5 @@
 export default {
-  //BASEURL: 'http://122.160.76.72:8087/',
- // BASEURL: 'http://ec2-3-144-255-80.us-east-2.compute.amazonaws.com:5000/',
-   BASEURL: 'https://c88f-223-177-187-227.ngrok.io/',
+  //BASEURL: 'http://192.168.43.113:5000/',
+  BASEURL: 'http://ec2-3-15-40-99.us-east-2.compute.amazonaws.com:5000/',
+  //BASEURL: 'https://f0ef-223-177-179-231.ngrok.io/',
 };

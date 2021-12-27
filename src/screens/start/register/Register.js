@@ -12,6 +12,7 @@ import {
   Toast,
 } from 'native-base';
 import React, {useState} from 'react';
+import { Linking } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {AppBar, Loader} from '../../../components';
@@ -102,6 +103,14 @@ const Register = ({navigation}) => {
   const handleClick = () => setShow(!show);
   const handleConfirmPasswordClick = () => setConfirmPasswordShow(!confirmPasswordShow);
 
+  const hanldePolicy =()=>{
+    Linking.openURL('https://www.privacypolicytemplate.net/live.php?token=15DAogfxiUv02luwfVRDjcDaD02xAGVe');
+  }
+
+  const hanldeTerms =()=>{
+    Linking.openURL('https://www.termsandconditionsgenerator.com/live.php?token=NdaMR4jiB7cAGCCCESKMKYXoBSLsJ9aK');
+  }
+
   const handleName= text =>{
     (text==='')?
     setName({name:text,valid:true}):
@@ -112,13 +121,14 @@ const Register = ({navigation}) => {
     validateEmail(text)
       ? setEmail({email: text, valid: true})
       : setEmail({email: text, valid: false});
-   // setEmail({email: text, valid: false});
+   // setEmail({email: text, valid: false});import { Linking } from 'react-native';
   };
   const handlePassword = text => {
     (text.length<6)
       ? setPassword({password: text, valid: true})
       : setPassword({password: text, valid: false});
   };
+  
   const handleNumber = text => {
     (text==='')
       ? setNumber({number: text, valid: true})
@@ -406,11 +416,11 @@ const Register = ({navigation}) => {
           />
           <Text color="gray.500" mt={hp(5)} textAlign="center">
             {I18n.t('Intro.footerLine')}{' '}
-            <Text color="black" bold>
+            <Text color="black" bold onPress={hanldeTerms}>
               {I18n.t('Intro.terms')}
             </Text>{' '}
             {I18n.t('Intro.and')}{' '}
-            <Text color="black" bold>
+            <Text color="black" bold onPress={hanldePolicy}>
               {I18n.t('Intro.policy')}
             </Text>
           </Text>

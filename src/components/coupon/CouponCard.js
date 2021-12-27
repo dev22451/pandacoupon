@@ -14,7 +14,7 @@ import {
   Alert,
   Toast,
 } from 'native-base';
-import { Linking } from 'react-native'
+import { Linking } from 'react-native';
 import moment from 'moment';
 import NButton from '../button/NButton';
 import Icon from '../../assets/icons/Icon';
@@ -121,8 +121,9 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem, page }) 
       duration: 3000,
       placement: 'top',
       status: 'success',
-    });
-  }
+    })
+}
+
 
   const hanldePressWebSite = () => {
      Linking.openURL('https://'+brandWebsite);
@@ -273,7 +274,7 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem, page }) 
                 <Text
                   fontSize={fp(2)}
                   color="secondary.500"
-                  fontWeight="light" onPress={hanldeCopyCode}>
+                  fontWeight="light" onPress={isRedeem?hanldeCopyCode:null}>
                   code : {(!isRedeem ? "*******" : couponCode)}
                 </Text>
               </Stack>
@@ -294,9 +295,9 @@ const CouponCard = ({ navigation, couponData, handleRedeem, couponItem, page }) 
                 <HStack>{giftIcon}</HStack>
                 <VStack mx="3">
                   <Text fontWeight="600" color="warmGray.500">
-                    Used
+                  Remaining
                   </Text>
-                  <Text fontSize="xs" fontWeight="600" color="black">
+                  <Text fontSize="xs" fontWeight="600" color="black" mx='6'>
                     {/*62 times (103 remainings)*/}{noOfUser}
                   </Text>
                 </VStack>

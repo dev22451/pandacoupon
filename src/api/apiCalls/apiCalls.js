@@ -16,23 +16,33 @@ export const ApiService = {
       data: payload,
     });
   },
-  getCategory: async token => {
+  getCategory: async (token,page) => {
+    //console.log(page,'raj');
+    const limit = 10
     return fireAjax({
       method: 'GET',
-      URL: `${ApiUrl.getCategory}`,
+      URL: `${ApiUrl.getCategory}?page=${page}&limit=${limit}`,
       token,
     });
   },
-  getCoupon: async ({token, additionalUrl}) => {
+  getCoupon: async ({token, additionalUrl},page) => {
+    //console.log(page,'apicall');
+    const url = additionalUrl
+    ? `${ApiUrl.getCoupon}?${additionalUrl}`
+    : `${ApiUrl.getCoupon}`
+    const limit = 2
     return fireAjax({
       method: 'GET',
-      URL: additionalUrl
-        ? `${ApiUrl.getCoupon}?${additionalUrl}`
-        : `${ApiUrl.getCoupon}`,
+      // URL: additionalUrl
+      // ? `${ApiUrl.getCoupon}?${additionalUrl}`
+      // : `${ApiUrl.getCoupon}`,
+      // ?page=${page}&limit=${limit},
+      URL:`${url}&page=${page}&limit=${limit}`,
       token,
     });
   },
   getCategoryCoupon: async ({token, payload}) => {
+    //console.log(payload,'owowowo')
     return fireAjax({
       method: 'POST',
       URL: `${ApiUrl.getCategoryCoupon}`,
@@ -82,6 +92,7 @@ export const ApiService = {
   },
 
   redeemCouponbyUser: async (data,token) => {
+    //console.log(page,'page');
     return fireAjax({
       method: 'POST',
       URL: `${ApiUrl.redeemCouponbyUser}`,
