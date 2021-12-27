@@ -26,6 +26,13 @@ const notificationSlice = createSlice({
           state.errorMessage = action.payload.errorMessage;
           
         },
+        resetNotificationSlice:(state, action)=>{
+          state.Notifications= [];
+          state.isLoading= false;
+          state.isError= false;
+          state.errorMessage= '';
+
+        }
     }
 });
 
@@ -33,6 +40,7 @@ export const {
     getNotificationRequested,
     getNotificationSuccessful,
     getNotificationFailed,
+    resetNotificationSlice,
 }= notificationSlice.actions;
 
 export default notificationSlice.reducer;

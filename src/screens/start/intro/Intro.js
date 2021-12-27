@@ -8,11 +8,11 @@ import { Linking } from 'react-native';
 
 const Intro = ({navigation}) => {
   const hanldePolicy =()=>{
-    Linking.openURL('https://www.privacypolicytemplate.net/live.php?token=15DAogfxiUv02luwfVRDjcDaD02xAGVe');
+    Linking.openURL('https://www.pinkscoupon.com/privacy-policy');
   }
 
   const hanldeTerms =()=>{
-    Linking.openURL('https://www.termsandconditionsgenerator.com/live.php?token=NdaMR4jiB7cAGCCCESKMKYXoBSLsJ9aK');
+    Linking.openURL('https://www.pinkscoupon.com/Terms-condition');
   }
 
   return (

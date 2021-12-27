@@ -2,6 +2,10 @@ import {createSlice} from '@reduxjs/toolkit';
 import {Toast} from 'native-base';
 import {ApiService} from '../../api';
 import {storeData, clearAll} from '../../helpers/localStorgae';
+import {resetCategoryCouponSlice} from '../slices/categoryCouponSlice';
+import {resetHistorieSlice} from '../slices/historieSlice';
+import {resetCouponSlice} from '../slices/couponSlice';
+import {resetNotificationSlice} from '../slices/notificationSlice';
 
 export const loginSlice = createSlice({
   name: 'user',
@@ -47,8 +51,6 @@ export const loginSlice = createSlice({
     },
     logoutSuccessful(state, action) {
       state.isLoading = false;
-      //state.token = action.payload.token;
-      //state.userData = action.payload.userData;
       state.isLoggedIn= false;
     },
     logoutFailed(state, action) {
@@ -190,7 +192,11 @@ export const logout = (payload,token) => {
             token: '',
         
           }),
-          await clearAll()
+          dispatch(resetCategoryCouponSlice()),
+          dispatch(resetHistorieSlice()),  
+          dispatch(resetCouponSlice()),
+          dispatch(resetNotificationSlice()),    
+          await clearAll(),
         );
         
       } else {
