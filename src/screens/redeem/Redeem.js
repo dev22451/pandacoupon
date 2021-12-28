@@ -90,6 +90,7 @@ const Redeem = ({ navigation }) => {
           ListEmptyComponent={totalDocs == 0 ? renderEmpty : null}
           onEndReached={handleLoadMore}
           refreshing={loading}
+          contentContainerStyle={{ paddingTop: 5 }}
           onEndReachedThreshold={0.1}
           ListFooterComponent={BottomView}
         />

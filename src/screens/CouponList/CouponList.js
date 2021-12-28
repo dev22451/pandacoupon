@@ -5,7 +5,7 @@ import { TouchableOpacity, View, ActivityIndicator } from 'react-native';
 
 import { hp, wp, fp } from '../../helpers/respDimension';
 import { CardComponent, DBAppBar, Loader } from '../../components';
-import { getCoupon, updateCoupon, } from '../../redux/slices/couponSlice';
+import { getCoupon, updateCoupon, getCouponWithId } from '../../redux/slices/couponSlice';
 import { getCategoryCoupon, updateCategoryCoupon, resetCategoryCouponSlice } from '../../redux/slices/categoryCouponSlice';
 
 const CouponList = (props) => {
@@ -22,29 +22,17 @@ const CouponList = (props) => {
     isLoading: isLoadingForCouponCategoryData,
     totalPage
   } = useSelector(state => state.categoryCouponSlice);
-  
+
   const categoryDataList = categoryId ? couponCategoryList : couponList
 
-  const navigateToDetail = (item) => navigation.navigate('CouponDetail', { id: item._id })
+  const navigateToDetail = (item) => {dispatch(getCouponWithId(item._id)),navigation.navigate('CouponDetail', { id: item._id })}
 
   const BottomView = () => {
     return (
       <View>
         {
-          // (!loading && totalPage > pageForCouponCategoryData || pageForCouponCategoryData <= totalPage && couponCategoryList.length)
-  
-          (!loading && totalPage>=pages && totalDocs>0)
-  
-         // (!isLoading ? (!loading && totalpages>=page): (!loading && totalPage>=pages && totalDocs>0))
-          //  ( !loading &&
-          //   ( totalPage > pages
-          //     || pages <= totalPage 
-          //   )
-          //   ||
-          //   ( totalpages > page
-          //     || page <= totalpages 
-          //   )
-          //  )
+          (!categoryId ? (!loading && totalpages >= page && totalDoc > 0)
+           : (!loading && totalPage >= pages && totalDocs > 0))
             ?
             <ActivityIndicator size="large" color="#F44336" style={{ marginLeft: 6 }} />
             :
@@ -54,54 +42,55 @@ const CouponList = (props) => {
     )
   }
 
-  
+
 
 
   const handleLoadMore = useCallback(
     () => {
       if (categoryId) {
-        console.log(pages,'gdfygdsuyg');
         if (pages <= totalPage) {
           dispatch(updateCategoryCoupon({
             categoryID: categoryId,
             limit: 2,
             page: pages + 1
-              
+
           }))
         } else return;
       }
       else {
 
         if (page <= totalpages) {
-          dispatch(updateCoupon(totalpages>=page ? page + 1 : page))
+          dispatch(updateCoupon(totalpages >= page ? page + 1 : page))
         }
         else return;
       }
     }
     , [page, pages])
 
-    useEffect(() => {
-      
-      if (categoryId) {
-        //if(pages==1){
-          dispatch(getCategoryCoupon({
-            categoryID: categoryId,
-            limit: 2,
-            page: 1,
-          }))
-        //}else return; 
-      }
-      else {
-        if (page == 1) {
-          dispatch(getCoupon(1));
-        }
-      }
-    }, []);
+  useEffect(() => {
 
- 
+    if (categoryId) {
+      dispatch(getCategoryCoupon({
+        categoryID: categoryId,
+        limit: 2,
+        page: 1,
+      }))
+    }
+    else {
+      if (page == 1) {
+        dispatch(getCoupon(1));
+      }
+    }
+  }, []);
+
+
   const renderCouponCard = ({ item }) => <CardComponent {...{ item, navigateToDetail }} />;
 
-  const renderEmpty = () => (<Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>The list is empty</Text>)
+  const renderEmpty = () => (<Text py={hp(4)}
+    alignSelf='center'
+    bold fontSize={fp(2)}>
+    The list is empty
+  </Text>)
 
   return (
     <>
@@ -116,24 +105,24 @@ const CouponList = (props) => {
       {(isLoadingForCouponCategoryData) ? (
         <Loader />
       ) : (
-      <Box  >
-        <FlatList
-          mx={wp(5)}
-          mb={hp(9)}
-          data={categoryDataList}
-          extraData={categoryDataList}
-          keyExtractor={item => item._id}
-          renderItem={renderCouponCard}
-          onEndReached={() => handleLoadMore()}
-          refreshing={loading}
-          onEndReachedThreshold={0.2}
-          ListEmptyComponent={totalDoc >= 0 ? renderEmpty: null}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingTop: 5 }}
-          ListFooterComponent={BottomView}
-        />
-      </Box>
-    )}
+        <Box  >
+          <FlatList
+            mx={wp(5)}
+            mb={hp(9)}
+            data={categoryDataList}
+            extraData={categoryDataList}
+            keyExtractor={item => item._id}
+            renderItem={renderCouponCard}
+            onEndReached={() => handleLoadMore()}
+            refreshing={loading}
+            onEndReachedThreshold={0.2}
+            ListEmptyComponent={renderEmpty}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingTop: 5 }}
+            ListFooterComponent={BottomView}
+          />
+        </Box>
+      )}
     </>
   );
 };

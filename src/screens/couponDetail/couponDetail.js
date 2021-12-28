@@ -12,18 +12,20 @@ import {
   getCategoryCoupon,
 } from '../../redux/slices/couponSlice';
 import {DBAppBar, Loader} from '../../components';
-//import { useEffect } from 'react';
 
 const CouponDetail = props => {
   const dispatch = useDispatch();
   const {
-    route: {
-      params: {id, page},
-    },
-    navigation,
-  } = props;
-  const {couponList, isLoading, couponItem, couponCategoryList, redeemUserCoupon, couponData} =
-    useSelector(state => state.couponSlice);
+    route: {params: {id, page}},navigation} = props;
+
+  const {
+          couponList, 
+          isLoading, 
+          couponItem, 
+          couponCategoryList, 
+          redeemUserCoupon, 
+          couponData
+       } = useSelector(state => state.couponSlice);
     
 
     // let couponData;
@@ -38,22 +40,24 @@ const CouponDetail = props => {
     //       );
     //     }
     //   }
+
+    useEffect(() => {
+      dispatch(getCouponWithId(id))
+      getCoupon();
+  
+      if(page !== 'history'){
+        dispatch(getCouponRedeem(id));
+      }
+    }, []);
+
   const handleRedeem = itemID => {
     dispatch(redeemCoupon(itemID));
   };
-  useEffect(() => {
-    dispatch(getCouponWithId(id))
 
-    getCoupon();
-    if(page !== 'history'){
-      dispatch(getCouponRedeem(id));
-    }
-  }, []);
   return (
     <>
       <DBAppBar
         back
-        onBackPress={()=>{console.log('call')}}
         title="Coupon Details"
         iconColor="white"
         titleColor="white"
@@ -73,6 +77,14 @@ const CouponDetail = props => {
             }
           </Box>
         </ScrollView>
+        // <FlatList
+        //   mx={wp(5)}
+        //   data={couponData}
+        //   keyExtractor={item => item?._id}
+        //   renderItem={renderItem}
+        //   //showsHorizontalScrollIndicator={false}
+        //   ListEmptyComponent={renderEmpty}
+        // />
       )}
     </>
   );

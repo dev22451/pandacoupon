@@ -17,7 +17,7 @@ import {fp, hp, wp} from '../../helpers/respDimension';
 import BannerCard from '../../components/card/bannerCard';
 import { updateUserLocation } from '../../redux/slices/loginSlice';
 import {CardComponent, CategoryCard, DBAppBar} from '../../components';
-import { getCoupon, getBannerImage } from '../../redux/slices/couponSlice';
+import { getCoupon, getBannerImage, getCouponWithId } from '../../redux/slices/couponSlice';
 import { updateCurrentLocation } from '../../redux/slices/locationSlice';
 import Geolocation from 'react-native-geolocation-service';
 import {getCategoryRequest} from '../../redux/slices/categorySlice';
@@ -56,20 +56,31 @@ const DashBoard = ({navigation}) => {
   
   const dispatch = useDispatch()
   const { categoryList } = useSelector(state => state.categorySlice);
-  const { couponList, bannerImage , isLoading:isCouponLoading } = useSelector(state => state.couponSlice);
-  
+  const { 
+    couponList, 
+    bannerImage, 
+    isLoading:isCouponLoading 
+  } = useSelector(state => state.couponSlice);
+ 
   const  deviceToken =useSelector(state=>state.loginSlice);
   const {location} =useSelector (state=>state.locationSlice);
   
-  // const navigateToDetail = (item) => )
   const navigateToList = (item) => navigation.navigate('CouponList',{item})
   
   const renderBanner = ({item}) => <BannerCard {...{item, bannerImage}} />;
   const renderCategory = ({item}) => <CategoryCard item={item} {...{navigateToList}} />;
   const renderCouponCard = ({item}) => <CardComponent {...{item}}  navigateToDetail={(item)=>{
+    dispatch(getCouponWithId(item._id))
     navigation.navigate('CouponDetail',{id:item._id})
   }} />;
-  const renderEmpty=()=>( <Text py={hp(4)} alignSelf='center' bold fontSize={fp(2)}>The list is empty</Text>) 
+  const renderEmpty=()=>( 
+  <Text 
+    py={hp(4)} 
+    alignSelf='center' 
+    bold 
+    fontSize={fp(2)}>
+    The list is empty
+  </Text>) 
 
   const geoLocation =async () => {
     try{
@@ -128,8 +139,6 @@ const DashBoard = ({navigation}) => {
   //     return () => clearInterval(intervalId)
   //   },[])
   // )
-
-
   return (
     <>
       <StatusBar backgroundColor={theme.colors.secondary[500]} />
@@ -146,7 +155,7 @@ const DashBoard = ({navigation}) => {
           // bg="secondary.500"
           // borderBottomLeftRadius="200"
           // borderBottomRightRadius="200"
-          height={ bannerImage.length ?  wp(50) : wp(0)}
+          height={ bannerImage.length ?  hp(23) : hp(0)}
           px={wp(5)}>
           {/* <Input
             w={{
@@ -238,10 +247,9 @@ const DashBoard = ({navigation}) => {
         </HStack>
         <FlatList
           mx={wp(5)}
-          data={couponList.slice(0,2)}
+          data={couponList.length==0?couponList:couponList.slice(0,2)}
           keyExtractor={item => item?.couponCode}
           renderItem={renderCouponCard}
-         // horizontal={true}
           showsHorizontalScrollIndicator={false}
           ListEmptyComponent={renderEmpty}
         />

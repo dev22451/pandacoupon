@@ -6,7 +6,7 @@ const couponSlice = createSlice({
   name: 'coupon',
   initialState: {
     couponList: [],
-    isLoading: true,
+    isLoading: false,
     isError: false,
     errorMessage: '',
     isRedeem: false,
@@ -175,7 +175,7 @@ export const getCoupon = (page) => {
         dispatch(
           getCouponSuccessful({
             totalDoc: res.data.totalDocs,
-            couponList: res.data.data,
+            couponList: res?.data?.data || [],
           }),
         );
       } else {
@@ -199,7 +199,6 @@ export const getCoupon = (page) => {
 export const updateCoupon = (page) => {
   
   return async (dispatch, getState) => {
-    console.log(page,'call')
     dispatch(updateCouponRequested());
     const {token} = getState().loginSlice;
     const {location} = getState().locationSlice;
@@ -212,12 +211,12 @@ export const updateCoupon = (page) => {
       const limit = res.data.limit;
       const totalDoc=res.data.totalDocs
       const total = Math.ceil(totalDoc/limit);
-      console.log(total,'dyugug');
+
       if (res?.data?.success) {
         dispatch(
           updateCouponSuccessful({
             totalpages:total,
-            couponList: res.data.data,
+            couponList: res?.data?.data,
           }),
         );
       } else {
