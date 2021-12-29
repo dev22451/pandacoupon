@@ -6,10 +6,10 @@ const categoryCouponSlice = createSlice({
     name: 'categoryCoupon',
     initialState: {
         couponCategoryList:[],
-        isLoading: true,
+        isLoading: false,
         isError: false,
         errorMessage: '',
-        page:1,
+        pages:1,
         totalPage:1,
         totalDocs:0,
     },
@@ -18,12 +18,14 @@ const categoryCouponSlice = createSlice({
             state.isLoading = true;
             state.errorMessage = '';
             state.isError = false;
-            // couponCategoryList=[]
+            couponCategoryList=[]
           },
         getCategoryCouponSuccessful: (state, action) => {
             state.isLoading = false;
             state.couponCategoryList = action.payload.couponCategoryList;
             state.totalDocs = action.payload.totalDocs;
+            state.totalPage=action.payload.totalPage;
+            state.pages = action.payload.pages;
           },
         getCategoryCouponFailed: (state, action) => {
             state.isLoading = false;
@@ -31,14 +33,15 @@ const categoryCouponSlice = createSlice({
             state.isError = true;
           },
         updateCategoryCouponRequested: (state, action) => {
-            state.isLoading = true;
+            state.isLoading = false;
             state.errorMessage = '';
             state.isError = false;
         },
         updateCategoryCouponSuccessful: (state, action) => {
             state.isLoading = false;
             state.couponCategoryList = state.couponCategoryList.concat(action.payload.couponCategoryList);
-            state.page =state.page+1;
+            state.pages = action.payload.pages;
+            // state.totalPage=action.payload.totalPage;
             
         },
         updateCategoryCouponFailed: (state, action) => {
@@ -49,13 +52,14 @@ const categoryCouponSlice = createSlice({
         resetError: (state, action) => {
           state.isError = false;
         },
-        resetSlice: (state, action) => {
-          state = {
-            couponCategoryList: [],
-            isLoading: true,
-            isError: false,
-            errorMessage: '',
-          };
+        resetCategoryCouponSlice: (state, action) => {
+            state.couponCategoryList= [];
+            state.isLoading= false;
+            state.isError= false;
+            state.errorMessage= '';
+            state.pages=1;
+            state.totalDocs=0;
+            state.totalPage=1;
         },
     }
 });
@@ -68,7 +72,7 @@ export const {
     updateCategoryCouponSuccessful,
     updateCategoryCouponFailed,
     resetError,
-    resetSlice,
+    resetCategoryCouponSlice,
 } = categoryCouponSlice.actions;
 
 export default categoryCouponSlice.reducer;
@@ -81,12 +85,17 @@ export const getCategoryCoupon = (payload) => {
         
         const res = await ApiService.getCategoryCoupon({payload,token});
         //console.log(res.data.resData.totalDocs,'guygdu');
+        const limit = res.data.limit;
+        const totalDoc=res.data.totalDocs
+        const total = totalDoc>0 ? Math.ceil(totalDoc/limit):1;
   
         if (res.data.success) {
           dispatch(
             getCategoryCouponSuccessful({
-              couponCategoryList: res.data.data.data,
-              totalDocs: res.data.resData.totalDocs
+              couponCategoryList: res.data.data,
+              totalDocs: res.data.totalDocs,
+              totalPage:total,
+              pages:res.data.page,
             }),
           );
         }
@@ -107,15 +116,17 @@ export const getCategoryCoupon = (payload) => {
       try {
         const res = await ApiService.getCategoryCoupon({payload,token});
         
-        const limit = res.data.resData.limit;
-        const totalDoc=res.data.resData.totalDocs
-        const total = Math.ceil(totalDoc/limit);
+        // const limit = res.data.limit;
+        // const totalDoc=res.data.totalDocs
+        // const total = Math.ceil(totalDoc/limit);
+       // console.log(total,'hugfduyg');
   
         if (res.data.success) {
           dispatch(
             updateCategoryCouponSuccessful({
-              totalPage:total,
-              couponCategoryList: res.data.data.data,
+              //totalPage:total,
+              pages:res.data.page,
+              couponCategoryList: res.data.data,
             }),
           );
         }

@@ -49,6 +49,15 @@ const historieSlice = createSlice({
             state.errorMessage = action.payload.errorMessage;
             state.isError = true;
         },
+        resetHistorieSlice:(state, action) => {
+            state.redeemUserCoupon=[];
+            state.isLoading= false;
+            state.isError= false;
+            state.errorMessage= '';
+            state.page=1;
+            state.totalpages=1;
+            state.totalDocs=0;
+        }
     }
 });
 
@@ -59,6 +68,7 @@ export const {
     updateRedeemCouponbyUserRequested,
     updateRedeemCouponbyUserSuccessful,
     updateRedeemCouponbyUserFailed,
+    resetHistorieSlice,
 } = historieSlice.actions;
 
 export default historieSlice.reducer;
@@ -75,7 +85,7 @@ export const getredeemCouponbyUser = (userEmail,page,limit) => {
             if (res.data.success) {
                 dispatch(
                     getRedeemCouponbyUserSuccessful({
-                        totalDocs: res.data.resData.totalDocs,
+                        totalDocs: res.data.totalDocs,
                         redeemUserCoupon: res.data.data,
                        
                     }),
@@ -100,8 +110,8 @@ export const updateredeemCouponbyUser = (userEmail,page) => {
                 token,
             };
             const res = await ApiService.redeemCouponbyUser(userEmail, page, token);
-            const limit = res.data.resData.limit;
-            const totalDoc=res.data.resData.totalDocs
+            const limit = res.data.limit;
+            const totalDoc=res.data.totalDocs
             const total = Math.ceil(totalDoc/limit);
             
             if (res.data.success) {

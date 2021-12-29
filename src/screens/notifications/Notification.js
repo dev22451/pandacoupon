@@ -7,11 +7,12 @@ import {TouchableOpacity} from 'react-native';
 import { getNotification } from '../../redux/slices/notificationSlice';
 import {fp, hp, wp} from '../../helpers/respDimension';
 import {NotificatonCard} from '../../components/card/notificationCard';
+import { getCouponWithId } from '../../redux/slices/couponSlice';
 
 const Notification = ({navigation}) => {
   const dispatch = useDispatch()
   const {Notifications, isLoading} = useSelector((state) => state.notificationSlice);
-  const navigateToDetail = (id) => navigation.navigate('CouponDetail',{id})
+  const navigateToDetail = (id) => {dispatch(getCouponWithId(id)),navigation.navigate('CouponDetail',{id})}
   const renderCategory = ({item}) => <NotificatonCard {...{item, navigateToDetail}} />;
   useEffect(()=>{
     dispatch(getNotification());
