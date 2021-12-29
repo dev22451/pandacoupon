@@ -53,14 +53,14 @@ export const getNotification = () => {
    
       try {
         const payload = {
-          userEmail:'Test@gmail.com'
+          userEmail:email
 
         };
         const res = await ApiService.getNotification(payload,token);
         if (res.data.success) {
           dispatch(
             getNotificationSuccessful({
-              Notifications: res.data.data.allData
+              Notifications: res.data.data
             }),
           );
         } else {

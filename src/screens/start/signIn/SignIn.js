@@ -140,6 +140,7 @@ const SignIn = ({navigation}) => {
       const payload = {
         userEmail: email.email,
         Password: password.password,
+        isWeb : false,
       };
       dispatch(login({payload}));
     }
