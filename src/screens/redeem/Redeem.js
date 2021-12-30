@@ -17,7 +17,7 @@ const Redeem = ({ navigation }) => {
     totalpages,
     totalDocs
   } = useSelector((state) => state.historieSlice);
-  console.log(redeemUserCoupon.length, 'totalpage');
+  
 
   const navigateToDetail = (item) => {
     dispatch(getCouponWithId(item._id))

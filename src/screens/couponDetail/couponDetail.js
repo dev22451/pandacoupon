@@ -10,6 +10,7 @@ import {
   getCoupon,
   getCouponWithId,
   getCategoryCoupon,
+  resetCouponItem,
 } from '../../redux/slices/couponSlice';
 import {DBAppBar, Loader} from '../../components';
 
@@ -46,7 +47,9 @@ const CouponDetail = props => {
       getCoupon();
   
       if(page !== 'history'){
-        dispatch(getCouponRedeem(id));
+        dispatch(resetCouponItem());
+        dispatch(getCouponRedeem(id))
+       
       }
     }, []);
 
@@ -73,18 +76,10 @@ const CouponDetail = props => {
               couponData ? 
               <CouponCard {...{couponData, handleRedeem, couponItem, page}} />
               :
-              <Text > Coupon Data Not Found </Text>
+              null
             }
           </Box>
         </ScrollView>
-        // <FlatList
-        //   mx={wp(5)}
-        //   data={couponData}
-        //   keyExtractor={item => item?._id}
-        //   renderItem={renderItem}
-        //   //showsHorizontalScrollIndicator={false}
-        //   ListEmptyComponent={renderEmpty}
-        // />
       )}
     </>
   );

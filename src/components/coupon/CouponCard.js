@@ -87,7 +87,9 @@ const giftIcon = (
 );
 
 const CouponCard = ({ navigation, couponData, handleRedeem, couponItem, page }) => {
-  const isRedeem = page === 'history' ? true : couponItem
+
+  const isRedeem = (page === 'history') ? true : couponItem;
+  
   const {    
     brandName,
     brandPhone,

@@ -46,7 +46,6 @@ export const {
 export default notificationSlice.reducer;
 
 export const getNotification = () => {
-  console.log('call')
     return async (dispatch, getState) => {
       dispatch(getNotificationRequested());
       const {token, userData:{email}} = getState().loginSlice;

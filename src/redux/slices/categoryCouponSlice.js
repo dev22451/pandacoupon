@@ -84,7 +84,6 @@ export const getCategoryCoupon = (payload) => {
       try {
         
         const res = await ApiService.getCategoryCoupon({payload,token});
-        //console.log(res.data.resData.totalDocs,'guygdu');
         const limit = res.data.limit;
         const totalDoc=res.data.totalDocs
         const total = totalDoc>0 ? Math.ceil(totalDoc/limit):1;
@@ -119,8 +118,7 @@ export const getCategoryCoupon = (payload) => {
         // const limit = res.data.limit;
         // const totalDoc=res.data.totalDocs
         // const total = Math.ceil(totalDoc/limit);
-       // console.log(total,'hugfduyg');
-  
+        
         if (res.data.success) {
           dispatch(
             updateCategoryCouponSuccessful({
