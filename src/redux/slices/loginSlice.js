@@ -160,7 +160,6 @@ export const login = ({payload}) => {
           errorMessage:  e?.response?.data?.errors || 'something Went wrong',
         }),
       );
-      alert(`${JSON.stringify(e)}${e.status}`)
       Toast.show({
         title: 'Something went wrong',
         duration: 3000,
