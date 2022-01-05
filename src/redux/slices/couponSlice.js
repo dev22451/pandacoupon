@@ -118,13 +118,16 @@ const couponSlice = createSlice({
         state.isError= false;
         state.errorMessage= '';
         state.isRedeem= false;
-        state.couponItem= {};
+        state.couponItem= '';
         state.bannerImage=[];
         state.couponData={};
         state.page=1;
         state.totalpages=1;
         state.totalDoc=0;
     },
+    resetCouponItem:(state,action)=>{
+      state.couponItem='';
+    }
     
   },
 });
@@ -145,6 +148,7 @@ export const {
   getCouponSuccessful,
   getCouponFailed,
   resetError,
+  resetCouponItem,
   resetCouponSlice,
   redeemCouponRequested,
   redeemCouponSuccessful,

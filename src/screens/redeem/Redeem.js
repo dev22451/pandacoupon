@@ -4,7 +4,8 @@ import { View, ActivityIndicator } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { hp, wp, fp } from '../../helpers/respDimension';
 import { CardComponent, DBAppBar, Loader } from '../../components';
-import { getredeemCouponbyUser, updateredeemCouponbyUser } from '../../redux/slices/historieSlice'
+import { getredeemCouponbyUser, updateredeemCouponbyUser } from '../../redux/slices/historieSlice';
+import { getCouponWithId } from '../../redux/slices/couponSlice';
 
 const Redeem = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -16,10 +17,11 @@ const Redeem = ({ navigation }) => {
     totalpages,
     totalDocs
   } = useSelector((state) => state.historieSlice);
-  console.log(redeemUserCoupon.length, 'totalpage');
+  
 
-  const navigateToDetail = (item) => navigation.navigate
-    ('CouponDetail', { id: item.couponId, page: 'history' });
+  const navigateToDetail = (item) => {
+    dispatch(getCouponWithId(item._id))
+    navigation.navigate('CouponDetail', { id: item.couponId, page: 'history' });}
   const renderCouponCard = ({ item }) => <CardComponent {...{ item, navigateToDetail }} />;
 
   const renderEmpty = () => (

@@ -46,21 +46,20 @@ export const {
 export default notificationSlice.reducer;
 
 export const getNotification = () => {
-  console.log('call')
     return async (dispatch, getState) => {
       dispatch(getNotificationRequested());
       const {token, userData:{email}} = getState().loginSlice;
    
       try {
         const payload = {
-          userEmail:'Test@gmail.com'
+          userEmail:email
 
         };
         const res = await ApiService.getNotification(payload,token);
         if (res.data.success) {
           dispatch(
             getNotificationSuccessful({
-              Notifications: res.data.data.allData
+              Notifications: res.data.data
             }),
           );
         } else {

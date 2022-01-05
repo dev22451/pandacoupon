@@ -1,3 +1,3 @@
 export default {
-  BASEURL: 'https://devrobos.com:5000/',
+   BASEURL: 'https://devrobos.com/',
 };
