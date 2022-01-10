@@ -21,13 +21,13 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-	<key>NSAllowsArbitraryLoads</key>
-    <true/>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
 			<key>localhost</key>
@@ -38,11 +38,11 @@
 		</dict>
 	</dict>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Give me permission</string>
+	<string>Give your location permission to detch location for showing you nearby Coupons</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Give me permission</string>
+	<string>Give your location permission to detch location for showing you nearby Coupons</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Give me permission</string>
+	<string>Give your location permission to detch location for showing you nearby Coupons</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

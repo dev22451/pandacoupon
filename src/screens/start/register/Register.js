@@ -145,11 +145,11 @@ const Register = ({navigation}) => {
     const isEmailValidate = email.email !== '';
     const isPasswordValidate = password.password !== '';
     const isConfirmPasswordValidate=confirmPassword.confirmPassword!=='';
-    const isValidPhoneNumber = number.number !== '';
+    const isValidPhoneNumber = true
     if (isNameValidate && isEmailValidate &&  isValidPhoneNumber && isPasswordValidate && isConfirmPasswordValidate) {
       const payload = {
         userName: name.name,
-        PhoneNumber: number.number,
+        PhoneNumber: '0000000000',
         userEmail: email.email,
         Password: password.password,
       };
@@ -171,7 +171,7 @@ const Register = ({navigation}) => {
       dispatch(register(request));
      
     } 
-    else if(!isNameValidate && !isEmailValidate && !isPasswordValidate && !isValidPhoneNumber && !isConfirmPasswordValidate){
+    else if(!isNameValidate && !isEmailValidate && !isPasswordValidate && !isConfirmPasswordValidate){
       let message = 'Please Enter All Data';
       Toast.show({
         title: 'Fill All Data',
@@ -212,16 +212,16 @@ const Register = ({navigation}) => {
         description: message,
       });
     }
-    else if(!isValidPhoneNumber){
-      let message = 'Please Enter Number';
-      Toast.show({
-        title: 'Fill All Data',
-        duration: 3000,
-        placement: 'top',
-        status: 'error',
-        description: message,
-      });
-    }
+    // else if(!isValidPhoneNumber){
+    //   let message = 'Please Enter Number';
+    //   Toast.show({
+    //     title: 'Fill All Data',
+    //     duration: 3000,
+    //     placement: 'top',
+    //     status: 'error',
+    //     description: message,
+    //   });
+    // }
     else if(!isPasswordValidate && !password.valid){
       let message = 'Please Enter Password';
       Toast.show({
@@ -276,9 +276,9 @@ const Register = ({navigation}) => {
           </Heading>
           <Text color="gray.500" mt={hp(2)}>
             {I18n.t('Register.loginHelp')}{' '}
-            <Text bold color="secondary.500" mt={hp(2)} onPress={() => null}>
+            {/*<Text bold color="secondary.500" mt={hp(2)} onPress={() => null}>
               {I18n.t('Register.help')}
-            </Text>
+  </Text>*/}
           </Text>
           <Stack space={4} mt={hp(5)} alignItems="center">
           <FormControl
@@ -416,11 +416,11 @@ const Register = ({navigation}) => {
           />
           <Text color="gray.500" mt={hp(5)} textAlign="center">
             {I18n.t('Intro.footerLine')}{' '}
-            <Text color="black" bold onPress={hanldeTerms}>
+            <Text color="secondary.500" bold onPress={hanldeTerms}>
               {I18n.t('Intro.terms')}
             </Text>{' '}
             {I18n.t('Intro.and')}{' '}
-            <Text color="black" bold onPress={hanldePolicy}>
+            <Text color="secondary.500" bold onPress={hanldePolicy}>
               {I18n.t('Intro.policy')}
             </Text>
           </Text>

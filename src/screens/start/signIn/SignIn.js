@@ -215,7 +215,7 @@ const SignIn = ({navigation}) => {
           </Text>
           <Text
             bold
-            color="gray.600"
+            color="secondary.500"
             onPress={() => navigation.navigate('Register')}>
             {I18n.t('SignIn.signUpLink')}
           </Text>

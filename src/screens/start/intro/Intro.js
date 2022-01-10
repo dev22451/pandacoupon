@@ -43,11 +43,11 @@ const Intro = ({navigation}) => {
       </VStack>
       <Text color="gray.500" mt={hp(2)} textAlign="center">
         {I18n.t('Intro.footerLine')}{' '}
-        <Text color="black" bold onPress={hanldeTerms}>
+        <Text color="secondary.500" bold onPress={hanldeTerms}>
           {I18n.t('Intro.terms')}
         </Text>{' '}
         {I18n.t('Intro.and')}{' '}
-        <Text color="black" bold onPress={hanldePolicy}>
+        <Text color="secondary.500" bold onPress={hanldePolicy}>
           {I18n.t('Intro.policy')}
         </Text>
       </Text>
