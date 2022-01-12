@@ -161,11 +161,11 @@ export const login = ({payload}) => {
         }),
       );
       Toast.show({
-        title: 'Something went wrong',
+        title: e?.response?.data?.errors ||'Something went wrong',
         duration: 3000,
         placement: 'top',
         status: 'error',
-        description: JSON.stringify(e) || 'something Went wrong',
+        description: e?.response?.data?.errors || 'something Went wrong',
       });
     }
   };
