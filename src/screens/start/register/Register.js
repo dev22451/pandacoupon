@@ -149,7 +149,6 @@ const Register = ({navigation}) => {
     if (isNameValidate && isEmailValidate &&  isValidPhoneNumber && isPasswordValidate && isConfirmPasswordValidate) {
       const payload = {
         userName: name.name,
-        PhoneNumber: '0000000000',
         userEmail: email.email,
         Password: password.password,
       };
@@ -315,7 +314,7 @@ const Register = ({navigation}) => {
               />
               <FormControl.ErrorMessage>Invalid Mail</FormControl.ErrorMessage>
             </FormControl>
-            <FormControl
+            {/*<FormControl
               w={{
                 base: '100%',
                 md: '25%',
@@ -328,7 +327,7 @@ const Register = ({navigation}) => {
               _focus={{borderColor: 'secondary.500'}}
               onChangeText={text => handleNumber(text)}/>
             <FormControl.ErrorMessage>Enter Number</FormControl.ErrorMessage>
-            </FormControl>
+            </FormControl>*/}
             {/* <FormControl
               w={{
                 base: '100%',
