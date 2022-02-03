@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "922912763801",
+    "project_id": "pinkz-d21ae",
+    "storage_bucket": "pinkz-d21ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:922912763801:android:b1a38aa7f7e707d3222d08",
+        "android_client_info": {
+          "package_name": "com.pinkzcoupon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "922912763801-qau6fgg9uqnfg9jht0d5hl5k9i49eqab.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6Ti5n-CePJHn08w74nut_zyJkVZx_LuM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "922912763801-qau6fgg9uqnfg9jht0d5hl5k9i49eqab.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "922912763801-kajnir5arbb88uk7a66qteuk10h9hc0g.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.pinkzcoupon"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
